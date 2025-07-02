@@ -1,0 +1,884 @@
+{
+  "images": {
+    "/src/assets/img/tom1.png": {
+      "width": 573,
+      "height": 600,
+      "format": "webp",
+      "responsive": [
+        {
+          "width": 150,
+          "path": "/optimized-images/tom-home-xs.webp"
+        },
+        {
+          "width": 300,
+          "path": "/optimized-images/tom-home-sm.webp"
+        },
+        {
+          "width": 400,
+          "path": "/optimized-images/tom-home-md.webp"
+        },
+        {
+          "width": 800,
+          "path": "/optimized-images/tom-home-lg.webp"
+        },
+        {
+          "width": 1200,
+          "path": "/optimized-images/tom-home-xl.webp"
+        },
+        {
+          "width": 1600,
+          "path": "/optimized-images/tom-home-2xl.webp"
+        }
+      ]
+    },
+    "/src/assets/img/forrest.webp": {
+      "width": 1920,
+      "height": 1080,
+      "format": "webp",
+      "responsive": [
+        {
+          "width": 150,
+          "path": "/optimized-images/forrest-xs.webp"
+        },
+        {
+          "width": 300,
+          "path": "/optimized-images/forrest-sm.webp"
+        },
+        {
+          "width": 400,
+          "path": "/optimized-images/forrest-md.webp"
+        },
+        {
+          "width": 800,
+          "path": "/optimized-images/forrest-lg.webp"
+        },
+        {
+          "width": 1200,
+          "path": "/optimized-images/forrest-xl.webp"
+        },
+        {
+          "width": 1600,
+          "path": "/optimized-images/forrest-2xl.webp"
+        }
+      ]
+    },
+    "/src/assets/img/room.jpeg": {
+      "width": 512,
+      "height": 384,
+      "format": "webp",
+      "responsive": [
+        {
+          "width": 150,
+          "path": "/optimized-images/room-xs.webp"
+        },
+        {
+          "width": 300,
+          "path": "/optimized-images/room-sm.webp"
+        },
+        {
+          "width": 400,
+          "path": "/optimized-images/room-md.webp"
+        },
+        {
+          "width": 800,
+          "path": "/optimized-images/room-lg.webp"
+        },
+        {
+          "width": 1200,
+          "path": "/optimized-images/room-xl.webp"
+        },
+        {
+          "width": 1600,
+          "path": "/optimized-images/room-2xl.webp"
+        }
+      ]
+    },
+    "/src/assets/img/family.webp": {
+      "width": 300,
+      "height": 300,
+      "format": "webp",
+      "responsive": [
+        {
+          "width": 150,
+          "path": "/optimized-images/family-xs.webp"
+        },
+        {
+          "width": 300,
+          "path": "/optimized-images/family-sm.webp"
+        },
+        {
+          "width": 400,
+          "path": "/optimized-images/family-md.webp"
+        },
+        {
+          "width": 800,
+          "path": "/optimized-images/family-lg.webp"
+        },
+        {
+          "width": 1200,
+          "path": "/optimized-images/family-xl.webp"
+        },
+        {
+          "width": 1600,
+          "path": "/optimized-images/family-2xl.webp"
+        }
+      ]
+    },
+    "/src/assets/img/CAP.png": {
+      "width": 500,
+      "height": 500,
+      "format": "webp",
+      "responsive": [
+        {
+          "width": 150,
+          "path": "/optimized-images/CAP-xs.webp"
+        },
+        {
+          "width": 300,
+          "path": "/optimized-images/CAP-sm.webp"
+        },
+        {
+          "width": 400,
+          "path": "/optimized-images/CAP-md.webp"
+        },
+        {
+          "width": 800,
+          "path": "/optimized-images/CAP-lg.webp"
+        },
+        {
+          "width": 1200,
+          "path": "/optimized-images/CAP-xl.webp"
+        },
+        {
+          "width": 1600,
+          "path": "/optimized-images/CAP-2xl.webp"
+        }
+      ]
+    },
+    "/src/assets/img/mindfulness.webp": {
+      "width": 2000,
+      "height": 1333,
+      "format": "webp",
+      "responsive": [
+        {
+          "width": 150,
+          "path": "/optimized-images/mindfulness-xs.webp"
+        },
+        {
+          "width": 300,
+          "path": "/optimized-images/mindfulness-sm.webp"
+        },
+        {
+          "width": 400,
+          "path": "/optimized-images/mindfulness-md.webp"
+        },
+        {
+          "width": 800,
+          "path": "/optimized-images/mindfulness-lg.webp"
+        },
+        {
+          "width": 1200,
+          "path": "/optimized-images/mindfulness-xl.webp"
+        },
+        {
+          "width": 1600,
+          "path": "/optimized-images/mindfulness-2xl.webp"
+        }
+      ]
+    },
+    "/src/assets/img/relationships.webp": {
+      "width": 1000,
+      "height": 1000,
+      "format": "webp",
+      "responsive": [
+        {
+          "width": 150,
+          "path": "/optimized-images/relationships-xs.webp"
+        },
+        {
+          "width": 300,
+          "path": "/optimized-images/relationships-sm.webp"
+        },
+        {
+          "width": 400,
+          "path": "/optimized-images/relationships-md.webp"
+        },
+        {
+          "width": 800,
+          "path": "/optimized-images/relationships-lg.webp"
+        },
+        {
+          "width": 1200,
+          "path": "/optimized-images/relationships-xl.webp"
+        },
+        {
+          "width": 1600,
+          "path": "/optimized-images/relationships-2xl.webp"
+        }
+      ]
+    },
+    "/src/assets/img/stress.webp": {
+      "width": 500,
+      "height": 500,
+      "format": "webp",
+      "responsive": [
+        {
+          "width": 150,
+          "path": "/optimized-images/stress-xs.webp"
+        },
+        {
+          "width": 300,
+          "path": "/optimized-images/stress-sm.webp"
+        },
+        {
+          "width": 400,
+          "path": "/optimized-images/stress-md.webp"
+        },
+        {
+          "width": 800,
+          "path": "/optimized-images/stress-lg.webp"
+        },
+        {
+          "width": 1200,
+          "path": "/optimized-images/stress-xl.webp"
+        },
+        {
+          "width": 1600,
+          "path": "/optimized-images/stress-2xl.webp"
+        }
+      ]
+    },
+    "/src/assets/img/website-icon-300x298.webp": {
+      "width": 300,
+      "height": 298,
+      "format": "webp",
+      "responsive": [
+        {
+          "width": 150,
+          "path": "/optimized-images/website-icon-300x298-xs.webp"
+        },
+        {
+          "width": 300,
+          "path": "/optimized-images/website-icon-300x298-sm.webp"
+        },
+        {
+          "width": 400,
+          "path": "/optimized-images/website-icon-300x298-md.webp"
+        },
+        {
+          "width": 800,
+          "path": "/optimized-images/website-icon-300x298-lg.webp"
+        },
+        {
+          "width": 1200,
+          "path": "/optimized-images/website-icon-300x298-xl.webp"
+        },
+        {
+          "width": 1600,
+          "path": "/optimized-images/website-icon-300x298-2xl.webp"
+        }
+      ]
+    },
+    "src/assets/img/website-icon-300x298.webp": {
+      "responsive": [
+        {
+          "width": 150,
+          "path": "/optimized-images/website-icon-300x298-xs.webp"
+        },
+        {
+          "width": 300,
+          "path": "/optimized-images/website-icon-300x298-sm.webp"
+        },
+        {
+          "width": 400,
+          "path": "/optimized-images/website-icon-300x298-md.webp"
+        },
+        {
+          "width": 800,
+          "path": "/optimized-images/website-icon-300x298-lg.webp"
+        },
+        {
+          "width": 1200,
+          "path": "/optimized-images/website-icon-300x298-xl.webp"
+        },
+        {
+          "width": 1600,
+          "path": "/optimized-images/website-icon-300x298-2xl.webp"
+        }
+      ],
+      "width": 300,
+      "height": 298,
+      "format": "webp"
+    },
+    "src/assets/img/tom1.png": {
+      "responsive": [
+        {
+          "width": 150,
+          "path": "/optimized-images/tom1-xs.webp"
+        },
+        {
+          "width": 300,
+          "path": "/optimized-images/tom1-sm.webp"
+        },
+        {
+          "width": 400,
+          "path": "/optimized-images/tom1-md.webp"
+        },
+        {
+          "width": 800,
+          "path": "/optimized-images/tom1-lg.webp"
+        },
+        {
+          "width": 1200,
+          "path": "/optimized-images/tom1-xl.webp"
+        },
+        {
+          "width": 1600,
+          "path": "/optimized-images/tom1-2xl.webp"
+        }
+      ]
+    },
+    "src/assets/img/stress.webp": {
+      "responsive": [
+        {
+          "width": 150,
+          "path": "/optimized-images/stress-xs.webp"
+        },
+        {
+          "width": 300,
+          "path": "/optimized-images/stress-sm.webp"
+        },
+        {
+          "width": 400,
+          "path": "/optimized-images/stress-md.webp"
+        },
+        {
+          "width": 800,
+          "path": "/optimized-images/stress-lg.webp"
+        },
+        {
+          "width": 1200,
+          "path": "/optimized-images/stress-xl.webp"
+        },
+        {
+          "width": 1600,
+          "path": "/optimized-images/stress-2xl.webp"
+        }
+      ],
+      "width": 500,
+      "height": 500,
+      "format": "webp"
+    },
+    "src/assets/img/room.jpeg": {
+      "responsive": [
+        {
+          "width": 150,
+          "path": "/optimized-images/room-xs.webp"
+        },
+        {
+          "width": 300,
+          "path": "/optimized-images/room-sm.webp"
+        },
+        {
+          "width": 400,
+          "path": "/optimized-images/room-md.webp"
+        },
+        {
+          "width": 800,
+          "path": "/optimized-images/room-lg.webp"
+        },
+        {
+          "width": 1200,
+          "path": "/optimized-images/room-xl.webp"
+        },
+        {
+          "width": 1600,
+          "path": "/optimized-images/room-2xl.webp"
+        }
+      ],
+      "width": 512,
+      "height": 384,
+      "format": "jpeg"
+    },
+    "src/assets/img/relationships.webp": {
+      "responsive": [
+        {
+          "width": 150,
+          "path": "/optimized-images/relationships-xs.webp"
+        },
+        {
+          "width": 300,
+          "path": "/optimized-images/relationships-sm.webp"
+        },
+        {
+          "width": 400,
+          "path": "/optimized-images/relationships-md.webp"
+        },
+        {
+          "width": 800,
+          "path": "/optimized-images/relationships-lg.webp"
+        },
+        {
+          "width": 1200,
+          "path": "/optimized-images/relationships-xl.webp"
+        },
+        {
+          "width": 1600,
+          "path": "/optimized-images/relationships-2xl.webp"
+        }
+      ],
+      "width": 1000,
+      "height": 1000,
+      "format": "webp"
+    },
+    "src/assets/img/mountinHikeGroup.jpg": {
+      "responsive": [
+        {
+          "width": 150,
+          "path": "/optimized-images/mountinHikeGroup-xs.webp"
+        },
+        {
+          "width": 300,
+          "path": "/optimized-images/mountinHikeGroup-sm.webp"
+        },
+        {
+          "width": 400,
+          "path": "/optimized-images/mountinHikeGroup-md.webp"
+        },
+        {
+          "width": 800,
+          "path": "/optimized-images/mountinHikeGroup-lg.webp"
+        },
+        {
+          "width": 1200,
+          "path": "/optimized-images/mountinHikeGroup-xl.webp"
+        },
+        {
+          "width": 1600,
+          "path": "/optimized-images/mountinHikeGroup-2xl.webp"
+        }
+      ],
+      "width": 5184,
+      "height": 3456,
+      "format": "jpeg"
+    },
+    "src/assets/img/mountainHike.jpg": {
+      "responsive": [
+        {
+          "width": 150,
+          "path": "/optimized-images/mountainHike-xs.webp"
+        },
+        {
+          "width": 300,
+          "path": "/optimized-images/mountainHike-sm.webp"
+        },
+        {
+          "width": 400,
+          "path": "/optimized-images/mountainHike-md.webp"
+        },
+        {
+          "width": 800,
+          "path": "/optimized-images/mountainHike-lg.webp"
+        },
+        {
+          "width": 1200,
+          "path": "/optimized-images/mountainHike-xl.webp"
+        },
+        {
+          "width": 1600,
+          "path": "/optimized-images/mountainHike-2xl.webp"
+        }
+      ],
+      "width": 3000,
+      "height": 2002,
+      "format": "jpeg"
+    },
+    "src/assets/img/mindfulness.webp": {
+      "responsive": [
+        {
+          "width": 150,
+          "path": "/optimized-images/mindfulness-xs.webp"
+        },
+        {
+          "width": 300,
+          "path": "/optimized-images/mindfulness-sm.webp"
+        },
+        {
+          "width": 400,
+          "path": "/optimized-images/mindfulness-md.webp"
+        },
+        {
+          "width": 800,
+          "path": "/optimized-images/mindfulness-lg.webp"
+        },
+        {
+          "width": 1200,
+          "path": "/optimized-images/mindfulness-xl.webp"
+        },
+        {
+          "width": 1600,
+          "path": "/optimized-images/mindfulness-2xl.webp"
+        }
+      ],
+      "width": 2000,
+      "height": 1333,
+      "format": "webp"
+    },
+    "src/assets/img/forrest.webp": {
+      "responsive": [
+        {
+          "width": 150,
+          "path": "/optimized-images/forrest-xs.webp"
+        },
+        {
+          "width": 300,
+          "path": "/optimized-images/forrest-sm.webp"
+        },
+        {
+          "width": 400,
+          "path": "/optimized-images/forrest-md.webp"
+        },
+        {
+          "width": 800,
+          "path": "/optimized-images/forrest-lg.webp"
+        },
+        {
+          "width": 1200,
+          "path": "/optimized-images/forrest-xl.webp"
+        },
+        {
+          "width": 1600,
+          "path": "/optimized-images/forrest-2xl.webp"
+        }
+      ],
+      "width": 1920,
+      "height": 1080,
+      "format": "webp"
+    },
+    "src/assets/img/family.webp": {
+      "responsive": [
+        {
+          "width": 150,
+          "path": "/optimized-images/family-xs.webp"
+        },
+        {
+          "width": 300,
+          "path": "/optimized-images/family-sm.webp"
+        },
+        {
+          "width": 400,
+          "path": "/optimized-images/family-md.webp"
+        },
+        {
+          "width": 800,
+          "path": "/optimized-images/family-lg.webp"
+        },
+        {
+          "width": 1200,
+          "path": "/optimized-images/family-xl.webp"
+        },
+        {
+          "width": 1600,
+          "path": "/optimized-images/family-2xl.webp"
+        }
+      ],
+      "width": 300,
+      "height": 300,
+      "format": "webp"
+    },
+    "src/assets/img/CAP.png": {
+      "responsive": [
+        {
+          "width": 150,
+          "path": "/optimized-images/CAP-xs.webp"
+        },
+        {
+          "width": 300,
+          "path": "/optimized-images/CAP-sm.webp"
+        },
+        {
+          "width": 400,
+          "path": "/optimized-images/CAP-md.webp"
+        },
+        {
+          "width": 800,
+          "path": "/optimized-images/CAP-lg.webp"
+        },
+        {
+          "width": 1200,
+          "path": "/optimized-images/CAP-xl.webp"
+        },
+        {
+          "width": 1600,
+          "path": "/optimized-images/CAP-2xl.webp"
+        }
+      ],
+      "width": 500,
+      "height": 500,
+      "format": "png"
+    },
+    "src/assets/img/video-therapy.webp": {
+      "responsive": [
+        {
+          "width": 150,
+          "path": "/optimized-images/video-therapy-xs.webp"
+        },
+        {
+          "width": 300,
+          "path": "/optimized-images/video-therapy-sm.webp"
+        },
+        {
+          "width": 400,
+          "path": "/optimized-images/video-therapy-md.webp"
+        },
+        {
+          "width": 800,
+          "path": "/optimized-images/video-therapy-lg.webp"
+        },
+        {
+          "width": 1200,
+          "path": "/optimized-images/video-therapy-xl.webp"
+        },
+        {
+          "width": 1600,
+          "path": "/optimized-images/video-therapy-2xl.webp"
+        }
+      ]
+    },
+    "src/assets/img/therapy-session.webp": {
+      "responsive": [
+        {
+          "width": 150,
+          "path": "/optimized-images/therapy-session-xs.webp"
+        },
+        {
+          "width": 300,
+          "path": "/optimized-images/therapy-session-sm.webp"
+        },
+        {
+          "width": 400,
+          "path": "/optimized-images/therapy-session-md.webp"
+        },
+        {
+          "width": 800,
+          "path": "/optimized-images/therapy-session-lg.webp"
+        },
+        {
+          "width": 1200,
+          "path": "/optimized-images/therapy-session-xl.webp"
+        },
+        {
+          "width": 1600,
+          "path": "/optimized-images/therapy-session-2xl.webp"
+        }
+      ]
+    },
+    "src/assets/img/therapy-room.webp": {
+      "responsive": [
+        {
+          "width": 150,
+          "path": "/optimized-images/therapy-room-xs.webp"
+        },
+        {
+          "width": 300,
+          "path": "/optimized-images/therapy-room-sm.webp"
+        },
+        {
+          "width": 400,
+          "path": "/optimized-images/therapy-room-md.webp"
+        },
+        {
+          "width": 800,
+          "path": "/optimized-images/therapy-room-lg.webp"
+        },
+        {
+          "width": 1200,
+          "path": "/optimized-images/therapy-room-xl.webp"
+        },
+        {
+          "width": 1600,
+          "path": "/optimized-images/therapy-room-2xl.webp"
+        }
+      ]
+    },
+    "src/assets/img/safe-space.webp": {
+      "responsive": [
+        {
+          "width": 150,
+          "path": "/optimized-images/safe-space-xs.webp"
+        },
+        {
+          "width": 300,
+          "path": "/optimized-images/safe-space-sm.webp"
+        },
+        {
+          "width": 400,
+          "path": "/optimized-images/safe-space-md.webp"
+        },
+        {
+          "width": 800,
+          "path": "/optimized-images/safe-space-lg.webp"
+        },
+        {
+          "width": 1200,
+          "path": "/optimized-images/safe-space-xl.webp"
+        },
+        {
+          "width": 1600,
+          "path": "/optimized-images/safe-space-2xl.webp"
+        }
+      ]
+    },
+    "src/assets/img/home-office.webp": {
+      "responsive": [
+        {
+          "width": 150,
+          "path": "/optimized-images/home-office-xs.webp"
+        },
+        {
+          "width": 300,
+          "path": "/optimized-images/home-office-sm.webp"
+        },
+        {
+          "width": 400,
+          "path": "/optimized-images/home-office-md.webp"
+        },
+        {
+          "width": 800,
+          "path": "/optimized-images/home-office-lg.webp"
+        },
+        {
+          "width": 1200,
+          "path": "/optimized-images/home-office-xl.webp"
+        },
+        {
+          "width": 1600,
+          "path": "/optimized-images/home-office-2xl.webp"
+        }
+      ]
+    },
+    "src/assets/img/healing-space.webp": {
+      "responsive": [
+        {
+          "width": 150,
+          "path": "/optimized-images/healing-space-xs.webp"
+        },
+        {
+          "width": 300,
+          "path": "/optimized-images/healing-space-sm.webp"
+        },
+        {
+          "width": 400,
+          "path": "/optimized-images/healing-space-md.webp"
+        },
+        {
+          "width": 800,
+          "path": "/optimized-images/healing-space-lg.webp"
+        },
+        {
+          "width": 1200,
+          "path": "/optimized-images/healing-space-xl.webp"
+        },
+        {
+          "width": 1600,
+          "path": "/optimized-images/healing-space-2xl.webp"
+        }
+      ]
+    },
+    "src/assets/img/Tom&RonScootering03.jpeg": {
+      "responsive": [
+        {
+          "width": 150,
+          "path": "/optimized-images/Tom&RonScootering03-xs.webp"
+        },
+        {
+          "width": 300,
+          "path": "/optimized-images/Tom&RonScootering03-sm.webp"
+        },
+        {
+          "width": 400,
+          "path": "/optimized-images/Tom&RonScootering03-md.webp"
+        },
+        {
+          "width": 800,
+          "path": "/optimized-images/Tom&RonScootering03-lg.webp"
+        },
+        {
+          "width": 1200,
+          "path": "/optimized-images/Tom&RonScootering03-xl.webp"
+        },
+        {
+          "width": 1600,
+          "path": "/optimized-images/Tom&RonScootering03-2xl.webp"
+        }
+      ]
+    },
+    "src/assets/img/laptop2.jpg": {
+      "responsive": [
+        {
+          "width": 150,
+          "path": "/optimized-images/laptop2-xs.webp"
+        },
+        {
+          "width": 300,
+          "path": "/optimized-images/laptop2-sm.webp"
+        },
+        {
+          "width": 400,
+          "path": "/optimized-images/laptop2-md.webp"
+        },
+        {
+          "width": 800,
+          "path": "/optimized-images/laptop2-lg.webp"
+        },
+        {
+          "width": 1200,
+          "path": "/optimized-images/laptop2-xl.webp"
+        },
+        {
+          "width": 1600,
+          "path": "/optimized-images/laptop2-2xl.webp"
+        }
+      ]
+    },
+    "src/assets/img/tom-home.webp": {
+      "responsive": [
+        {
+          "width": 150,
+          "path": "/optimized-images/tom-home-xs.webp"
+        },
+        {
+          "width": 300,
+          "path": "/optimized-images/tom-home-sm.webp"
+        },
+        {
+          "width": 400,
+          "path": "/optimized-images/tom-home-md.webp"
+        },
+        {
+          "width": 800,
+          "path": "/optimized-images/tom-home-lg.webp"
+        },
+        {
+          "width": 1200,
+          "path": "/optimized-images/tom-home-xl.webp"
+        },
+        {
+          "width": 1600,
+          "path": "/optimized-images/tom-home-2xl.webp"
+        }
+      ]
+    }
+  },
+  "website-icon-300x298": {},
+  "tom-home": {},
+  "stress": {},
+  "room": {},
+  "relationships": {},
+  "mountinHikeGroup": {},
+  "mountainHike": {},
+  "mindfulness": {},
+  "forrest": {},
+  "family": {},
+  "CAP": {}
+}

@@ -1,0 +1,303 @@
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  font-weight: 500;
+  color: #47BB78;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #0a823c;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+  overflow-x: hidden; /* Prevent horizontal scrollbar layout shifts */
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loading-spinner {
+  animation: spin 1s linear infinite;
+}
+
+/* Prevent layout shifts */
+nav {
+  min-height: 64px;
+  display: flex;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+/* Ensure consistent skeleton dimensions */
+.chakra-skeleton {
+  display: inline-block;
+  min-width: 100px;
+  min-height: 24px;
+}
+
+/* Prevent footer layout shifts - reserve space */
+footer {
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-top: auto; /* Push footer to bottom */
+}
+
+/* Ensure images maintain aspect ratio and prevent CLS */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Blog card image containers - prevent CLS */
+.blog-card-image-container {
+  aspect-ratio: 16/9;
+  min-height: 200px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Ensure consistent card heights */
+.blog-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.blog-card-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Add smooth transitions */
+.chakra-container,
+.chakra-box,
+.chakra-stack,
+.chakra-flex {
+  transition: all 0.3s ease-in-out;
+}
+
+/* Prevent layout shifts from dynamic content */
+.chakra-simple-grid {
+  contain: layout style paint;
+}
+
+/* Ensure consistent spacing */
+.chakra-vstack {
+  gap: 1rem;
+}
+
+/* Prevent text layout shifts */
+.chakra-text {
+  line-height: 1.6;
+  word-wrap: break-word;
+}
+
+/* Prevent layout shifts from dynamic content loading */
+.chakra-simple-grid > * {
+  min-height: 400px; /* Reserve space for blog cards */
+}
+
+/* Ensure consistent button heights */
+.chakra-button {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Prevent layout shifts from tag components */
+.chakra-tag {
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+/* Ensure consistent heading heights */
+.chakra-heading {
+  line-height: 1.2;
+  word-wrap: break-word;
+}
+
+/* Prevent layout shifts from icon components */
+.chakra-icon {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* Ensure consistent spacing in grid layouts */
+.chakra-simple-grid {
+  gap: 2rem;
+}
+
+/* Prevent layout shifts from loading states */
+.chakra-skeleton {
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Layout stability improvements */
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Ensure content area takes available space */
+.chakra-box[flex="1"] {
+  flex: 1 1 auto;
+  min-height: calc(100vh - 64px); /* Account for navbar height */
+}
+
+/* Prevent footer from appearing before content is ready */
+.chakra-box:has(footer) {
+  margin-top: auto;
+}
+
+/* Loading state improvements */
+.chakra-box:has(.loading-spinner) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 64px);
+}
+
+/* Critical hero section styles for LCP */
+.hero-section {
+  position: relative;
+  width: 100%;
+  height: 75vh;
+  overflow: hidden;
+  background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+}
+
+.hero-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Critical text styles for LCP */
+.hero-title {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  line-height: 1.1;
+  color: #2d3748;
+  margin-bottom: 1rem;
+}
+
+.hero-description {
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  line-height: 1.6;
+  color: #4a5568;
+  margin-bottom: 2rem;
+}
+
+/* Optimize critical images for LCP */
+img[fetchpriority="high"] {
+  will-change: transform;
+}
+
+/* Reduce layout thrashing for hero images */
+.hero-section img {
+  contain: layout style paint;
+}
+
+/* Optimize HeroImage component for LCP */
+.hero-image {
+  contain: layout style paint;
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  /* Critical: Ensure immediate display */
+  display: block;
+  max-width: none;
+}
+
+/* Prevent layout shifts for hero images */
+.hero-background img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Optimize portrait image loading */
+.hero-portrait img {
+  width: 100%;
+  height: auto;
+  display: block;
+  contain: layout style paint;
+}
+
+/* Critical: Prevent font loading delays */
+@font-face {
+  font-family: 'system-ui';
+  font-display: swap;
+}
+
+/* Critical: Optimize container for immediate rendering */
+.chakra-container {
+  contain: layout style;
+}
+
+/* Critical: Ensure hero section renders immediately */
+.hero-section {
+  contain: layout style paint;
+  will-change: transform;
+}
