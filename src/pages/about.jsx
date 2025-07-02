@@ -60,7 +60,7 @@ import {
   FaUserCircle,
 } from 'react-icons/fa'
 import { Link as GatsbyLink } from 'gatsby'
-import OptimizedImage from '../components/OptimizedImage'
+import { StaticImage } from 'gatsby-plugin-image'
 import HeroTextBox from '../components/HeroTextBox'
 import SEO from '../components/SEO'
 
@@ -93,13 +93,19 @@ const About = () => {
           height="100%"
           zIndex={0}
         >
-          <OptimizedImage
-            src="mountainHike.jpg"
+          <StaticImage
+            src="../assets/img/mountainHike.jpg"
             alt="hiking in the mountains"
-            width="100%"
-            height="100%"
+            placeholder="blurred"
+            layout="fullWidth"
             objectFit="cover"
-            fallbackSrc="/src/assets/img/mountainHike.jpg"
+            style={{
+              width: '100%',
+              height: '100%',
+            }}
+            formats={['auto', 'webp', 'avif']}
+            quality={85}
+            priority={true}
           />
           <Box
             position="absolute"
@@ -138,18 +144,23 @@ const About = () => {
                 width="100%"
                 mt="auto"
               >
-                <OptimizedImage
-                  src="tom1.png"
+                <StaticImage
+                  src="../assets/img/tom1.png"
                   alt="Tom Nováček"
-                  width="100%"
-                  height="auto"
-                  fallbackSrc="/src/assets/img/tom1.png"
+                  placeholder="blurred"
+                  layout="constrained"
+                  width={600}
+                  height={800}
                   style={{
                     mixBlendMode: 'normal',
                     backgroundColor: 'transparent',
                     filter: 'brightness(1.1)',
-                    height: 'auto'
+                    height: 'auto',
+                    width: '100%'
                   }}
+                  formats={['auto', 'webp', 'avif']}
+                  quality={90}
+                  priority={true}
                 />
               </Box>
             </Box>
@@ -328,12 +339,20 @@ const About = () => {
                 opacity: '1',
               }}
             >
-              <OptimizedImage
-                src="/src/assets/img/CAP.png"
+              <StaticImage
+                src="../assets/img/CAP.png"
                 alt="ČAP Logo"
-                width="100%"
-                height="100%"
-                objectFit="contain"
+                placeholder="blurred"
+                layout="constrained"
+                width={160}
+                height={160}
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'contain'
+                }}
+                formats={['auto', 'webp', 'avif']}
+                quality={85}
               />
             </Box>
           </Flex>
@@ -382,15 +401,19 @@ const About = () => {
               overflow="hidden"
               boxShadow="xl"
             >
-              <OptimizedImage
-                src="/src/assets/img/Tom&RonScootering03.jpeg"
+              <StaticImage
+                src="../assets/img/Tom&RonScootering03.jpeg"
                 alt="Tom a Ron při scooteringu"
-                width="100%"
-                height="100%"
+                placeholder="blurred"
+                layout="fullWidth"
                 objectFit="cover"
                 style={{
-                  borderRadius: '0.5rem'
+                  borderRadius: '0.5rem',
+                  width: '100%',
+                  height: '100%'
                 }}
+                formats={['auto', 'webp', 'avif']}
+                quality={85}
               />
             </Box>
           </Flex>

@@ -73,7 +73,21 @@ export default function Home({ data }) {
         description="Psycholog a terapeut Tomáš Nováček nabízí psychoterapii v centru Brna. Pomáhám lidem překonávat životní výzvy a dosahovat osobního růstu."
         image="/optimized-images/forrest-sm.webp?v=3"
         article={false}
-      />
+      >
+        {/* Preload critical hero images for LCP optimization */}
+        <link 
+          rel="preload" 
+          as="image" 
+          href="/static/forrest.webp" 
+          fetchpriority="high"
+        />
+        <link 
+          rel="preload" 
+          as="image" 
+          href="/static/tom1.png" 
+          fetchpriority="high"
+        />
+      </Seo>
       <StructuredData type="MedicalBusiness" />
       <StructuredData type="Person" />
 
@@ -107,6 +121,7 @@ export default function Home({ data }) {
             formats={['auto', 'webp', 'avif']}
             quality={85}
             priority={true}
+            loading="eager"
           />
           <Box
             position="absolute"
@@ -172,6 +187,7 @@ export default function Home({ data }) {
                   formats={['auto', 'webp', 'avif']}
                   quality={90}
                   priority={true}
+                  loading="eager"
                 />
               </Box>
             </Box>
