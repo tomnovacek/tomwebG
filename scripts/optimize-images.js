@@ -1,148 +1,122 @@
-import sharp from 'sharp';
-import path from 'path';
-import { promises as fs } from 'fs';
-import { glob } from 'glob';
-import { fileURLToPath } from 'url';
+const sharp = require('sharp');
+const fs = require('fs');
+const path = require('path');
+const glob = require('glob');
 
-// Get current file's directory
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const ASSETS_DIR = path.join(__dirname, '../src/assets/img');
+const OUTPUT_DIR = path.join(__dirname, '../src/assets/img/optimized');
 
-// Configuration
-const projectRoot = process.cwd();
-const sourceDirs = [
-  path.join(projectRoot, 'src/assets/img'),
-  path.join(projectRoot, 'public/images'),
+// Ensure output directory exists
+if (!fs.existsSync(OUTPUT_DIR)) {
+  fs.mkdirSync(OUTPUT_DIR, { recursive: true });
+}
+
+// Image optimization settings
+const OPTIMIZATION_SETTINGS = {
+  jpeg: {
+    quality: 85,
+    progressive: true,
+    mozjpeg: true,
+  },
+  png: {
+    quality: 85,
+    progressive: true,
+    compressionLevel: 9,
+  },
+  webp: {
+    quality: 85,
+    effort: 6,
+  },
+  avif: {
+    quality: 85,
+    effort: 6,
+  },
+};
+
+// Responsive breakpoints
+const BREAKPOINTS = [
+  { width: 400, suffix: '-sm' },
+  { width: 768, suffix: '-md' },
+  { width: 1200, suffix: '-lg' },
+  { width: 1920, suffix: '-xl' },
 ];
-const outputDir = path.join(projectRoot, 'public/optimized-images');
-const manifestPath = path.join(projectRoot, 'public/image-manifest.json');
 
-const sizes = [
-  { name: 'xs', width: 150 },
-  { name: 'sm', width: 300 },
-  { name: 'md', width: 400 },
-  { name: 'lg', width: 800 },
-  { name: 'xl', width: 1200 },
-  { name: '2xl', width: 1600 }
-];
-
-async function optimizeImage(filePath, manifest) {
-  const relativePath = path.relative(projectRoot, filePath);
-  console.log(`\nProcessing image: ${relativePath}`);
-  console.log('----------------------------------------');
-
+async function optimizeImage(inputPath, outputPath, options = {}) {
   try {
-    // Initialize manifest entry if it doesn't exist
-    if (!manifest.images) {
-      manifest.images = {};
+    const image = sharp(inputPath);
+    const metadata = await image.metadata();
+    
+    // Resize if width is specified
+    if (options.width && metadata.width > options.width) {
+      image.resize(options.width, null, {
+        withoutEnlargement: true,
+        fit: 'inside',
+      });
     }
     
-    if (!manifest.images[relativePath]) {
-      manifest.images[relativePath] = {
-        responsive: []
-      };
+    // Apply format-specific optimization
+    if (outputPath.endsWith('.webp')) {
+      await image.webp(OPTIMIZATION_SETTINGS.webp).toFile(outputPath);
+    } else if (outputPath.endsWith('.avif')) {
+      await image.avif(OPTIMIZATION_SETTINGS.avif).toFile(outputPath);
+    } else if (outputPath.endsWith('.jpg') || outputPath.endsWith('.jpeg')) {
+      await image.jpeg(OPTIMIZATION_SETTINGS.jpeg).toFile(outputPath);
+    } else if (outputPath.endsWith('.png')) {
+      await image.png(OPTIMIZATION_SETTINGS.png).toFile(outputPath);
     }
-
-    for (const size of sizes) {
-      console.log(`\nProcessing size ${size.name}:`);
-      console.log(`- Target width: ${size.width}`);
-      
-      const fileName = path.basename(filePath, path.extname(filePath));
-      const outputFileName = `${fileName}-${size.name}.webp`;
-      const outputPath = path.join(outputDir, outputFileName);
-      console.log(`- Output path: ${outputPath}`);
-
-      try {
-        console.log('- Processing image...');
-        
-        // Process the image using the working pattern
-        let pipeline = sharp(filePath);
-        pipeline = pipeline.resize(size.width, null, {
-          fit: 'cover',
-          position: 'center'
-        });
-        pipeline = pipeline.webp({ quality: 80 });
-        await pipeline.toFile(outputPath);
-
-        // Add to responsive array if not already present
-        const existingSize = manifest.images[relativePath].responsive.find(
-          r => r.width === size.width
-        );
-        
-        if (!existingSize) {
-          manifest.images[relativePath].responsive.push({
-            width: size.width,
-            path: `/optimized-images/${outputFileName}`
-          });
-        }
-
-        console.log(`✓ Successfully processed size ${size.name}`);
-      } catch (error) {
-        console.error(`✗ Error processing size ${size.name} for ${relativePath}:`, {
-          error: error.message,
-          code: error.code,
-          stack: error.stack
-        });
-      }
-    }
-
-    // Save manifest after each image is processed
-    await fs.writeFile(manifestPath, JSON.stringify(manifest, null, 2));
-    console.log(`\n✓ Successfully optimized ${relativePath}`);
-    console.log('----------------------------------------');
-
+    
+    console.log(`✅ Optimized: ${path.basename(outputPath)}`);
   } catch (error) {
-    console.error(`✗ Error processing ${relativePath}:`, {
-      error: error.message,
-      code: error.code,
-      stack: error.stack
-    });
+    console.error(`❌ Error optimizing ${inputPath}:`, error.message);
   }
 }
 
-async function processImages() {
-  try {
-    // Create output directory if it doesn't exist
-    await fs.mkdir(outputDir, { recursive: true });
-
-    // Load existing manifest
-    let manifest;
-    try {
-      const manifestContent = await fs.readFile(manifestPath, 'utf8');
-      manifest = JSON.parse(manifestContent);
-      console.log('Loaded existing manifest');
-    } catch (error) {
-      if (error.code === 'ENOENT') {
-        // Create empty manifest if it doesn't exist
-        manifest = { images: {} };
-        await fs.writeFile(manifestPath, JSON.stringify(manifest, null, 2));
-        console.log('Created new empty manifest');
-      } else {
-        console.error('Error loading manifest:', error);
-        process.exit(1);
-      }
-    }
-
-    // Find all images in all source directories
-    let allFiles = [];
-    for (const sourceDir of sourceDirs) {
-      const files = await glob(path.join(sourceDir, '*.{jpg,jpeg,png,webp}'));
-      allFiles = allFiles.concat(files);
-    }
-    console.log(`Found ${allFiles.length} images to optimize`);
-
-    // Process each image
-    for (const file of allFiles) {
-      await optimizeImage(file, manifest);
-    }
-
-    console.log('\n✓ Image optimization complete!');
-    console.log('========================================');
-
-  } catch (error) {
-    console.error('Error:', error);
-    process.exit(1);
+async function createResponsiveImages(inputPath) {
+  const filename = path.basename(inputPath, path.extname(inputPath));
+  const ext = path.extname(inputPath);
+  
+  // Create WebP versions
+  for (const breakpoint of BREAKPOINTS) {
+    const outputPath = path.join(OUTPUT_DIR, `${filename}${breakpoint.suffix}.webp`);
+    await optimizeImage(inputPath, outputPath, { width: breakpoint.width });
   }
+  
+  // Create AVIF versions
+  for (const breakpoint of BREAKPOINTS) {
+    const outputPath = path.join(OUTPUT_DIR, `${filename}${breakpoint.suffix}.avif`);
+    await optimizeImage(inputPath, outputPath, { width: breakpoint.width });
+  }
+  
+  // Create optimized original format
+  const optimizedOriginal = path.join(OUTPUT_DIR, `${filename}-optimized${ext}`);
+  await optimizeImage(inputPath, optimizedOriginal);
 }
 
-processImages(); 
+async function main() {
+  console.log('🚀 Starting image optimization...\n');
+  
+  // Find all image files
+  const imageFiles = glob.sync(path.join(ASSETS_DIR, '*.{jpg,jpeg,png,webp}'));
+  
+  if (imageFiles.length === 0) {
+    console.log('No image files found in assets directory.');
+    return;
+  }
+  
+  console.log(`Found ${imageFiles.length} images to optimize:\n`);
+  
+  for (const imageFile of imageFiles) {
+    console.log(`Processing: ${path.basename(imageFile)}`);
+    await createResponsiveImages(imageFile);
+    console.log('');
+  }
+  
+  console.log('🎉 Image optimization complete!');
+  console.log(`Optimized images saved to: ${OUTPUT_DIR}`);
+  console.log('\n📝 Next steps:');
+  console.log('1. Review the optimized images in the output directory');
+  console.log('2. Replace original images with optimized versions if satisfied');
+  console.log('3. Update your StaticImage components to use the new optimized images');
+}
+
+main().catch(console.error); 

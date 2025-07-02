@@ -12,7 +12,6 @@ import {
 } from '@chakra-ui/react'
 import { FaEnvelope, FaPhone, FaMapMarkerAlt, FaUser } from 'react-icons/fa'
 import { Link as GatsbyLink } from 'gatsby'
-import OptimizedImage from './OptimizedImage'
 import SecureEmail from './SecureEmail'
 
 const Map = lazy(() => import('./Map'))
@@ -74,12 +73,16 @@ export default function Footer() {
               </Stack>
               {/* Logo */}
               <Box minH="80px" minW="200px" maxH="80px" maxW="200px">
-                <OptimizedImage
+                <img
                   src="CAP.png"
                   alt="ČAP Logo"
-                  width={200}
-                  height={80}
-                  style={{ maxWidth: '200px', height: 'auto', display: 'block' }}
+                  style={{ 
+                    maxWidth: '200px', 
+                    display: 'block',
+                    width: '200px',
+                    height: '80px',
+                  }}
+                  loading="lazy"
                 />
               </Box>
             </Stack>

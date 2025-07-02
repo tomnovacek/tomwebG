@@ -17,125 +17,6 @@ export default function ServicesGrid({ title, description, services }) {
   const headingColor = useColorModeValue('green.500', 'gray.200')
   const cardBg = useColorModeValue('white', 'gray.800')
 
-  // Function to get the correct image component based on image name
-  const getImageComponent = (imageName, alt) => {
-    switch (imageName) {
-      case 'healing-space.webp':
-        return (
-          <StaticImage
-            src="../assets/img/healing-space.webp"
-            alt={alt}
-            placeholder="blurred"
-            layout="fullWidth"
-            objectFit="cover"
-            style={{
-              width: '100%',
-              height: '100%',
-            }}
-            formats={['auto', 'webp', 'avif']}
-            quality={85}
-          />
-        )
-      case 'safe-space.webp':
-        return (
-          <StaticImage
-            src="../assets/img/safe-space.webp"
-            alt={alt}
-            placeholder="blurred"
-            layout="fullWidth"
-            objectFit="cover"
-            style={{
-              width: '100%',
-              height: '100%',
-            }}
-            formats={['auto', 'webp', 'avif']}
-            quality={85}
-          />
-        )
-      case 'stress.webp':
-        return (
-          <StaticImage
-            src="../assets/img/stress.webp"
-            alt={alt}
-            placeholder="blurred"
-            layout="fullWidth"
-            objectFit="cover"
-            style={{
-              width: '100%',
-              height: '100%',
-            }}
-            formats={['auto', 'webp', 'avif']}
-            quality={85}
-          />
-        )
-      case 'mindfulness.webp':
-        return (
-          <StaticImage
-            src="../assets/img/mindfulness.webp"
-            alt={alt}
-            placeholder="blurred"
-            layout="fullWidth"
-            objectFit="cover"
-            style={{
-              width: '100%',
-              height: '100%',
-            }}
-            formats={['auto', 'webp', 'avif']}
-            quality={85}
-          />
-        )
-      case 'relationships.webp':
-        return (
-          <StaticImage
-            src="../assets/img/relationships.webp"
-            alt={alt}
-            placeholder="blurred"
-            layout="fullWidth"
-            objectFit="cover"
-            style={{
-              width: '100%',
-              height: '100%',
-            }}
-            formats={['auto', 'webp', 'avif']}
-            quality={85}
-          />
-        )
-      case 'family.webp':
-        return (
-          <StaticImage
-            src="../assets/img/family.webp"
-            alt={alt}
-            placeholder="blurred"
-            layout="fullWidth"
-            objectFit="cover"
-            style={{
-              width: '100%',
-              height: '100%',
-            }}
-            formats={['auto', 'webp', 'avif']}
-            quality={85}
-          />
-        )
-      default:
-        // Fallback to a default image
-        return (
-          <StaticImage
-            src="../assets/img/healing-space.webp"
-            alt={alt}
-            placeholder="blurred"
-            layout="fullWidth"
-            objectFit="cover"
-            style={{
-              width: '100%',
-              height: '100%',
-            }}
-            formats={['auto', 'webp', 'avif']}
-            quality={85}
-          />
-        )
-    }
-  }
-
   return (
     <Box py={20} bg={useColorModeValue('white', 'gray.900')}>
       <Container maxW={'7xl'}>
@@ -170,27 +51,175 @@ export default function ServicesGrid({ title, description, services }) {
             >
               <Flex direction={{ base: 'column', md: 'row' }} gap={6}>
                 <Box
-                  position="relative"
-                  width={{ base: '100%', md: '140px' }}
-                  height={{ base: '140px', md: '140px' }}
-                  borderRadius="lg"
-                  overflow="hidden"
                   flexShrink={0}
+                  width={{ base: '100%', md: '200px' }}
+                  height={{ base: '200px', md: '150px' }}
+                  position="relative"
+                  overflow="hidden"
+                  rounded="lg"
                 >
-                  {getImageComponent(service.image, service.title)}
+                  {service.image === 'healing-space.webp' && (
+                    <StaticImage
+                      src="../assets/img/healing-space.webp"
+                      alt={service.imageAlt}
+                      placeholder="blurred"
+                      layout="fullWidth"
+                      objectFit="cover"
+                      style={{
+                        height: '100%',
+                        width: '100%',
+                        filter: 'brightness(1.1)',
+                      }}
+                      formats={['auto', 'webp', 'avif']}
+                      quality={85}
+                      breakpoints={[400, 768, 1200]}
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      transformOptions={{
+                        fit: 'cover',
+                        cropFocus: 'center',
+                      }}
+                    />
+                  )}
+                  {service.image === 'safe-space.webp' && (
+                    <StaticImage
+                      src="../assets/img/safe-space.webp"
+                      alt={service.imageAlt}
+                      placeholder="blurred"
+                      layout="fullWidth"
+                      objectFit="cover"
+                      style={{
+                        height: '100%',
+                        width: '100%',
+                        filter: 'brightness(1.1)',
+                      }}
+                      formats={['auto', 'webp', 'avif']}
+                      quality={85}
+                      breakpoints={[400, 768, 1200]}
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      transformOptions={{
+                        fit: 'cover',
+                        cropFocus: 'center',
+                      }}
+                    />
+                  )}
+                  {service.image === 'stress.webp' && (
+                    <StaticImage
+                      src="../assets/img/stress.webp"
+                      alt={service.imageAlt}
+                      placeholder="blurred"
+                      layout="fullWidth"
+                      objectFit="cover"
+                      style={{
+                        height: '100%',
+                        width: '100%',
+                        filter: 'brightness(1.1)',
+                      }}
+                      formats={['auto', 'webp', 'avif']}
+                      quality={85}
+                      breakpoints={[400, 768, 1200]}
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      transformOptions={{
+                        fit: 'cover',
+                        cropFocus: 'center',
+                      }}
+                    />
+                  )}
+                  {service.image === 'mindfulness.webp' && (
+                    <StaticImage
+                      src="../assets/img/mindfulness.webp"
+                      alt={service.imageAlt}
+                      placeholder="blurred"
+                      layout="fullWidth"
+                      objectFit="cover"
+                      style={{
+                        height: '100%',
+                        width: '100%',
+                        filter: 'brightness(1.1)',
+                      }}
+                      formats={['auto', 'webp', 'avif']}
+                      quality={85}
+                      breakpoints={[400, 768, 1200]}
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      transformOptions={{
+                        fit: 'cover',
+                        cropFocus: 'center',
+                      }}
+                    />
+                  )}
+                  {service.image === 'relationships.webp' && (
+                    <StaticImage
+                      src="../assets/img/relationships.webp"
+                      alt={service.imageAlt}
+                      placeholder="blurred"
+                      layout="fullWidth"
+                      objectFit="cover"
+                      style={{
+                        height: '100%',
+                        width: '100%',
+                        filter: 'brightness(1.1)',
+                      }}
+                      formats={['auto', 'webp', 'avif']}
+                      quality={85}
+                      breakpoints={[400, 768, 1200]}
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      transformOptions={{
+                        fit: 'cover',
+                        cropFocus: 'center',
+                      }}
+                    />
+                  )}
+                  {service.image === 'family.webp' && (
+                    <StaticImage
+                      src="../assets/img/family.webp"
+                      alt={service.imageAlt}
+                      placeholder="blurred"
+                      layout="fullWidth"
+                      objectFit="cover"
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                      }}
+                      formats={['auto', 'webp', 'avif']}
+                      quality={85}
+                    />
+                  )}
+                  {(!service.image || 
+                    (service.image !== 'healing-space.webp' && 
+                     service.image !== 'safe-space.webp' && 
+                     service.image !== 'stress.webp' && 
+                     service.image !== 'mindfulness.webp' && 
+                     service.image !== 'relationships.webp' && 
+                     service.image !== 'family.webp')) && (
+                    <StaticImage
+                      src="../assets/img/healing-space.webp"
+                      alt={service.imageAlt}
+                      placeholder="blurred"
+                      layout="fullWidth"
+                      objectFit="cover"
+                      style={{
+                        height: '100%',
+                        width: '100%',
+                        filter: 'brightness(1.1)',
+                      }}
+                      formats={['auto', 'webp', 'avif']}
+                      quality={85}
+                      breakpoints={[400, 768, 1200]}
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      transformOptions={{
+                        fit: 'cover',
+                        cropFocus: 'center',
+                      }}
+                    />
+                  )}
                 </Box>
-                <Box flex="1">
-                  <Icon
-                    as={service.icon}
-                    w={8}
-                    h={8}
-                    color="green.400"
-                    mb={4}
-                  />
-                  <Heading fontSize={'xl'} mb={4} color={headingColor}>
-                    {service.title}
-                  </Heading>
-                  <Text color={textColor}>
+                <Box flex={1}>
+                  <Flex align="center" gap={3} mb={4}>
+                    <Icon as={service.icon} w={6} h={6} color="green.500" />
+                    <Heading fontSize={'xl'} color={headingColor}>
+                      {service.title}
+                    </Heading>
+                  </Flex>
+                  <Text color={textColor} fontSize={'md'} lineHeight={'tall'}>
                     {service.description}
                   </Text>
                 </Box>

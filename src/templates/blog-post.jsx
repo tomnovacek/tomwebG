@@ -85,6 +85,28 @@ export default function BlogPost({ data, children }) {
         {...props}
       />
     ),
+    // Simple img component for MDX content - using regular img tag for static images
+    img: (props) => (
+      <Box my={6} textAlign="center">
+        <img
+          src={props.src}
+          alt={props.alt || 'Blog post image'}
+          style={{
+            maxWidth: '100%',
+            height: 'auto',
+            borderRadius: '8px',
+            display: 'block',
+            margin: '0 auto',
+          }}
+          loading="lazy"
+        />
+        {props.alt && (
+          <Text fontSize="sm" color={textColor} mt={2} fontStyle="italic">
+            {props.alt}
+          </Text>
+        )}
+      </Box>
+    ),
     // Add the custom components that MDX files are trying to use
     ExerciseFrame: ExerciseFrame,
     InfoFrame: InfoFrame,

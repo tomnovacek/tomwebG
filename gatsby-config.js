@@ -16,7 +16,21 @@ module.exports = {
   },
   plugins: [
     `gatsby-plugin-image`,
-    `gatsby-plugin-sharp`,
+    {
+      resolve: `gatsby-plugin-sharp`,
+      options: {
+        defaults: {
+          formats: [`auto`, `webp`, `avif`],
+          placeholder: `blurred`,
+          quality: 85,
+          breakpoints: [400, 768, 1200, 1920],
+          backgroundColor: `transparent`,
+        },
+        failOnError: false,
+        stripMetadata: true,
+        defaultQuality: 85,
+      },
+    },
     `gatsby-transformer-sharp`,
     {
       resolve: `gatsby-source-filesystem`,
@@ -35,7 +49,22 @@ module.exports = {
     {
       resolve: `gatsby-plugin-mdx`,
       options: {
-        gatsbyRemarkPlugins: [],
+        gatsbyRemarkPlugins: [
+          {
+            resolve: `gatsby-remark-images`,
+            options: {
+              maxWidth: 1200,
+              quality: 85,
+              withWebp: true,
+              withAvif: true,
+              linkImagesToOriginal: false,
+              showCaptions: true,
+              markdownCaptions: true,
+              backgroundColor: `transparent`,
+              disableBgImageOnAlpha: true,
+            },
+          },
+        ],
         mdxOptions: {
           remarkPlugins: [],
           rehypePlugins: [],
@@ -53,6 +82,65 @@ module.exports = {
         theme_color: `#38a169`,
         display: `minimal-ui`,
         icon: `src/assets/img/navbar-icon-96x96.webp`,
+        icons: [
+          {
+            src: `src/assets/img/navbar-icon-192x192.webp`,
+            sizes: `192x192`,
+            type: `image/webp`,
+          },
+          {
+            src: `src/assets/img/navbar-icon-512x512.webp`,
+            sizes: `512x512`,
+            type: `image/webp`,
+          },
+        ],
+      },
+    },
+    {
+      resolve: `gatsby-plugin-sitemap`,
+      options: {
+        output: `/sitemap.xml`,
+        createLinkInHead: true,
+        query: `
+          {
+            site {
+              siteMetadata {
+                siteUrl
+              }
+            }
+            allSitePage {
+              nodes {
+                path
+              }
+            }
+            allFile(filter: {extension: {regex: "/(jpg|jpeg|png|webp|avif)/"}}) {
+              nodes {
+                publicURL
+                childImageSharp {
+                  gatsbyImageData
+                }
+              }
+            }
+          }
+        `,
+        serialize: ({ site, allSitePage, allFile }) => {
+          const pages = allSitePage.nodes.map(page => ({
+            url: `${site.siteMetadata.siteUrl}${page.path}`,
+            changefreq: 'weekly',
+            priority: page.path === '/' ? 1.0 : 0.7,
+          }))
+          
+          // Add image sitemap entries
+          const images = allFile.nodes
+            .filter(file => file.childImageSharp)
+            .map(file => ({
+              url: `${site.siteMetadata.siteUrl}${file.publicURL}`,
+              changefreq: 'monthly',
+              priority: 0.3,
+            }))
+          
+          return [...pages, ...images]
+        }
       },
     },
   ],

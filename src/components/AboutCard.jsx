@@ -21,64 +21,6 @@ export default function AboutCard({
   buttonHref,
   textColor,
 }) {
-  // Function to get the correct image component based on image name
-  const getImageComponent = () => {
-    switch (image) {
-      case 'room.jpeg':
-        return (
-          <StaticImage
-            src="../assets/img/room.jpeg"
-            alt={imageAlt}
-            placeholder="blurred"
-            layout="fullWidth"
-            objectFit="cover"
-            style={{
-              height: '100%',
-              width: '100%',
-              filter: 'brightness(1.2)',
-            }}
-            formats={['auto', 'webp', 'avif']}
-            quality={85}
-          />
-        )
-      case 'mountinHikeGroup.jpg':
-        return (
-          <StaticImage
-            src="../assets/img/mountinHikeGroup.jpg"
-            alt={imageAlt}
-            placeholder="blurred"
-            layout="fullWidth"
-            objectFit="cover"
-            style={{
-              height: '100%',
-              width: '100%',
-              filter: 'brightness(1.2)',
-            }}
-            formats={['auto', 'webp', 'avif']}
-            quality={85}
-          />
-        )
-      default:
-        // Fallback to a default image or handle other cases
-        return (
-          <StaticImage
-            src="../assets/img/room.jpeg"
-            alt={imageAlt}
-            placeholder="blurred"
-            layout="fullWidth"
-            objectFit="cover"
-            style={{
-              height: '100%',
-              width: '100%',
-              filter: 'brightness(1.2)',
-            }}
-            formats={['auto', 'webp', 'avif']}
-            quality={85}
-          />
-        )
-    }
-  }
-
   return (
     <Box
       bg={useColorModeValue('white', 'gray.800')}
@@ -97,7 +39,72 @@ export default function AboutCard({
         height="260px"
         overflow="hidden"
       >
-        {getImageComponent()}
+        {image === 'room.jpeg' && (
+          <StaticImage
+            src="../assets/img/room.jpeg"
+            alt={imageAlt}
+            placeholder="blurred"
+            layout="fullWidth"
+            objectFit="cover"
+            style={{
+              height: '100%',
+              width: '100%',
+              filter: 'brightness(1.2)',
+            }}
+            formats={['auto', 'webp', 'avif']}
+            quality={85}
+            breakpoints={[400, 768, 1200]}
+            sizes="(max-width: 768px) 100vw, 50vw"
+            transformOptions={{
+              fit: 'cover',
+              cropFocus: 'center',
+            }}
+          />
+        )}
+        {image === 'mountinHikeGroup.jpg' && (
+          <StaticImage
+            src="../assets/img/mountinHikeGroup.jpg"
+            alt={imageAlt}
+            placeholder="blurred"
+            layout="fullWidth"
+            objectFit="cover"
+            style={{
+              height: '100%',
+              width: '100%',
+              filter: 'brightness(1.2)',
+            }}
+            formats={['auto', 'webp', 'avif']}
+            quality={85}
+            breakpoints={[400, 768, 1200]}
+            sizes="(max-width: 768px) 100vw, 50vw"
+            transformOptions={{
+              fit: 'cover',
+              cropFocus: 'center',
+            }}
+          />
+        )}
+        {(!image || (image !== 'room.jpeg' && image !== 'mountinHikeGroup.jpg')) && (
+          <StaticImage
+            src="../assets/img/room.jpeg"
+            alt={imageAlt}
+            placeholder="blurred"
+            layout="fullWidth"
+            objectFit="cover"
+            style={{
+              height: '100%',
+              width: '100%',
+              filter: 'brightness(1.2)',
+            }}
+            formats={['auto', 'webp', 'avif']}
+            quality={85}
+            breakpoints={[400, 768, 1200]}
+            sizes="(max-width: 768px) 100vw, 50vw"
+            transformOptions={{
+              fit: 'cover',
+              cropFocus: 'center',
+            }}
+          />
+        )}
         <Box
           position="absolute"
           top={0}

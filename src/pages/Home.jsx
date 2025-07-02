@@ -71,22 +71,53 @@ export default function Home({ data }) {
       <Seo 
         title="Psychoterapie v centru Brna | Tomáš Nováček"
         description="Psycholog a terapeut Tomáš Nováček nabízí psychoterapii v centru Brna. Pomáhám lidem překonávat životní výzvy a dosahovat osobního růstu."
-        image="/optimized-images/forrest-sm.webp?v=3"
+        image="https://tomnovacek.com/static/forrest-1200x630.webp"
         article={false}
       >
         {/* Preload critical hero images for LCP optimization */}
         <link 
           rel="preload" 
           as="image" 
-          href="/static/forrest.webp" 
+          href="/static/forrest-1200x630.webp" 
           fetchpriority="high"
+          type="image/webp"
         />
         <link 
           rel="preload" 
           as="image" 
-          href="/static/tom1.png" 
+          href="/static/tom1-600x800.webp" 
           fetchpriority="high"
+          type="image/webp"
         />
+        
+        {/* Image structured data for SEO */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "name": "Psychoterapie v centru Brna | Tomáš Nováček",
+            "description": "Psycholog a terapeut Tomáš Nováček nabízí psychoterapii v centru Brna. Pomáhám lidem překonávat životní výzvy a dosahovat osobního růstu.",
+            "image": {
+              "@type": "ImageObject",
+              "url": "https://tomnovacek.com/static/forrest-1200x630.webp",
+              "width": 1200,
+              "height": 630,
+              "alt": "Lesní cesta - klidné prostředí pro psychoterapii"
+            },
+            "mainEntity": {
+              "@type": "Person",
+              "name": "Tomáš Nováček",
+              "jobTitle": "Psycholog a terapeut",
+              "image": {
+                "@type": "ImageObject",
+                "url": "https://tomnovacek.com/static/tom1-600x800.webp",
+                "width": 600,
+                "height": 800,
+                "alt": "Tomáš Nováček - psycholog a terapeut"
+              }
+            }
+          })}
+        </script>
       </Seo>
       <StructuredData type="MedicalBusiness" />
       <StructuredData type="Person" />
@@ -106,7 +137,7 @@ export default function Home({ data }) {
           {/* Optimized hero image using Gatsby StaticImage */}
           <StaticImage
             src="../assets/img/forrest.webp"
-            alt="Lesní cesta"
+            alt="Lesní cesta - klidné prostředí pro psychoterapii v centru Brna"
             placeholder="blurred"
             layout="fullWidth"
             objectFit="cover"
@@ -122,6 +153,16 @@ export default function Home({ data }) {
             quality={85}
             priority={true}
             loading="eager"
+            imgStyle={{
+              objectFit: 'cover',
+              objectPosition: 'center'
+            }}
+            breakpoints={[400, 768, 1200, 1920]}
+            sizes="100vw"
+            transformOptions={{
+              fit: 'cover',
+              cropFocus: 'center',
+            }}
           />
           <Box
             position="absolute"
@@ -172,7 +213,7 @@ export default function Home({ data }) {
                 {/* Optimized portrait image using Gatsby StaticImage */}
                 <StaticImage
                   src="../assets/img/tom1.png"
-                  alt="Tom Nováček"
+                  alt="Tomáš Nováček - psycholog a terapeut v centru Brna"
                   placeholder="blurred"
                   layout="constrained"
                   width={600}
@@ -188,6 +229,16 @@ export default function Home({ data }) {
                   quality={90}
                   priority={true}
                   loading="eager"
+                  imgStyle={{
+                    objectFit: 'contain',
+                    objectPosition: 'center'
+                  }}
+                  breakpoints={[400, 600, 800]}
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  transformOptions={{
+                    fit: 'contain',
+                    background: 'transparent',
+                  }}
                 />
               </Box>
             </Box>

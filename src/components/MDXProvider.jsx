@@ -1,7 +1,6 @@
 import React from 'react'
 import { MDXProvider } from '@mdx-js/react'
 import { Box, Heading, Text } from '@chakra-ui/react'
-import OptimizedImage from './OptimizedImage'
 import ContentFrame from './ContentFrame'
 
 // MDX components
@@ -25,12 +24,16 @@ const mdxComponents = {
     />
   ),
   img: (props) => (
-    <OptimizedImage
-      borderRadius="lg"
-      my={6}
-      maxW="100%"
-      h="auto"
+    <img
+      style={{
+        borderRadius: '8px',
+        maxWidth: '100%',
+        height: 'auto',
+        display: 'block',
+        margin: '24px auto',
+      }}
       alt={props.alt || ''}
+      loading="lazy"
       {...props}
     />
   ),

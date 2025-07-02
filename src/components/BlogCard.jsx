@@ -12,7 +12,6 @@ import {
   VStack,
   HStack,
 } from '@chakra-ui/react'
-import OptimizedImage from './OptimizedImage'
 
 const BlogCard = ({ post }) => {
   const {
@@ -44,20 +43,24 @@ const BlogCard = ({ post }) => {
         display="flex"
         flexDirection="column"
       >
-        {/* Image */}
-        {image && (
-          <Box h="200px" overflow="hidden">
-            <OptimizedImage
-              src={image}
-              alt={title}
-              style={{
-                width: '100%',
-                height: '100%',
-                objectFit: 'cover',
-              }}
-            />
-          </Box>
-        )}
+        {/* Blog Image */}
+        <Box
+          height="200px"
+          overflow="hidden"
+          borderRadius="lg"
+          mb={4}
+        >
+          <img
+            src={`/img/${image}`}
+            alt={title}
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+            }}
+            loading="lazy"
+          />
+        </Box>
 
         {/* Content */}
         <Box p={6} flex="1" display="flex" flexDirection="column">

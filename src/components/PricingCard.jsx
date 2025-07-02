@@ -11,7 +11,6 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react'
 import { CheckCircleIcon } from '@chakra-ui/icons'
-import OptimizedImage from './OptimizedImage'
 
 export default function PricingCard({
   title,
@@ -59,15 +58,16 @@ export default function PricingCard({
         height="260px"
         overflow="hidden"
       >
-        <OptimizedImage
+        <img
           src={image}
           alt={title}
-          objectFit="cover"
-          width="100%"
-          height="100%"
           style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
             filter: 'brightness(1.1)',
           }}
+          loading="lazy"
         />
         <Box
           position="absolute"

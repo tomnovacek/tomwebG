@@ -71,4 +71,45 @@ exports.createPages = async ({ graphql, actions }) => {
       },
     })
   })
+}
+
+// Create image sitemap
+exports.onPostBuild = async ({ graphql, actions }) => {
+  const { createPage } = actions
+
+  const result = await graphql(`
+    query {
+      allFile(filter: {extension: {regex: "/(jpg|jpeg|png|webp|avif)/"}}) {
+        nodes {
+          publicURL
+          name
+          extension
+          childImageSharp {
+            gatsbyImageData
+          }
+        }
+      }
+    }
+  `)
+
+  if (result.errors) {
+    throw result.errors
+  }
+
+  const images = result.data.allFile.nodes
+    .filter(file => file.childImageSharp)
+    .map(file => ({
+      url: file.publicURL,
+      name: file.name,
+      extension: file.extension,
+    }))
+
+  // Create image sitemap page
+  createPage({
+    path: '/image-sitemap.xml',
+    component: path.resolve('./src/templates/image-sitemap.jsx'),
+    context: {
+      images,
+    },
+  })
 } 

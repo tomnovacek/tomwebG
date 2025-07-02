@@ -23,7 +23,6 @@ import { getPostBySlug, getRelatedPosts } from '../utils/blogUtils'
 import { Loading } from '../components/Loading'
 import Seo from '../components/SEO'
 import { compileMDX } from 'next-mdx-remote/rsc'
-import OptimizedImage from '../components/OptimizedImage'
 import TableOfContents from '../components/TableOfContents'
 import ContentFrame from '../components/ContentFrame'
 
@@ -128,12 +127,16 @@ export default function BlogPostContent({ slug }) {
       <Box as="blockquote" {...styles.blockquote} {...props} />
     ),
     img: (props) => (
-      <OptimizedImage
-        borderRadius="lg"
-        my={6}
-        maxW="100%"
-        h="auto"
+      <img
+        style={{
+          borderRadius: '8px',
+          maxWidth: '100%',
+          height: 'auto',
+          display: 'block',
+          margin: '24px auto',
+        }}
         alt={props.alt || ''}
+        loading="lazy"
         {...props}
       />
     ),
@@ -252,7 +255,7 @@ export default function BlogPostContent({ slug }) {
         borderColor={borderColor}
       >
         {post.image && (
-          <OptimizedImage
+          <img
             src={post.image}
             alt={post.title}
             w="100%"

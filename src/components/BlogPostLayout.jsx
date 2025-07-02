@@ -5,7 +5,6 @@ import { format } from 'date-fns'
 import { cs } from 'date-fns/locale'
 import Layout from './Layout'
 import Seo from './SEO'
-import OptimizedImage from './OptimizedImage'
 import ContentFrame from './ContentFrame'
 
 const BlogPostLayout = ({ children, frontmatter, slug }) => {
@@ -153,11 +152,16 @@ const BlogPostLayout = ({ children, frontmatter, slug }) => {
           {/* Featured Image */}
           {image && (
             <Box borderRadius="lg" overflow="hidden">
-              <OptimizedImage
+              <img
                 src={image}
                 alt={title}
-                aspectRatio={16 / 9}
-                objectFit="cover"
+                style={{
+                  width: '100%',
+                  height: 'auto',
+                  aspectRatio: '16/9',
+                  objectFit: 'cover',
+                }}
+                loading="lazy"
               />
             </Box>
           )}
