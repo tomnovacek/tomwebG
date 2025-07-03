@@ -1,7 +1,6 @@
 import React from 'react'
 import { Box, useColorModeValue } from '@chakra-ui/react'
 import { ChakraProvider, ColorModeScript } from '@chakra-ui/react'
-import { HelmetProvider } from 'react-helmet-async'
 import { CookiesProvider } from 'react-cookie'
 import theme from '../theme'
 import ErrorBoundary from './ErrorBoundary'
@@ -18,27 +17,25 @@ const Layout = ({ children }) => {
   
   return (
     <ErrorBoundary>
-      <HelmetProvider>
-        <ChakraProvider theme={theme}>
-          <ColorModeScript initialColorMode={theme.config.initialColorMode} />
-          <CookiesProvider>
-            <Box
-              minH="100vh"
-              bg={useColorModeValue('gray.50', 'gray.900')}
-              overflow="visible"
-              position="relative"
-            >
-              <Navbar />
-              <Box as="main">
-                {children}
-              </Box>
-              <Footer />
-              <CookieConsent />
-              <ScrollTracker />
+      <ChakraProvider theme={theme}>
+        <ColorModeScript initialColorMode={theme.config.initialColorMode} />
+        <CookiesProvider>
+          <Box
+            minH="100vh"
+            bg={useColorModeValue('gray.50', 'gray.900')}
+            overflow="visible"
+            position="relative"
+          >
+            <Navbar />
+            <Box as="main">
+              {children}
             </Box>
-          </CookiesProvider>
-        </ChakraProvider>
-      </HelmetProvider>
+            <Footer />
+            <CookieConsent />
+            <ScrollTracker />
+          </Box>
+        </CookiesProvider>
+      </ChakraProvider>
     </ErrorBoundary>
   )
 }

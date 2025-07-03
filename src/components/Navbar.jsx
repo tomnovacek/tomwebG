@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'gatsby'
 import {
   Box,
@@ -27,9 +27,12 @@ const fontStyles = {
   fontDisplay: 'swap',
 }
 
-const DesktopNav = () => {
-  const linkColor = useColorModeValue('gray.600', 'gray.200')
-  const linkHoverColor = useColorModeValue('gray.800', 'white')
+const DesktopNav = ({ isScrolled, isHomepage }) => {
+  const defaultLinkColor = useColorModeValue('gray.600', 'gray.200')
+  const defaultLinkHoverColor = useColorModeValue('gray.800', 'white')
+  
+  const linkColor = isHomepage && !isScrolled ? 'white' : defaultLinkColor
+  const linkHoverColor = isHomepage && !isScrolled ? 'gray.200' : defaultLinkHoverColor
 
   return (
     <Stack direction={'row'} spacing={4} h="100%" alignItems="center">
@@ -112,9 +115,12 @@ const DesktopNav = () => {
   )
 }
 
-const MobileNav = ({ onClose }) => {
-  const linkColor = useColorModeValue('gray.600', 'gray.200')
-  const linkHoverColor = useColorModeValue('gray.800', 'white')
+const MobileNav = ({ onClose, isScrolled, isHomepage }) => {
+  const defaultLinkColor = useColorModeValue('gray.600', 'gray.200')
+  const defaultLinkHoverColor = useColorModeValue('gray.800', 'white')
+  
+  const linkColor = isHomepage && !isScrolled ? 'white' : defaultLinkColor
+  const linkHoverColor = isHomepage && !isScrolled ? 'gray.200' : defaultLinkHoverColor
 
   return (
     <Stack
@@ -201,11 +207,57 @@ const MobileNav = ({ onClose }) => {
 
 export default function Navbar() {
   const { isOpen, onToggle } = useDisclosure()
+  const [isScrolled, setIsScrolled] = useState(false)
+  const [isHomepage, setIsHomepage] = useState(false)
+
+  // Move all useColorModeValue calls to the top level
+  const defaultBg = useColorModeValue('whiteAlpha.98', 'gray.800Alpha.98')
+  const defaultBorderColor = useColorModeValue('gray.200', 'gray.900')
+  const defaultColor = useColorModeValue('gray.600', 'white')
+  const defaultTextColor = useColorModeValue('gray.500', 'white')
+  const mobileBg = useColorModeValue('white', 'gray.800')
+  const mobileBorderColor = useColorModeValue('gray.200', 'gray.700')
+  const mobileBgAlpha = useColorModeValue('whiteAlpha.95', 'gray.800Alpha.95')
+
+  useEffect(() => {
+    // Check if we're on homepage
+    setIsHomepage(window.location.pathname === '/' || window.location.pathname === '/homepage')
+
+    const handleScroll = () => {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop
+      setIsScrolled(scrollTop > 50)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   const handleToggle = () => {
     console.log('Hamburger clicked, current state:', isOpen)
     onToggle()
   }
+
+  // Dynamic styling based on scroll and homepage
+  const getNavbarStyles = () => {
+    if (isHomepage && !isScrolled) {
+      return {
+        bg: 'transparent',
+        borderBottom: 'none',
+        boxShadow: 'none',
+        color: 'white'
+      }
+    }
+    return {
+      bg: defaultBg,
+      borderBottom: 1,
+      borderStyle: 'solid',
+      borderColor: defaultBorderColor,
+      boxShadow: 'lg',
+      color: defaultColor
+    }
+  }
+
+  const navbarStyles = getNavbarStyles()
 
   return (
     <Box
@@ -214,22 +266,18 @@ export default function Navbar() {
       position="fixed"
       top={0}
       zIndex={1000}
-      bg={useColorModeValue('whiteAlpha.98', 'gray.800Alpha.98')}
-      backdropFilter="blur(10px)"
-      borderBottom={1}
-      borderStyle={'solid'}
-      borderColor={useColorModeValue('gray.200', 'gray.900')}
-      boxShadow="lg"
+      backdropFilter={isHomepage && !isScrolled ? 'none' : 'blur(10px)'}
       width="100%"
       height={NAV_HEIGHT}
       minH={NAV_HEIGHT}
       transition="all 0.3s ease-in-out"
       style={fontStyles}
+      {...navbarStyles}
     >
       <Container maxW="1680px" h="100%">
         <Flex
           bg="transparent"
-          color={useColorModeValue('gray.600', 'white')}
+          color={navbarStyles.color}
           h="100%"
           py={{ base: 2 }}
           px={{ base: 4 }}
@@ -253,6 +301,7 @@ export default function Navbar() {
               w={BUTTON_HEIGHT}
               minH={BUTTON_HEIGHT}
               minW={BUTTON_HEIGHT}
+              color={navbarStyles.color}
             />
           </Flex>
           <Flex 
@@ -287,7 +336,7 @@ export default function Navbar() {
               h="100%" 
               alignItems="center"
             >
-              <DesktopNav />
+              <DesktopNav isScrolled={isScrolled} isHomepage={isHomepage} />
             </Flex>
           </Flex>
 
@@ -308,7 +357,7 @@ export default function Navbar() {
             >
               <Text 
                 fontSize={'sm'} 
-                color={useColorModeValue('gray.500', 'white')} 
+                color={isHomepage && !isScrolled ? 'white' : defaultTextColor} 
                 fontWeight={400} 
                 variant={'link'} 
                 display="flex" 
@@ -333,7 +382,7 @@ export default function Navbar() {
               minH={BUTTON_HEIGHT}
               minW="180px"
               colorScheme={'green'}
-              variant={'outline'}
+              variant={isHomepage && !isScrolled ? 'solid' : 'outline'}
               _hover={{
                 bg: 'green.400',
                 color: 'white',
@@ -356,13 +405,13 @@ export default function Navbar() {
             left={0}
             right={0}
             zIndex={999}
-            bg={useColorModeValue('whiteAlpha.95', 'gray.800Alpha.95')}
+            bg={mobileBgAlpha}
             backdropFilter="blur(10px)"
             borderTop="1px solid"
-            borderColor={useColorModeValue('gray.200', 'gray.700')}
+            borderColor={mobileBorderColor}
             boxShadow="lg"
           >
-            <MobileNav onClose={onToggle} />
+            <MobileNav onClose={onToggle} isScrolled={isScrolled} isHomepage={isHomepage} />
           </Box>
         </Collapse>
       </Container>

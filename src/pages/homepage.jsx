@@ -160,7 +160,7 @@ const HomePage = ({ data }) => {
       <Box py={20} bg={useColorModeValue('gray.50', 'gray.900')} position="relative" zIndex={2}>
         <Container maxW={'7xl'} centerContent>
           <Stack spacing={4} maxW={'6xl'} textAlign={'center'} mb={10}>
-            <Heading as="h2" variant="section" color={useColorModeValue('gray.800', 'white')}>
+            <Heading as="h2" variant="section">
               <Text as={'span'} position={'relative'}>
                 O mně
               </Text>
@@ -210,7 +210,7 @@ const HomePage = ({ data }) => {
       <Box py={20} bg={useColorModeValue('gray.50', 'gray.900')}>
         <Container maxW={'7xl'} centerContent>
           <Stack spacing={4} maxW={'6xl'} textAlign={'center'} mb={10}>
-            <Heading as="h2" variant="section" color={useColorModeValue('gray.800', 'white')}>
+            <Heading as="h2" variant="section">
               <Text as={'span'} position={'relative'} zIndex={1}>
                 S čím vám mohu pomoci
               </Text>
@@ -324,11 +324,11 @@ const HomePage = ({ data }) => {
             <Box textAlign="center">
               <Heading
                 as="h2"
+                variant="section"
                 size="xl"
                 mb={4}
-                color={useColorModeValue('gray.800', 'white')}
               >
-                Nejnovější články
+                Z mého bloku
               </Heading>
               <Text
                 fontSize="lg"
@@ -336,8 +336,10 @@ const HomePage = ({ data }) => {
                 maxW="2xl"
                 mx="auto"
               >
-                Objevte praktické tipy a poznatky z psychoterapie, které vám pomohou 
-                lépe zvládat každodenní výzvy a rozvíjet osobní pohodu.
+                Píšu si poznámky – pro sebe, pro práci, pro život. Napadlo mě, že některé z nich by mohly být užitečné i pro 
+                ostatní. Nejsou to vědecké články ani návody na štěstí, spíš 
+                takové mapy terénu, který znám z vlastní zkušenosti i z 
+                práce s klienty.
               </Text>
             </Box>
             
@@ -376,7 +378,7 @@ const HomePage = ({ data }) => {
             maxW={'3xl'}
             mx="auto"
           >
-            <Heading as="h2" variant="section" color={useColorModeValue('gray.800', 'white')}>
+            <Heading as="h2" variant="section">
                 Vydejme se spolu na cestu
             </Heading>
             <Text color={useColorModeValue('gray.600', 'gray.400')} fontSize={'xl'} maxW={'2xl'}>

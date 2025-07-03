@@ -117,7 +117,7 @@ export default function BlogPage({ data }) {
         url="https://tomnovacek.com/blog"
       />
       
-      <Box bg={bgColor} minH="100vh" py={8}>
+      <Box bg={bgColor} minH="100vh" pt={20} pb={8}>
         <Container maxW="6xl">
           <VStack spacing={8} align="stretch">
             <Box textAlign="center">

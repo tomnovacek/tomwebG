@@ -14,6 +14,7 @@ import {
 } from '@chakra-ui/react'
 import { GatsbyImage, getImage } from 'gatsby-plugin-image'
 import { StaticImage } from 'gatsby-plugin-image'
+import { FaRegClock, FaRegCalendarAlt, FaTag } from 'react-icons/fa'
 
 const BlogCard = ({ post }) => {
   const {
@@ -28,6 +29,10 @@ const BlogCard = ({ post }) => {
   const hoverBgColor = useColorModeValue('gray.50', 'gray.700')
   const placeholderBg = useColorModeValue('gray.200', 'gray.700')
   const placeholderText = useColorModeValue('gray.500', 'gray.400')
+
+  const tagBg = useColorModeValue('green.50', 'green.900')
+  const tagColor = 'green.700'
+  const tagBorder = useColorModeValue('green.200', 'green.700')
 
   // Simple image rendering based on frontmatter.image
   const renderImage = () => {
@@ -97,6 +102,23 @@ const BlogCard = ({ post }) => {
             loading="lazy"
           />
         )
+      case 'emotion-faces.jpg':
+        return (
+          <StaticImage
+            src="../assets/img/blog/emotion-faces.jpg"
+            alt={title}
+            placeholder="blurred"
+            layout="constrained"
+            width={400}
+            height={200}
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+            }}
+            loading="lazy"
+          />
+        )
       default:
         return (
           <Center
@@ -112,18 +134,16 @@ const BlogCard = ({ post }) => {
   }
 
   return (
-    <Link to={`/blog/${slug}`}>
+    <Link to={`/blog/${slug}`} style={{ textDecoration: 'none' }}>
       <Box
         bg={bgColor}
-        border="1px solid"
-        borderColor={borderColor}
-        borderRadius="lg"
+        borderRadius="xl"
+        boxShadow="md"
         overflow="hidden"
         transition="all 0.2s"
         _hover={{
-          transform: 'translateY(-2px)',
-          shadow: 'lg',
-          bg: hoverBgColor,
+          transform: 'translateY(-4px)',
+          boxShadow: 'xl',
         }}
         h="100%"
         display="flex"
@@ -133,8 +153,9 @@ const BlogCard = ({ post }) => {
         <Box
           height="200px"
           overflow="hidden"
-          borderRadius="lg"
-          mb={4}
+          borderTopRadius="xl"
+          borderBottomRadius="none"
+          mb={0}
           position="relative"
         >
           {renderImage()}
@@ -142,49 +163,54 @@ const BlogCard = ({ post }) => {
 
         {/* Content */}
         <Box p={6} flex="1" display="flex" flexDirection="column">
-          {/* Tags */}
-          {tags && tags.length > 0 && (
-            <Flex gap={2} mb={3} flexWrap="wrap">
-              {tags.slice(0, 3).map((tag) => (
-                <Badge key={tag} colorScheme="green" variant="subtle" fontSize="xs">
-                  {tag}
-                </Badge>
-              ))}
-              {tags.length > 3 && (
-                <Badge colorScheme="gray" variant="subtle" fontSize="xs">
-                  +{tags.length - 3}
-                </Badge>
-              )}
-            </Flex>
-          )}
-
           {/* Title */}
-          <Heading as="h3" size="md" mb={3} color={headingColor} lineHeight="1.3">
+          <Heading as="h3" fontSize="1.35rem" fontWeight="bold" color="green.600" mb={2} mt={2} lineHeight="1.3">
             {title}
           </Heading>
 
           {/* Excerpt */}
-          <Text color={textColor} fontSize="sm" lineHeight="1.5" mb={4} flex="1">
+          <Text color={textColor} fontSize="md" lineHeight="1.5" mb={4} flex="1">
             {excerpt}
           </Text>
 
           {/* Meta */}
-          <Box mt="auto">
-            <Flex align="center" justify="flex-start" flexWrap="wrap" gap={2}>
-              <Flex gap={3} fontSize="xs" color={textColor}>
-                <Text>
-                  {new Date(date).toLocaleDateString('cs-CZ', {
-                    year: 'numeric',
-                    month: 'short',
-                    day: 'numeric'
-                  })}
-                </Text>
-                {readTime && (
-                  <Text>{readTime}</Text>
-                )}
-              </Flex>
+          <Flex align="center" gap={4} color={useColorModeValue('gray.500', 'gray.400')} fontSize="sm" mb={3}>
+            <Flex align="center" gap={1}>
+              <FaRegClock />
+              <Text>{readTime}</Text>
             </Flex>
-          </Box>
+            <Flex align="center" gap={1}>
+              <FaRegCalendarAlt />
+              <Text>{new Date(date).toLocaleDateString('cs-CZ', { year: 'numeric', month: 'long', day: 'numeric' })}</Text>
+            </Flex>
+          </Flex>
+
+          {/* Tags */}
+          {tags && tags.length > 0 && (
+            <Flex gap={2} flexWrap="wrap" mt={2}>
+              {tags.map((tag) => (
+                <Box
+                  key={tag}
+                  px={2}
+                  py={0.5}
+                  fontSize="xs"
+                  fontWeight="semibold"
+                  color={tagColor}
+                  bg={tagBg}
+                  border="1px solid"
+                  borderColor={tagBorder}
+                  borderRadius="md"
+                  mb={1}
+                  display="flex"
+                  alignItems="center"
+                  gap={1}
+                >
+                  <FaTag style={{ fontSize: '0.8em', marginRight: 3 }} />
+                  {tag}
+                </Box>
+              ))}
+            </Flex>
+          )}
         </Box>
       </Box>
     </Link>

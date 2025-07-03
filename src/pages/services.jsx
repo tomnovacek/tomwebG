@@ -24,6 +24,8 @@ import {
   FaMoneyBillAlt,
   FaCalendarAlt,
   FaArrowRight,
+  FaInfoCircle,
+  FaRegClock,
 } from 'react-icons/fa'
 import { Link as GatsbyLink } from 'gatsby'
 import AnalyticsButton from '../components/AnalyticsButton'
@@ -31,10 +33,8 @@ import AnalyticsButton from '../components/AnalyticsButton'
 const ServicesPage = () => {
   const bgColor = useColorModeValue('gray.100', 'gray.900')
   const cardBg = useColorModeValue('white', 'gray.800')
-  const heroCardBg = useColorModeValue('whiteAlpha.200', 'blackAlpha.200')
   const textColor = useColorModeValue('gray.700', 'gray.300')
   const headingColor = useColorModeValue('green.500', 'gray.200')
-  const borderColor = useColorModeValue('gray.200', 'gray.700')
 
   return (
     <Layout>
@@ -68,7 +68,7 @@ const ServicesPage = () => {
             }}
             formats={['auto', 'webp', 'avif']}
             quality={85}
-            priority={true}
+            priority="true"
           />
           <Box
             position="absolute"
@@ -122,8 +122,6 @@ const ServicesPage = () => {
                   alt="Tomáš Nováček - Psychoterapeut"
                   placeholder="blurred"
                   layout="fullWidth"
-                  width={400}
-                  height={600}
                   style={{
                     borderRadius: '12px',
                     height: 'auto',
@@ -131,7 +129,7 @@ const ServicesPage = () => {
                   }}
                   formats={['auto', 'webp', 'avif']}
                   quality={90}
-                  priority={true}
+                  priority="true"
                 />
               </Box>
             </Box>
@@ -141,6 +139,61 @@ const ServicesPage = () => {
 
       {/* Services Grid */}
       <ServicesGrid />
+
+      {/* Jak probíhají terapeutická sezení */}
+      <Box py={20} bg={bgColor}>
+        <Container maxW={'7xl'}>
+          <Stack spacing={10} align="center">
+            <Heading as="h2" size="xl" color={headingColor} textAlign="center">
+              Jak probíhají terapeutická sezení
+            </Heading>
+            <Text color={textColor} fontSize={'xl'} textAlign="center" maxW="4xl">
+              Naše setkání probíhají v příjemném a bezpečném prostředí mé pracovny v centru Brna na Sukově 4. První sezení věnujeme tomu, abychom se poznali a společně porozuměli vašim potřebám. Bavíme se o tom, kam byste chtěli na naší společné cestě dojít.
+              Následně se můžeme potkávat jednou týdně nebo jednou za dva týdny, podle vašich preferencí. Délka naší spolupráce je pak zcela ve vašich rukou – můžeme jít spolu tak dlouho, až se budete cítit připraveni pokračovat dál již bez mé podpory.
+            </Text>
+            <Flex direction={{ base: 'column', md: 'row' }} align="flex-start" justify="center" gap={12} w="full" maxW="5xl">
+              <Box flex={1}>
+                <Stack spacing={8}>
+                  <Flex align="flex-start" gap={4}>
+                    <Box mt={1}>
+                      <Icon as={FaInfoCircle} w={7} h={7} color={headingColor} />
+                    </Box>
+                    <Box>
+                      <Text fontWeight="bold" color={headingColor} fontSize="lg" mb={1}>Úvodní konzultace</Text>
+                      <Text color={textColor}>
+                        Vaše první sezení je příležitostí, abychom se navzájem poznali a prodiskutovali vaše cíle pro terapii. Probereme vaši historii, současné trápení a zformuluje základ plánu terapie.
+                      </Text>
+                    </Box>
+                  </Flex>
+                  <Flex align="flex-start" gap={4}>
+                    <Box mt={1}>
+                      <Icon as={FaRegClock} w={7} h={7} color={headingColor} />
+                    </Box>
+                    <Box>
+                      <Text fontWeight="bold" color={headingColor} fontSize="lg" mb={1}>Délka a frekvence</Text>
+                      <Text color={textColor}>
+                        Standardní sezení trvá 50 minut. Frekvence sezení je obvykle týdenní nebo čtrnáctidenní, v závislosti na vašich potřebách a cílech.
+                      </Text>
+                    </Box>
+                  </Flex>
+                </Stack>
+              </Box>
+              <Box flexShrink={0} alignSelf={{ base: 'center', md: 'flex-end' }}>
+                <StaticImage
+                  src="../assets/img/tom1.png"
+                  alt="Tomáš Nováček - Psychoterapeut"
+                  placeholder="blurred"
+                  layout="constrained"
+                  width={220}
+                  height={220}
+                  style={{ borderRadius: '16px', background: 'white' }}
+                  quality={90}
+                />
+              </Box>
+            </Flex>
+          </Stack>
+        </Container>
+      </Box>
 
       {/* Pricing Section */}
       <Box py={20} bg={cardBg} id="pricing" >

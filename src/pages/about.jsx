@@ -34,10 +34,8 @@ import SEO from '../components/SEO'
 const About = () => {
   const bgColor = useColorModeValue('gray.100', 'gray.900')
   const cardBg = useColorModeValue('white', 'gray.800')
-  const heroCardBg = useColorModeValue('whiteAlpha.200', 'blackAlpha.200')
   const textColor = useColorModeValue('gray.700', 'gray.300')
   const headingColor = useColorModeValue('green.500', 'gray.200')
-  const borderColor = useColorModeValue('gray.200', 'gray.700')
 
   return (
     <Layout>
@@ -72,7 +70,7 @@ const About = () => {
             }}
             formats={['auto', 'webp', 'avif']}
             quality={85}
-            priority={true}
+            priority="true"
           />
           <Box
             position="absolute"
@@ -116,8 +114,6 @@ const About = () => {
                   alt="Tom Nováček"
                   placeholder="blurred"
                   layout="fullWidth"
-                  width={400}
-                  height={500}
                   style={{
                     mixBlendMode: 'normal',
                     backgroundColor: 'transparent',
@@ -127,7 +123,7 @@ const About = () => {
                   }}
                   formats={['auto', 'webp', 'avif']}
                   quality={90}
-                  priority={true}
+                  priority="true"
                 />
               </Box>
             </Box>

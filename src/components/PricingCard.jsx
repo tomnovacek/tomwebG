@@ -61,10 +61,10 @@ export default function PricingCard({
       >
         {(() => {
           switch (image) {
-            case 'individual.webp':
+            case 'room.jpeg':
               return (
                 <StaticImage
-                  src="../assets/img/individual.webp"
+                  src="../assets/img/room.jpeg"
                   alt={title}
                   placeholder="blurred"
                   layout="constrained"
@@ -78,10 +78,10 @@ export default function PricingCard({
                   loading="lazy"
                 />
               )
-            case 'couple.webp':
+            case 'laptop2.jpg':
               return (
                 <StaticImage
-                  src="../assets/img/couple.webp"
+                  src="../assets/img/laptop2.jpg"
                   alt={title}
                   placeholder="blurred"
                   layout="constrained"
