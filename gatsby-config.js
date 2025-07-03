@@ -65,7 +65,7 @@ module.exports = {
         ],
         mdxOptions: {
           remarkPlugins: [],
-          rehypePlugins: [require('rehype-slug'), require('rehype-autolink-headings')],
+          rehypePlugins: [],
         },
       },
     },
