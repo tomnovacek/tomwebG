@@ -6,6 +6,20 @@ import Layout from '../components/Layout'
 import SEO from '../components/SEO'
 import ExerciseFrame from '../components/ExerciseFrame'
 import InfoFrame from '../components/InfoFrame'
+import TableOfContents from '../components/TableOfContents'
+import { StaticImage } from 'gatsby-plugin-image'
+
+// Helper function to generate slug from text
+const slugify = (text) => {
+  return text
+    .toString()
+    .toLowerCase()
+    .replace(/\s+/g, '-')           // Replace spaces with -
+    .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
+    .replace(/\-\-+/g, '-')         // Replace multiple - with single -
+    .replace(/^-+/, '')             // Trim - from start of text
+    .replace(/-+$/, '');            // Trim - from end of text
+}
 
 export default function BlogPost({ data, children }) {
   const { mdx } = data
@@ -23,23 +37,36 @@ export default function BlogPost({ data, children }) {
   const blockquoteBgColor = useColorModeValue('green.50', 'green.900')
   const codeBgColor = useColorModeValue('gray.100', 'gray.700')
   const preBgColor = useColorModeValue('gray.100', 'gray.700')
+  const headingGreen = useColorModeValue('green.600', 'green.300')
 
   // MDX components - now using the color values from hooks
   const mdxComponents = {
-    h1: (props) => (
-      <Heading as="h1" size="2xl" mb={6} mt={8} color={headingColor} {...props} />
-    ),
-    h2: (props) => (
-      <Heading as="h2" size="xl" mb={4} mt={6} color={subHeadingColor} {...props} />
-    ),
-    h3: (props) => (
-      <Heading as="h3" size="lg" mb={3} mt={5} color={tertiaryHeadingColor} {...props} />
-    ),
-    h4: (props) => (
-      <Heading as="h4" size="md" mb={2} mt={4} color={tertiaryHeadingColor} {...props} />
-    ),
+    h1: (props) => {
+      const id = slugify(props.children)
+      return (
+        <Heading as="h1" size="sm" mb={6} mt={8} color={headingGreen} id={id} {...props} />
+      )
+    },
+    h2: (props) => {
+      const id = slugify(props.children)
+      return (
+        <Heading as="h2" size="xs" mb={4} mt={6} color={headingGreen} id={id} {...props} />
+      )
+    },
+    h3: (props) => {
+      const id = slugify(props.children)
+      return (
+        <Heading as="h3" size="xs" mb={3} mt={5} color={headingGreen} id={id} {...props} />
+      )
+    },
+    h4: (props) => {
+      const id = slugify(props.children)
+      return (
+        <Heading as="h4" size="xs" mb={2} mt={4} color={headingGreen} id={id} {...props} />
+      )
+    },
     p: (props) => (
-      <Text mb={4} color={bodyTextColor} lineHeight="1.7" {...props} />
+      <Box as="p" mb={4} color={bodyTextColor} lineHeight="1.7" fontSize="sm" {...props} />
     ),
     ul: (props) => (
       <Box as="ul" mb={4} pl={6} color={listTextColor} {...props} />
@@ -48,7 +75,7 @@ export default function BlogPost({ data, children }) {
       <Box as="ol" mb={4} pl={6} color={listTextColor} {...props} />
     ),
     li: (props) => (
-      <Text as="li" mb={2} lineHeight="1.6" {...props} />
+      <Box as="li" mb={2} lineHeight="1.6" color={listTextColor} {...props} />
     ),
     blockquote: (props) => (
       <Box
@@ -193,16 +220,88 @@ export default function BlogPost({ data, children }) {
       
       <Container maxW="4xl" py={8}>
         <Box bg={bgColor} borderRadius="lg" p={8} shadow="sm" border="1px solid" borderColor={borderColor}>
+          {/* Featured Image */}
+          {frontmatter.image && (
+            <Box mb={4} borderRadius="lg" overflow="hidden" maxH="200px">
+              {(() => {
+                switch (frontmatter.image) {
+                  case 'stress.webp':
+                    return (
+                      <StaticImage
+                        src="../assets/img/blog/stress.webp"
+                        alt={frontmatter.title}
+                        placeholder="blurred"
+                        layout="constrained"
+                        width={800}
+                        height={200}
+                        style={{ width: '100%', height: '200px', objectFit: 'cover' }}
+                        loading="eager"
+                      />
+                    )
+                  case 'under-blanket.jpg':
+                    return (
+                      <StaticImage
+                        src="../assets/img/blog/under-blanket.jpg"
+                        alt={frontmatter.title}
+                        placeholder="blurred"
+                        layout="constrained"
+                        width={800}
+                        height={200}
+                        style={{ width: '100%', height: '200px', objectFit: 'cover' }}
+                        loading="eager"
+                      />
+                    )
+                  case 'self-hug.jpg':
+                    return (
+                      <StaticImage
+                        src="../assets/img/blog/self-hug.jpg"
+                        alt={frontmatter.title}
+                        placeholder="blurred"
+                        layout="constrained"
+                        width={800}
+                        height={200}
+                        style={{ width: '100%', height: '200px', objectFit: 'cover' }}
+                        loading="eager"
+                      />
+                    )
+                  case 'emotion-faces.jpg':
+                    return (
+                      <StaticImage
+                        src="../assets/img/blog/emotion-faces.jpg"
+                        alt={frontmatter.title}
+                        placeholder="blurred"
+                        layout="constrained"
+                        width={800}
+                        height={200}
+                        style={{ width: '100%', height: '200px', objectFit: 'cover' }}
+                        loading="eager"
+                      />
+                    )
+                  default:
+                    // Always render something for unknown images
+                    return (
+                      <Box bg="gray.100" height="200px" display="flex" alignItems="center" justifyContent="center">
+                        <Text color="gray.400">Obrázek nenalezen</Text>
+                      </Box>
+                    )
+                }
+              })()}
+            </Box>
+          )}
           {/* Header */}
-          <Box mb={8}>
-            <Heading as="h1" size="2xl" mb={4} color={headingColor}>
+          <Box mb={6}>
+            <Heading as="h1" size="md" mb={2} mt={2} color={headingGreen}>
               {frontmatter.title}
             </Heading>
             
             <Flex align="center" mb={4} flexWrap="wrap" gap={4}>
               {frontmatter.author && (
                 <Flex align="center" gap={2}>
-                  <Avatar size="sm" name={frontmatter.author.name} src={frontmatter.author.image} />
+                  <Avatar 
+                    size="sm" 
+                    name={frontmatter.author.name} 
+                    src={frontmatter.author.image ? `/img/${frontmatter.author.image}` : undefined} 
+                  />
                   <Box>
                     <Text fontWeight="medium" color={subHeadingColor}>
                       {frontmatter.author.name}
@@ -242,12 +341,17 @@ export default function BlogPost({ data, children }) {
             )}
           </Box>
           
-          {/* Content */}
-          <Box>
-            <MDXProvider components={mdxComponents}>
-              {children}
-            </MDXProvider>
-          </Box>
+          {/* Main Content with TOC */}
+          <Flex align="start" gap={10}>
+            <Box flex="1" minW={0} className="prose">
+              <MDXProvider components={mdxComponents}>
+                {children}
+              </MDXProvider>
+            </Box>
+            <Box display={{ base: 'none', md: 'block' }} minW="220px" maxW="260px">
+              <TableOfContents />
+            </Box>
+          </Flex>
         </Box>
       </Container>
     </Layout>

@@ -31,7 +31,23 @@ import HeroTextBox from '../components/HeroTextBox'
 
 const HomePage = ({ data }) => {
   const { allMdx } = data
-  const newestPosts = allMdx.nodes.slice(0, 3)
+  const generateSlug = (internal) => {
+    if (internal?.contentFilePath) {
+      const pathParts = internal.contentFilePath.split('/')
+      const fileName = pathParts[pathParts.length - 1]
+      return fileName.replace('.mdx', '')
+    }
+    return ''
+  }
+
+  const newestPosts = allMdx.nodes.slice(0, 3).map(post => ({
+    ...post,
+    slug: generateSlug(post.internal),
+    frontmatter: {
+      ...post.frontmatter,
+      slug: generateSlug(post.internal)
+    }
+  }))
 
   // Move all useColorModeValue calls to the top level
   const bgColor = useColorModeValue('white', 'gray.800')

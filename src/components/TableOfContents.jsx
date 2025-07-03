@@ -22,6 +22,21 @@ const TableOfContents = () => {
     setHeadings(items)
   }, [])
 
+  const handleClick = (e, id) => {
+    e.preventDefault()
+    const element = document.getElementById(id)
+    if (element) {
+      // Calculate navbar height (adjust this value based on your navbar height)
+      const navbarHeight = 80 // Approximate navbar height in pixels
+      const elementPosition = element.offsetTop - navbarHeight - 20 // Extra 20px for breathing room
+      
+      window.scrollTo({
+        top: elementPosition,
+        behavior: 'smooth'
+      })
+    }
+  }
+
   if (headings.length === 0) return null
 
   return (
@@ -38,9 +53,9 @@ const TableOfContents = () => {
         Obsah
       </Text>
       <List spacing={2}>
-        {headings.map((heading) => (
+        {headings.map((heading, idx) => (
           <ListItem
-            key={heading.id}
+            key={heading.id ? `${heading.id}-${idx}` : idx}
             pl={(heading.level - 1) * 4}
           >
             <Link
@@ -50,6 +65,7 @@ const TableOfContents = () => {
               fontSize="sm"
               display="block"
               py={1}
+              onClick={(e) => handleClick(e, heading.id)}
             >
               {heading.text}
             </Link>
