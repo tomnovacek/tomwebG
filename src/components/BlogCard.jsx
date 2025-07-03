@@ -15,7 +15,7 @@ import { GatsbyImage, getImage } from 'gatsby-plugin-image'
 
 const BlogCard = ({ post, allImages }) => {
   const {
-    frontmatter: { title, excerpt, date, readTime, tags, image, author },
+    frontmatter: { title, excerpt, date, readTime, tags, image },
     slug,
     fields,
   } = post
@@ -61,28 +61,12 @@ const BlogCard = ({ post, allImages }) => {
           mb={4}
           position="relative"
         >
-          {optimizedImage ? (
+          {optimizedImage && (
             <GatsbyImage
               image={optimizedImage}
               alt={title}
               style={{ width: '100%', height: '100%' }}
               imgStyle={{ objectFit: 'cover' }}
-            />
-          ) : (
-            <img
-              src={`/img/${image}`}
-              alt={`${title} - ${excerpt?.substring(0, 100)}...`}
-              style={{
-                width: '100%',
-                height: '100%',
-                objectFit: 'cover',
-              }}
-              loading="lazy"
-              decoding="async"
-              onLoad={(e) => {
-                // Prevent layout shift by setting aspect ratio
-                e.target.style.aspectRatio = '16/9'
-              }}
             />
           )}
         </Box>

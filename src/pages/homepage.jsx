@@ -26,7 +26,6 @@ import SEO from '../components/SEO'
 import AboutCard from '../components/AboutCard'
 import AnalyticsButton from '../components/AnalyticsButton'
 import StructuredData from '../components/StructuredData'
-
 import BlogCard from '../components/BlogCard'
 import HeroTextBox from '../components/HeroTextBox'
 

@@ -1,8 +1,8 @@
 import React from 'react'
 import { graphql } from 'gatsby'
 import Layout from '../components/Layout'
-import Home from './home'
 import SEO from '../components/SEO'
+import Home from './homepage'
 
 const IndexPage = ({ data }) => {
   return (
@@ -49,4 +49,4 @@ export const pageQuery = graphql`
       }
     }
   }
-` 
+`

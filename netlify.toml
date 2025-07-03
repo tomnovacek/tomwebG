@@ -6,6 +6,19 @@
   NODE_VERSION = "18"
   NPM_VERSION = "9"
 
+# Clear build cache to fix case sensitivity issues
+[build.processing]
+  skip_processing = false
+
+# Force fresh build
+[build.processing.css]
+  bundle = true
+  minify = true
+
+[build.processing.js]
+  bundle = true
+  minify = true
+
 # 301 redirects for www/non-www subdomain handling
 [[redirects]]
   from = "https://www.tomnovacek.com/*"
