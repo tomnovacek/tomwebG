@@ -4,7 +4,7 @@ import { Box, Container, Heading, Text, VStack, HStack, Tag, TagLabel, useColorM
 import { format } from 'date-fns'
 import { cs } from 'date-fns/locale'
 import Layout from './Layout'
-import Seo from './SEO'
+import SEO from './SEO'
 import ContentFrame from './ContentFrame'
 
 const BlogPostLayout = ({ children, frontmatter, slug }) => {
@@ -111,7 +111,7 @@ const BlogPostLayout = ({ children, frontmatter, slug }) => {
 
   return (
     <Layout>
-      <Seo title={title} description={excerpt} />
+      <SEO title={title} description={excerpt} />
       <Container maxW="4xl" py={8}>
         <VStack spacing={8} align="stretch">
           {/* Header */}

@@ -7,12 +7,51 @@ import {
   Stack,
   SimpleGrid,
   useColorModeValue,
-  Icon,
   Flex,
 } from '@chakra-ui/react'
-import { StaticImage } from 'gatsby-plugin-image'
 
-export default function ServicesGrid({ title, description, services }) {
+export default function ServicesGrid({ 
+  title = "Naše služby", 
+  description = "Komplexní psychoterapeutické služby pro vaše duševní zdraví", 
+  services = [
+    {
+      title: "Individuální terapie",
+      description: "Osobní přístup zaměřený na vaše specifické potřeby a cíle",
+      image: "healing-space.webp",
+      imageAlt: "Individuální terapeutické sezení"
+    },
+    {
+      title: "Bezpečný prostor",
+      description: "Důvěrné a podpůrné prostředí pro vaši práci na sobě",
+      image: "safe-space.webp",
+      imageAlt: "Bezpečný terapeutický prostor"
+    },
+    {
+      title: "Zvládání stresu",
+      description: "Techniky a strategie pro efektivní zvládání stresu a úzkosti",
+      image: "stress.webp",
+      imageAlt: "Zvládání stresu a úzkosti"
+    },
+    {
+      title: "Mindfulness",
+      description: "Praktiky všímavosti pro lepší sebeuvědomění a klid",
+      image: "mindfulness.webp",
+      imageAlt: "Mindfulness a meditace"
+    },
+    {
+      title: "Vztahy",
+      description: "Práce na partnerských, rodinných a mezilidských vztazích",
+      image: "relationships.webp",
+      imageAlt: "Práce na vztazích"
+    },
+    {
+      title: "Rodinná terapie",
+      description: "Podpora pro rodiny při řešení konfliktů a zlepšování komunikace",
+      image: "family.webp",
+      imageAlt: "Rodinná terapie"
+    }
+  ] 
+}) {
   const textColor = useColorModeValue('gray.700', 'gray.300')
   const headingColor = useColorModeValue('green.500', 'gray.200')
   const cardBg = useColorModeValue('white', 'gray.800')
@@ -58,167 +97,22 @@ export default function ServicesGrid({ title, description, services }) {
                   overflow="hidden"
                   rounded="lg"
                 >
-                  {service.image === 'healing-space.webp' && (
-                    <StaticImage
-                      src="../assets/img/healing-space.webp"
-                      alt={service.imageAlt}
-                      placeholder="blurred"
-                      layout="fullWidth"
-                      objectFit="cover"
-                      style={{
-                        height: '100%',
-                        width: '100%',
-                        filter: 'brightness(1.1)',
-                      }}
-                      formats={['auto', 'webp', 'avif']}
-                      quality={85}
-                      breakpoints={[400, 768, 1200]}
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                      transformOptions={{
-                        fit: 'cover',
-                        cropFocus: 'center',
-                      }}
-                    />
-                  )}
-                  {service.image === 'safe-space.webp' && (
-                    <StaticImage
-                      src="../assets/img/safe-space.webp"
-                      alt={service.imageAlt}
-                      placeholder="blurred"
-                      layout="fullWidth"
-                      objectFit="cover"
-                      style={{
-                        height: '100%',
-                        width: '100%',
-                        filter: 'brightness(1.1)',
-                      }}
-                      formats={['auto', 'webp', 'avif']}
-                      quality={85}
-                      breakpoints={[400, 768, 1200]}
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                      transformOptions={{
-                        fit: 'cover',
-                        cropFocus: 'center',
-                      }}
-                    />
-                  )}
-                  {service.image === 'stress.webp' && (
-                    <StaticImage
-                      src="../assets/img/stress.webp"
-                      alt={service.imageAlt}
-                      placeholder="blurred"
-                      layout="fullWidth"
-                      objectFit="cover"
-                      style={{
-                        height: '100%',
-                        width: '100%',
-                        filter: 'brightness(1.1)',
-                      }}
-                      formats={['auto', 'webp', 'avif']}
-                      quality={85}
-                      breakpoints={[400, 768, 1200]}
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                      transformOptions={{
-                        fit: 'cover',
-                        cropFocus: 'center',
-                      }}
-                    />
-                  )}
-                  {service.image === 'mindfulness.webp' && (
-                    <StaticImage
-                      src="../assets/img/mindfulness.webp"
-                      alt={service.imageAlt}
-                      placeholder="blurred"
-                      layout="fullWidth"
-                      objectFit="cover"
-                      style={{
-                        height: '100%',
-                        width: '100%',
-                        filter: 'brightness(1.1)',
-                      }}
-                      formats={['auto', 'webp', 'avif']}
-                      quality={85}
-                      breakpoints={[400, 768, 1200]}
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                      transformOptions={{
-                        fit: 'cover',
-                        cropFocus: 'center',
-                      }}
-                    />
-                  )}
-                  {service.image === 'relationships.webp' && (
-                    <StaticImage
-                      src="../assets/img/relationships.webp"
-                      alt={service.imageAlt}
-                      placeholder="blurred"
-                      layout="fullWidth"
-                      objectFit="cover"
-                      style={{
-                        height: '100%',
-                        width: '100%',
-                        filter: 'brightness(1.1)',
-                      }}
-                      formats={['auto', 'webp', 'avif']}
-                      quality={85}
-                      breakpoints={[400, 768, 1200]}
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                      transformOptions={{
-                        fit: 'cover',
-                        cropFocus: 'center',
-                      }}
-                    />
-                  )}
-                  {service.image === 'family.webp' && (
-                    <StaticImage
-                      src="../assets/img/family.webp"
-                      alt={service.imageAlt}
-                      placeholder="blurred"
-                      layout="fullWidth"
-                      objectFit="cover"
-                      style={{
-                        width: '100%',
-                        height: '100%',
-                      }}
-                      formats={['auto', 'webp', 'avif']}
-                      quality={85}
-                    />
-                  )}
-                  {(!service.image || 
-                    (service.image !== 'healing-space.webp' && 
-                     service.image !== 'safe-space.webp' && 
-                     service.image !== 'stress.webp' && 
-                     service.image !== 'mindfulness.webp' && 
-                     service.image !== 'relationships.webp' && 
-                     service.image !== 'family.webp')) && (
-                    <StaticImage
-                      src="../assets/img/healing-space.webp"
-                      alt={service.imageAlt}
-                      placeholder="blurred"
-                      layout="fullWidth"
-                      objectFit="cover"
-                      style={{
-                        height: '100%',
-                        width: '100%',
-                        filter: 'brightness(1.1)',
-                      }}
-                      formats={['auto', 'webp', 'avif']}
-                      quality={85}
-                      breakpoints={[400, 768, 1200]}
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                      transformOptions={{
-                        fit: 'cover',
-                        cropFocus: 'center',
-                      }}
-                    />
-                  )}
+                  <img
+                    src={`/img/${service.image}`}
+                    alt={service.imageAlt}
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                      filter: 'brightness(1.1)',
+                    }}
+                    loading="lazy"
+                  />
                 </Box>
                 <Box flex={1}>
-                  <Flex align="center" gap={3} mb={4}>
-                    <Icon as={service.icon} w={6} h={6} color="green.500" />
-                    <Heading fontSize={'xl'} color={headingColor}>
-                      {service.title}
-                    </Heading>
-                  </Flex>
+                  <Heading fontSize={'xl'} color={headingColor} mb={4}>
+                    {service.title}
+                  </Heading>
                   <Text color={textColor} fontSize={'md'} lineHeight={'tall'}>
                     {service.description}
                   </Text>

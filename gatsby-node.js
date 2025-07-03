@@ -73,6 +73,20 @@ exports.createPages = async ({ graphql, actions }) => {
   })
 }
 
+// Create image connections for blog posts
+exports.onCreateNode = ({ node, actions, getNode }) => {
+  const { createNodeField } = actions
+  
+  if (node.internal.type === 'Mdx' && node.frontmatter && node.frontmatter.image) {
+    // Create a field that points to the image in src/assets/img/blog/
+    createNodeField({
+      node,
+      name: 'imageRelativePath',
+      value: `img/blog/${node.frontmatter.image}`,
+    })
+  }
+}
+
 // Create image sitemap
 exports.onPostBuild = async ({ graphql, actions }) => {
   const { createPage } = actions

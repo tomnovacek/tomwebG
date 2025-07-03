@@ -12,6 +12,7 @@ import {
 } from '@chakra-ui/react'
 import { FaEnvelope, FaPhone, FaMapMarkerAlt, FaUser } from 'react-icons/fa'
 import { Link as GatsbyLink } from 'gatsby'
+import { StaticImage } from 'gatsby-plugin-image'
 import SecureEmail from './SecureEmail'
 
 const Map = lazy(() => import('./Map'))
@@ -25,13 +26,14 @@ export default function Footer() {
       borderStyle={'solid'}
       borderColor={useColorModeValue('gray.200', 'gray.700')}
       width="100%"
+      fontSize="sm"
     >
       <Box py={10} px={{ base: 4, md: 8 }}>
         <Container maxW="1680px">
           <SimpleGrid columns={{ base: 1, md: 3 }} spacing={8}>
             {/* Navigation Links */}
             <Stack align={{base: 'center', md: 'flex-start'}}>
-              <Heading fontSize={'lg'} mb={4}>Navigace</Heading>
+              <Heading fontSize={'sm'} mb={4}>Navigace</Heading>
               <Link as={GatsbyLink} to="/">Domů</Link>
               <Link as={GatsbyLink} to="/about">O mně</Link>
               <Link as={GatsbyLink} to="/services">Služby</Link>
@@ -40,21 +42,26 @@ export default function Footer() {
             </Stack>
 
             {/* Google Maps */}
-            <Stack align={'center'}>
-              <Heading fontSize={'lg'} mb={4}>Mapa</Heading>
-              <Suspense fallback={<Box w="100%" minH="300px" maxW="350px" display="flex" alignItems="center" justifyContent="center"><Text color="gray.500">Načítání mapy...</Text></Box>}>
-                <Box w="100%" minH="300px" maxW="350px">
+            <Stack align={'center'} justify={'center'}>
+              <Heading fontSize={'sm'}>Mapa</Heading>
+              <Suspense fallback={<Box w="100%" minH="300px" maxW="600px" display="flex" alignItems="center" justifyContent="center"><Text color="gray.500">Načítání mapy...</Text></Box>}>
+                <Box 
+                  w="100%" 
+                  minH="300px" 
+                  maxW="600px"
+                  display="flex"
+                  justifyContent="center"
+                  alignItems="center"
+                >
                   <Map />
                 </Box>
               </Suspense>
-              <Text fontSize="sm" color="gray.500" mt={2}>
-                Sukova 4, 602 00 Brno-střed
-              </Text>
+
             </Stack>
 
             {/* Contact Information */}
             <Stack align={{base: 'center', md: 'flex-end'}}>
-              <Heading fontSize={'lg'} mb={4}>Kontakt</Heading>
+              <Heading fontSize={'sm'} mb={4}>Kontakt</Heading>
               <Stack direction={'row'} align={'center'} spacing={2}>
                 <Icon as={FaUser} />
                 <Text>Tomáš Nováček</Text>
@@ -69,20 +76,33 @@ export default function Footer() {
               </Stack>
               <Stack direction={'row'} align={'center'} spacing={2}>
                 <Icon as={FaMapMarkerAlt} />
-                <Text>Sukova 4, Brno, Česká republika</Text>
+                <Text>Sukova 4, Brno, ČR</Text>
               </Stack>
               {/* Logo */}
-              <Box minH="80px" minW="200px" maxH="80px" maxW="200px">
-                <img
-                  src="CAP.png"
+              <Box 
+                minH="120px" 
+                minW="200px" 
+                maxH="120px" 
+                maxW="200px"
+                display="flex"
+                justifyContent={{ base: 'center', md: 'flex-end' }}
+                width="100%"
+              >
+                <StaticImage
+                  src="../../static/img/CAP.png"
                   alt="ČAP Logo"
-                  style={{ 
-                    maxWidth: '200px', 
-                    display: 'block',
-                    width: '200px',
-                    height: '80px',
-                  }}
+                  width={120}
+                  height={120}
+                  quality={90}
+                  placeholder="blurred"
                   loading="lazy"
+                  style={{
+                    maxWidth: '200px',
+                    maxHeight: '120px',
+                    width: 'auto',
+                    height: 'auto',
+                    objectFit: 'contain',
+                  }}
                 />
               </Box>
             </Stack>

@@ -16,7 +16,7 @@ Our image optimization strategy includes:
 
 ### ✅ **Fully Optimized Pages:**
 
-#### 1. Homepage (`src/pages/Home.jsx`)
+#### 1. Homepage (`src/pages/home.jsx`)
 - **Hero background image**: `StaticImage` with priority loading
 - **Portrait image**: `StaticImage` with high quality (90%)
 - **About cards**: `StaticImage` with responsive breakpoints
@@ -27,7 +27,7 @@ Our image optimization strategy includes:
 - **Portrait image**: `StaticImage` with high quality
 - **Settings**: Priority loading, WebP/AVIF formats, proper sizing
 
-#### 3. Services Page (`src/pages/ServicesContent.jsx`)
+#### 3. Services Page (`src/pages/services.jsx`)
 - **Hero background**: `StaticImage` with priority loading
 - **Portrait image**: `StaticImage` with high quality
 - **Service grid images**: `StaticImage` with responsive breakpoints

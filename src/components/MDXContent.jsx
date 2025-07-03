@@ -24,18 +24,32 @@ const mdxComponents = {
     />
   ),
   img: (props) => (
-    <img
-      style={{
-        borderRadius: '8px',
-        maxWidth: '100%',
-        height: 'auto',
-        display: 'block',
-        margin: '24px auto',
-      }}
-      alt={props.alt || ''}
-      loading="lazy"
-      {...props}
-    />
+    <Box my={6} textAlign="center">
+      <img
+        src={props.src}
+        alt={props.alt || 'Blog post image'}
+        style={{
+          maxWidth: '100%',
+          height: 'auto',
+          borderRadius: '8px',
+          display: 'block',
+          margin: '0 auto',
+          boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+        }}
+        loading="lazy"
+        decoding="async"
+        onLoad={(e) => {
+          // Prevent layout shift by setting aspect ratio
+          e.target.style.aspectRatio = '16/9'
+        }}
+        {...props}
+      />
+      {props.alt && (
+        <Text fontSize="sm" color="gray.600" mt={2} fontStyle="italic">
+          {props.alt}
+        </Text>
+      )}
+    </Box>
   ),
   ExerciseFrame: (props) => <ContentFrame type="exercise" {...props} />,
   InfoFrame: (props) => <ContentFrame type="info" {...props} />,

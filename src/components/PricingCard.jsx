@@ -59,7 +59,7 @@ export default function PricingCard({
         overflow="hidden"
       >
         <img
-          src={image}
+          src={`/img/${image}`}
           alt={title}
           style={{
             width: '100%',

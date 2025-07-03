@@ -6,6 +6,26 @@
   NODE_VERSION = "18"
   NPM_VERSION = "9"
 
+# 301 redirects for www/non-www subdomain handling
+[[redirects]]
+  from = "https://www.tomnovacek.com/*"
+  to = "https://tomnovacek.com/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://www.tomnovacek.com/*"
+  to = "https://tomnovacek.com/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://tomnovacek.com/*"
+  to = "https://tomnovacek.com/:splat"
+  status = 301
+  force = true
+
+# SPA routing
 [[redirects]]
   from = "/*"
   to = "/index.html"

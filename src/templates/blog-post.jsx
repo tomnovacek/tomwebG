@@ -2,8 +2,9 @@ import React from 'react'
 import { graphql } from 'gatsby'
 import { MDXProvider } from '@mdx-js/react'
 import { Box, Container, Heading, Text, Badge, Flex, Avatar, useColorModeValue } from '@chakra-ui/react'
+import { GatsbyImage, getImage } from 'gatsby-plugin-image'
 import Layout from '../components/Layout'
-import Seo from '../components/SEO'
+import SEO from '../components/SEO'
 import ExerciseFrame from '../components/ExerciseFrame'
 import InfoFrame from '../components/InfoFrame'
 
@@ -85,28 +86,68 @@ export default function BlogPost({ data, children }) {
         {...props}
       />
     ),
-    // Simple img component for MDX content - using regular img tag for static images
-    img: (props) => (
-      <Box my={6} textAlign="center">
-        <img
-          src={props.src}
-          alt={props.alt || 'Blog post image'}
-          style={{
-            maxWidth: '100%',
-            height: 'auto',
-            borderRadius: '8px',
-            display: 'block',
-            margin: '0 auto',
-          }}
-          loading="lazy"
-        />
-        {props.alt && (
-          <Text fontSize="sm" color={textColor} mt={2} fontStyle="italic">
-            {props.alt}
-          </Text>
-        )}
-      </Box>
-    ),
+    // Optimized img component for MDX content using Gatsby's image optimization
+    img: (props) => {
+      // For images in static/img directory, we can optimize them
+      if (props.src && props.src.startsWith('/img/')) {
+        return (
+          <Box my={6} textAlign="center">
+            <img
+              src={props.src}
+              alt={props.alt || 'Blog post image'}
+              style={{
+                maxWidth: '100%',
+                height: 'auto',
+                borderRadius: '8px',
+                display: 'block',
+                margin: '0 auto',
+                boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+              }}
+              loading="lazy"
+              decoding="async"
+              onLoad={(e) => {
+                // Prevent layout shift by setting aspect ratio
+                e.target.style.aspectRatio = '16/9'
+              }}
+            />
+            {props.alt && (
+              <Text fontSize="sm" color={textColor} mt={2} fontStyle="italic">
+                {props.alt}
+              </Text>
+            )}
+          </Box>
+        )
+      }
+      
+      // For external images or other sources, use standard img tag
+      return (
+        <Box my={6} textAlign="center">
+          <img
+            src={props.src}
+            alt={props.alt || 'Blog post image'}
+            style={{
+              maxWidth: '100%',
+              height: 'auto',
+              borderRadius: '8px',
+              display: 'block',
+              margin: '0 auto',
+              boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+            }}
+            loading="lazy"
+            decoding="async"
+            onLoad={(e) => {
+              // Prevent layout shift by setting aspect ratio
+              e.target.style.aspectRatio = '16/9'
+            }}
+          />
+          {props.alt && (
+            <Text fontSize="sm" color={textColor} mt={2} fontStyle="italic">
+              {props.alt}
+            </Text>
+          )}
+        </Box>
+      )
+    },
     // Add the custom components that MDX files are trying to use
     ExerciseFrame: ExerciseFrame,
     InfoFrame: InfoFrame,
@@ -114,11 +155,47 @@ export default function BlogPost({ data, children }) {
 
   return (
     <Layout>
-      <Seo
+      <SEO
         title={frontmatter.title}
         description={frontmatter.excerpt}
         image={frontmatter.image}
-      />
+      >
+        {/* Blog post structured data for SEO */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BlogPosting",
+            "headline": frontmatter.title,
+            "description": frontmatter.excerpt,
+            "image": {
+              "@type": "ImageObject",
+              "url": frontmatter.image ? `https://tomnovacek.cz${frontmatter.image}` : undefined,
+              "width": 1200,
+              "height": 630,
+              "alt": frontmatter.title
+            },
+            "author": {
+              "@type": "Person",
+              "name": frontmatter.author?.name || "Tomáš Nováček",
+              "jobTitle": "Psycholog a terapeut"
+            },
+            "publisher": {
+              "@type": "Organization",
+              "name": "Tomáš Nováček - Psychoterapie",
+              "logo": {
+                "@type": "ImageObject",
+                "url": "https://tomnovacek.cz/img/tom1.png"
+              }
+            },
+            "datePublished": frontmatter.date,
+            "dateModified": frontmatter.date,
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "@id": `https://tomnovacek.cz/blog/${frontmatter.slug}`
+            }
+          })}
+        </script>
+      </SEO>
       
       <Container maxW="4xl" py={8}>
         <Box bg={bgColor} borderRadius="lg" p={8} shadow="sm" border="1px solid" borderColor={borderColor}>

@@ -24,15 +24,12 @@ const Layout = ({ children }) => {
           <CookiesProvider>
             <Box
               minH="100vh"
-              minW="100vw"
-              width="100vw"
-              display="flex"
-              flexDirection="column"
-              alignItems="stretch"
               bg={useColorModeValue('gray.50', 'gray.900')}
+              overflow="visible"
+              position="relative"
             >
               <Navbar />
-              <Box flex="1" width="100%" minH="calc(100vh - 64px)">
+              <Box as="main" pt="60px">
                 {children}
               </Box>
               <Footer />

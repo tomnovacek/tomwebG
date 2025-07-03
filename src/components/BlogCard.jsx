@@ -6,17 +6,18 @@ import {
   Text,
   Badge,
   Flex,
-  Avatar,
   useColorModeValue,
   Skeleton,
   VStack,
   HStack,
 } from '@chakra-ui/react'
+import { GatsbyImage, getImage } from 'gatsby-plugin-image'
 
-const BlogCard = ({ post }) => {
+const BlogCard = ({ post, allImages }) => {
   const {
     frontmatter: { title, excerpt, date, readTime, tags, image, author },
-    slug
+    slug,
+    fields,
   } = post
 
   const bgColor = useColorModeValue('white', 'gray.800')
@@ -24,6 +25,15 @@ const BlogCard = ({ post }) => {
   const textColor = useColorModeValue('gray.600', 'gray.400')
   const headingColor = useColorModeValue('gray.800', 'white')
   const hoverBgColor = useColorModeValue('gray.50', 'gray.700')
+
+  // Find the optimized image from allImages
+  let optimizedImage = null
+  if (allImages && Array.isArray(allImages) && fields?.imageRelativePath) {
+    const match = allImages.find(img => img?.relativePath === fields.imageRelativePath)
+    if (match && match.childImageSharp) {
+      optimizedImage = getImage(match.childImageSharp)
+    }
+  }
 
   return (
     <Link to={`/blog/${slug}`}>
@@ -49,17 +59,32 @@ const BlogCard = ({ post }) => {
           overflow="hidden"
           borderRadius="lg"
           mb={4}
+          position="relative"
         >
-          <img
-            src={`/img/${image}`}
-            alt={title}
-            style={{
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-            }}
-            loading="lazy"
-          />
+          {optimizedImage ? (
+            <GatsbyImage
+              image={optimizedImage}
+              alt={title}
+              style={{ width: '100%', height: '100%' }}
+              imgStyle={{ objectFit: 'cover' }}
+            />
+          ) : (
+            <img
+              src={`/img/${image}`}
+              alt={`${title} - ${excerpt?.substring(0, 100)}...`}
+              style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+              }}
+              loading="lazy"
+              decoding="async"
+              onLoad={(e) => {
+                // Prevent layout shift by setting aspect ratio
+                e.target.style.aspectRatio = '16/9'
+              }}
+            />
+          )}
         </Box>
 
         {/* Content */}
@@ -92,16 +117,7 @@ const BlogCard = ({ post }) => {
 
           {/* Meta */}
           <Box mt="auto">
-            <Flex align="center" justify="space-between" flexWrap="wrap" gap={2}>
-              {author && (
-                <Flex align="center" gap={2}>
-                  <Avatar size="xs" name={author.name} src={author.image} />
-                  <Text fontSize="xs" color={textColor}>
-                    {author.name}
-                  </Text>
-                </Flex>
-              )}
-              
+            <Flex align="center" justify="flex-start" flexWrap="wrap" gap={2}>
               <Flex gap={3} fontSize="xs" color={textColor}>
                 <Text>
                   {new Date(date).toLocaleDateString('cs-CZ', {

@@ -148,9 +148,9 @@ const About = () => {
                   src="../assets/img/tom1.png"
                   alt="Tom Nováček"
                   placeholder="blurred"
-                  layout="constrained"
-                  width={600}
-                  height={800}
+                  layout="fullWidth"
+                  width={400}
+                  height={500}
                   style={{
                     mixBlendMode: 'normal',
                     backgroundColor: 'transparent',
@@ -169,7 +169,7 @@ const About = () => {
             <HeroTextBox
               title="Moje cesta"
               titleAccent="& Můj přístup"
-              description="Posledních sedm let věnuji doprovazení lidí, kteří překonávají náročné životní výzvy a hledají cestu k sobě. Psychoterapii nevnímám jako místo, kde se rychle vyřeší problémy. Spíš jako prostor, kde se dá na chvíli zastavit, začít víc vnímat sama sebe, lépe porozumět sobě i světu, ve kterém žijeme, a rozšířit repertoár chování o nové možnosti, které dříve nebyly možné."
+              description="Psychoterapii vnímám jako prostor, kde se dá na chvíli zastavit, začít víc vnímat sama sebe, a lépe porozumět sobě i světu, ve kterém žijeme. A díky tomu najít pro sebe nové možnosti, které dříve nebyly možné."
               primaryText="Objednat konzultaci"
               primaryHref="/calendar"
               secondaryText="Moje služby"
@@ -379,13 +379,13 @@ const About = () => {
             {/* Text Content */}
             <Box flex="1">
               <Stack spacing={6}>
-                <Text color={textColor} fontSize={'xl'}>
+                <Text color={textColor} fontSize={'md'}>
                 Doma mám skvělou podporu – manželku a dvě dcery, které mě nejen podporují, ale taky učí, kladou přede mě výzvy a pomáhají vytvářet místo, kde je lidem dobře. Mluví otevřeně a učí mě vidět svět v různých perspektivách. Zatímco dřív jsem si myslel, že je učím já, dnes už vím, že to je mínimálně vzájemné.
                 </Text>
-                <Text color={textColor} fontSize={'xl'}>
+                <Text color={textColor} fontSize={'md'}>
                 Před pár lety se k naší partě přidal také Ron – můj psí společník. Díky němu znám každý strom a plot v okruhu deseti kilometrů a vím, že hodně radosti se často skrývá v těch nejobyčejnějších místech. Má dar mi ukázat, jak se radovat z maličkostí. Já se zkouším takhle dívat na svůj lidský život plný nároků a očekávání. Naučil mě také, jak důležité je vědět, kde jsou hranice, a opakovaně o nich ostatní informovat. My lidé to děláme rafinovaněji než označkováním každého sloupu, ale princip je v podstatě stejný.
                 </Text>
-                <Text color={textColor} fontSize={'xl'}>
+                <Text color={textColor} fontSize={'md'}>
                 Tohle všechno dohromady, práce, rodina a čas v přírodě, mi dává energii a sílů, kterou pak můžu předat dál. Každý z nás má svou cestu, a já jsem tu, abych vám pomohl najít tu vaši.
                 </Text>
               </Stack>

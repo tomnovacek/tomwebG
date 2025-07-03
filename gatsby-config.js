@@ -60,8 +60,6 @@ module.exports = {
               linkImagesToOriginal: false,
               showCaptions: true,
               markdownCaptions: true,
-              backgroundColor: `transparent`,
-              disableBgImageOnAlpha: true,
             },
           },
         ],
@@ -124,20 +122,23 @@ module.exports = {
           }
         `,
         serialize: ({ site, allSitePage, allFile }) => {
-          const pages = allSitePage.nodes.map(page => ({
-            url: `${site.siteMetadata.siteUrl}${page.path}`,
+          // Handle undefined values safely
+          const pages = allSitePage?.nodes?.map(page => ({
+            url: `${site?.siteMetadata?.siteUrl || ''}${page.path}`,
             changefreq: 'weekly',
             priority: page.path === '/' ? 1.0 : 0.7,
-          }))
+          })) || []
           
-          // Add image sitemap entries
-          const images = allFile.nodes
-            .filter(file => file.childImageSharp)
-            .map(file => ({
-              url: `${site.siteMetadata.siteUrl}${file.publicURL}`,
-              changefreq: 'monthly',
-              priority: 0.3,
-            }))
+          // Add image sitemap entries if available
+          const images = allFile?.nodes
+            ? allFile.nodes
+                .filter(file => file.childImageSharp)
+                .map(file => ({
+                  url: `${site?.siteMetadata?.siteUrl || ''}${file.publicURL}`,
+                  changefreq: 'monthly',
+                  priority: 0.3,
+                }))
+            : []
           
           return [...pages, ...images]
         }

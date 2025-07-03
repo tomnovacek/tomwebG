@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Link } from 'gatsby'
 import {
   Box,
@@ -14,7 +14,7 @@ import {
 } from '@chakra-ui/react'
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons'
 import { FaCalendarAlt, FaSms } from 'react-icons/fa'
-import navbarIcon from '../assets/img/navbar-icon-96x96.webp'
+import { StaticImage } from 'gatsby-plugin-image'
 
 // Konstanty pro konzistentní rozměry
 const NAV_HEIGHT = '60px'
@@ -28,69 +28,81 @@ const fontStyles = {
 }
 
 const DesktopNav = () => {
+  const linkColor = useColorModeValue('gray.600', 'gray.200')
+  const linkHoverColor = useColorModeValue('gray.800', 'white')
+
   return (
-    <Stack 
-      direction={'row'} 
-      spacing={4} 
-      h={BUTTON_HEIGHT} 
-      alignItems="center"
-      style={fontStyles}
-    > 
-      <Button 
-        as={Link} 
-        to="/" 
-        fontSize={'sm'} 
-        fontWeight={400} 
-        variant={'link'} 
-        h={BUTTON_HEIGHT} 
+    <Stack direction={'row'} spacing={4} h="100%" alignItems="center">
+      <Button
+        as={Link}
+        to="/"
+        variant={'ghost'}
+        color={linkColor}
+        _hover={{
+          textDecoration: 'none',
+          color: linkHoverColor,
+        }}
+        h={BUTTON_HEIGHT}
         minH={BUTTON_HEIGHT}
         style={fontStyles}
       >
         Domů
       </Button>
-      <Button 
-        as={Link} 
-        to="/about" 
-        fontSize={'sm'} 
-        fontWeight={400} 
-        variant={'link'} 
-        h={BUTTON_HEIGHT} 
+      <Button
+        as={Link}
+        to="/about/"
+        variant={'ghost'}
+        color={linkColor}
+        _hover={{
+          textDecoration: 'none',
+          color: linkHoverColor,
+        }}
+        h={BUTTON_HEIGHT}
         minH={BUTTON_HEIGHT}
         style={fontStyles}
       >
         O mně
       </Button>
-      <Button 
-        as={Link} 
-        to="/services" 
-        fontSize={'sm'} 
-        fontWeight={400} 
-        variant={'link'} 
-        h={BUTTON_HEIGHT} 
+      <Button
+        as={Link}
+        to="/services/"
+        variant={'ghost'}
+        color={linkColor}
+        _hover={{
+          textDecoration: 'none',
+          color: linkHoverColor,
+        }}
+        h={BUTTON_HEIGHT}
         minH={BUTTON_HEIGHT}
         style={fontStyles}
       >
         Služby
       </Button>
-      <Button 
-        as={Link} 
-        to="/calendar" 
-        fontSize={'sm'} 
-        fontWeight={400} 
-        variant={'link'} 
-        h={BUTTON_HEIGHT} 
+      <Button
+        as={Link}
+        to="/calendar/"
+        variant={'ghost'}
+        color={linkColor}
+        _hover={{
+          textDecoration: 'none',
+          color: linkHoverColor,
+        }}
+        h={BUTTON_HEIGHT}
         minH={BUTTON_HEIGHT}
         style={fontStyles}
       >
         Kalendář
       </Button>
-      <Button 
-        as={Link} 
-        to="/blog" 
-        fontSize={'sm'} 
-        fontWeight={400} 
-        variant={'link'} 
-        h={BUTTON_HEIGHT} 
+      <Button
+        as={Link}
+        to="/blog/"
+        variant={'ghost'}
+        color={linkColor}
+        _hover={{
+          textDecoration: 'none',
+          color: linkHoverColor,
+        }}
+        h={BUTTON_HEIGHT}
         minH={BUTTON_HEIGHT}
         style={fontStyles}
       >
@@ -101,82 +113,83 @@ const DesktopNav = () => {
 }
 
 const MobileNav = ({ onClose }) => {
+  const linkColor = useColorModeValue('gray.600', 'gray.200')
+  const linkHoverColor = useColorModeValue('gray.800', 'white')
+
   return (
     <Stack
       bg={useColorModeValue('white', 'gray.800')}
       p={4}
       display={{ md: 'none' }}
       style={fontStyles}
-      align="center"
-      justify="center"
     >
-      <Stack spacing={4} align="center" justify="center">
-        <Button 
-          as={Link} 
-          to="/" 
+      <Stack spacing={4}>
+        <Button
+          as={Link}
+          to="/"
+          variant={'ghost'}
+          color={linkColor}
+          _hover={{
+            textDecoration: 'none',
+            color: linkHoverColor,
+          }}
           onClick={onClose}
-          fontSize={'sm'} 
-          fontWeight={400} 
-          variant={'link'} 
-          w="full" 
-          h={BUTTON_HEIGHT} 
-          minH={BUTTON_HEIGHT}
           style={fontStyles}
         >
           Domů
         </Button>
-        <Button 
-          as={Link} 
-          to="/about" 
+        <Button
+          as={Link}
+          to="/about/"
+          variant={'ghost'}
+          color={linkColor}
+          _hover={{
+            textDecoration: 'none',
+            color: linkHoverColor,
+          }}
           onClick={onClose}
-          fontSize={'sm'} 
-          fontWeight={400} 
-          variant={'link'} 
-          w="full" 
-          h={BUTTON_HEIGHT} 
-          minH={BUTTON_HEIGHT}
           style={fontStyles}
         >
           O mně
         </Button>
-        <Button 
-          as={Link} 
-          to="/services" 
+        <Button
+          as={Link}
+          to="/services/"
+          variant={'ghost'}
+          color={linkColor}
+          _hover={{
+            textDecoration: 'none',
+            color: linkHoverColor,
+          }}
           onClick={onClose}
-          fontSize={'sm'} 
-          fontWeight={400} 
-          variant={'link'} 
-          w="full" 
-          h={BUTTON_HEIGHT} 
-          minH={BUTTON_HEIGHT}
           style={fontStyles}
         >
           Služby
         </Button>
-        <Button 
-          as={Link} 
-          to="/calendar" 
+        <Button
+          as={Link}
+          to="/calendar/"
+          variant={'ghost'}
+          color={linkColor}
+          _hover={{
+            textDecoration: 'none',
+            color: linkHoverColor,
+          }}
           onClick={onClose}
-          fontSize={'sm'} 
-          fontWeight={400} 
-          variant={'link'} 
-          w="full" 
-          h={BUTTON_HEIGHT} 
-          minH={BUTTON_HEIGHT}
           style={fontStyles}
         >
           Kalendář
         </Button>
-        <Button 
-          as={Link} 
-          to="/blog" 
+        <Button
+          as={Link}
+          to="/blog/"
+          variant={'ghost'}
+          color={linkColor}
+          _hover={{
+            textDecoration: 'none',
+            color: linkHoverColor,
+          }}
           onClick={onClose}
-          fontSize={'sm'} 
-          fontWeight={400} 
-          variant={'link'} 
-          w="full" 
-          h={BUTTON_HEIGHT} 
-          minH={BUTTON_HEIGHT}
           style={fontStyles}
         >
           Blog
@@ -189,15 +202,6 @@ const MobileNav = ({ onClose }) => {
 export default function Navbar() {
   const { isOpen, onToggle } = useDisclosure()
 
-  useEffect(() => {
-    // Component mounted
-  }, [])
-
-  // Debug logging
-  useEffect(() => {
-    console.log('Navbar isOpen state:', isOpen)
-  }, [isOpen])
-
   const handleToggle = () => {
     console.log('Hamburger clicked, current state:', isOpen)
     onToggle()
@@ -205,34 +209,31 @@ export default function Navbar() {
 
   return (
     <Box
-      position="sticky"
+      as="nav"
+      data-testid="navbar"
+      position="fixed"
       top={0}
       zIndex={1000}
-      bg={useColorModeValue('white', 'gray.800')}
+      bg={useColorModeValue('whiteAlpha.98', 'gray.800Alpha.98')}
+      backdropFilter="blur(10px)"
       borderBottom={1}
       borderStyle={'solid'}
       borderColor={useColorModeValue('gray.200', 'gray.900')}
+      boxShadow="lg"
       width="100%"
       height={NAV_HEIGHT}
       minH={NAV_HEIGHT}
-      style={{
-        ...fontStyles,
-        contain: 'layout size',
-        willChange: 'transform',
-      }}
+      transition="all 0.3s ease-in-out"
+      style={fontStyles}
     >
       <Container maxW="1680px" h="100%">
         <Flex
-          bg={useColorModeValue('white', 'gray.800')}
+          bg="transparent"
           color={useColorModeValue('gray.600', 'white')}
           h="100%"
           py={{ base: 2 }}
           px={{ base: 4 }}
           align={'center'}
-          style={{
-            contain: 'layout size',
-            willChange: 'transform',
-          }}
         >
           <Flex
             flex={{ base: 1, md: 'auto' }}
@@ -240,10 +241,6 @@ export default function Navbar() {
             display={{ base: 'flex', md: 'none' }}
             h={BUTTON_HEIGHT}
             minH={BUTTON_HEIGHT}
-            style={{
-              contain: 'layout size',
-              willChange: 'transform',
-            }}
           >
             <IconButton
               onClick={handleToggle}
@@ -256,20 +253,12 @@ export default function Navbar() {
               w={BUTTON_HEIGHT}
               minH={BUTTON_HEIGHT}
               minW={BUTTON_HEIGHT}
-              style={{
-                contain: 'layout size',
-                willChange: 'transform',
-              }}
             />
           </Flex>
           <Flex 
             flex={{ base: 1 }} 
             justify={{ base: 'center', md: 'start' }} 
             h="100%"
-            style={{
-              contain: 'layout size',
-              willChange: 'transform',
-            }}
           >
             <Box
               as={Link}
@@ -279,16 +268,14 @@ export default function Navbar() {
               h="100%"
               w={LOGO_SIZE}
               minW={LOGO_SIZE}
-              style={{
-                contain: 'layout size',
-                willChange: 'transform',
-              }}
             >
-              <img
-                src={navbarIcon}
+              <StaticImage
+                src="../assets/img/navbar-icon-96x96.webp"
                 alt="Tom Nováček"
-                width={LOGO_SIZE}
-                height={LOGO_SIZE}
+                width={48}
+                height={48}
+                quality={90}
+                placeholder="blurred"
                 style={{ objectFit: 'contain', display: 'block' }}
                 loading="eager"
               />
@@ -299,10 +286,6 @@ export default function Navbar() {
               ml={10} 
               h="100%" 
               alignItems="center"
-              style={{
-                contain: 'layout size',
-                willChange: 'transform',
-              }}
             >
               <DesktopNav />
             </Flex>
@@ -315,10 +298,6 @@ export default function Navbar() {
             spacing={3}
             h="100%"
             alignItems="center"
-            style={{
-              contain: 'layout size',
-              willChange: 'transform',
-            }}
           >
             <Box 
               display="flex" 
@@ -326,10 +305,6 @@ export default function Navbar() {
               h={BUTTON_HEIGHT}
               minH={BUTTON_HEIGHT}
               minW="160px"
-              style={{
-                contain: 'layout size',
-                willChange: 'transform',
-              }}
             >
               <Text 
                 fontSize={'sm'} 
@@ -364,11 +339,7 @@ export default function Navbar() {
                 color: 'white',
               }}
               leftIcon={<FaCalendarAlt />}
-              style={{
-                ...fontStyles,
-                contain: 'layout size',
-                willChange: 'transform',
-              }}
+              style={fontStyles}
               display={{ base: 'none', md: 'inline-flex' }}
             >
               Objednat se
@@ -385,11 +356,11 @@ export default function Navbar() {
             left={0}
             right={0}
             zIndex={999}
-            bg={useColorModeValue('white', 'gray.800')}
+            bg={useColorModeValue('whiteAlpha.95', 'gray.800Alpha.95')}
+            backdropFilter="blur(10px)"
             borderTop="1px solid"
             borderColor={useColorModeValue('gray.200', 'gray.700')}
             boxShadow="lg"
-            style={{ contain: 'layout size', willChange: 'transform' }}
           >
             <MobileNav onClose={onToggle} />
           </Box>

@@ -2,7 +2,7 @@ import React from 'react'
 import { graphql, Link } from 'gatsby'
 import { Box, Container, Heading, Text, VStack, SimpleGrid, useColorModeValue } from '@chakra-ui/react'
 import Layout from '../components/Layout'
-import Seo from '../components/SEO'
+import SEO from '../components/SEO'
 import BlogCard from '../components/BlogCard'
 
 export default function TagTemplate({ data, pageContext }) {
@@ -35,7 +35,7 @@ export default function TagTemplate({ data, pageContext }) {
 
   return (
     <Layout>
-      <Seo
+      <SEO
         title={`Články s tagem "${tag}"`}
         description={`Všechny články s tagem "${tag}"`}
       />

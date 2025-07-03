@@ -1,36 +1,38 @@
+import React from 'react'
+import { graphql } from 'gatsby'
 import {
   Box,
-  Heading,
   Container,
+  Heading,
   Text,
-  Stack,
   SimpleGrid,
-  useColorModeValue,
-  Flex,
+  Stack,
   List,
   ListItem,
   ListIcon,
-  Icon,
+  Button,
+  useColorModeValue,
+  Flex,
   VStack,
   Link,
+  Icon,
 } from '@chakra-ui/react'
-import { Link as GatsbyLink, graphql } from 'gatsby'
-import { StaticImage } from 'gatsby-plugin-image'
 import { CheckCircleIcon } from '@chakra-ui/icons'
-import { FaUser, FaHandHoldingHeart, FaUserFriends, FaHeartbeat, FaCalendarAlt, FaArrowRight } from 'react-icons/fa'
-import React, { useMemo } from 'react'
+import { FaUser, FaUserFriends, FaHeartbeat, FaHandHoldingHeart, FaCalendarAlt, FaArrowRight } from 'react-icons/fa'
+import { Link as GatsbyLink } from 'gatsby'
+import { StaticImage } from 'gatsby-plugin-image'
+import Layout from '../components/Layout'
+import SEO from '../components/SEO'
+import AboutCard from '../components/AboutCard'
 import AnalyticsButton from '../components/AnalyticsButton'
-
-import Seo from '../components/SEO'
 import StructuredData from '../components/StructuredData'
 
 import BlogCard from '../components/BlogCard'
 import HeroTextBox from '../components/HeroTextBox'
-import AboutCard from '../components/AboutCard'
 
 export default function Home({ data }) {
   // Process the blog posts data
-  const newestPosts = useMemo(() => {
+  const newestPosts = React.useMemo(() => {
     if (!data?.allMdx?.nodes) {
       return []
     }
@@ -60,6 +62,9 @@ export default function Home({ data }) {
     return processedPosts
   }, [data?.allMdx?.nodes])
 
+  // Get all images data safely
+  const allImages = data?.allFile?.nodes || []
+
   // Hookd
   const bgColor = useColorModeValue('gray.100', 'gray.900')
   const cardBg = useColorModeValue('white', 'gray.800')
@@ -68,26 +73,26 @@ export default function Home({ data }) {
 
   return (
     <>
-      <Seo 
+      <SEO 
         title="Psychoterapie v centru Brna | Tomáš Nováček"
         description="Psycholog a terapeut Tomáš Nováček nabízí psychoterapii v centru Brna. Pomáhám lidem překonávat životní výzvy a dosahovat osobního růstu."
-        image="https://tomnovacek.com/static/forrest-1200x630.webp"
+        image="/img/forrest.webp"
         article={false}
       >
         {/* Preload critical hero images for LCP optimization */}
         <link 
           rel="preload" 
           as="image" 
-          href="/static/forrest-1200x630.webp" 
+          href="/img/forrest.webp" 
           fetchpriority="high"
           type="image/webp"
         />
         <link 
           rel="preload" 
           as="image" 
-          href="/static/tom1-600x800.webp" 
+          href="/img/tom1.png" 
           fetchpriority="high"
-          type="image/webp"
+          type="image/png"
         />
         
         {/* Image structured data for SEO */}
@@ -99,7 +104,7 @@ export default function Home({ data }) {
             "description": "Psycholog a terapeut Tomáš Nováček nabízí psychoterapii v centru Brna. Pomáhám lidem překonávat životní výzvy a dosahovat osobního růstu.",
             "image": {
               "@type": "ImageObject",
-              "url": "https://tomnovacek.com/static/forrest-1200x630.webp",
+              "url": "/img/forrest.webp",
               "width": 1200,
               "height": 630,
               "alt": "Lesní cesta - klidné prostředí pro psychoterapii"
@@ -110,7 +115,7 @@ export default function Home({ data }) {
               "jobTitle": "Psycholog a terapeut",
               "image": {
                 "@type": "ImageObject",
-                "url": "https://tomnovacek.com/static/tom1-600x800.webp",
+                "url": "/img/tom1.png",
                 "width": 600,
                 "height": 800,
                 "alt": "Tomáš Nováček - psycholog a terapeut"
@@ -118,7 +123,7 @@ export default function Home({ data }) {
             }
           })}
         </script>
-      </Seo>
+      </SEO>
       <StructuredData type="MedicalBusiness" />
       <StructuredData type="Person" />
 
@@ -134,35 +139,24 @@ export default function Home({ data }) {
           zIndex={0}
           className="hero-background"
         >
-          {/* Optimized hero image using Gatsby StaticImage */}
+          {/* Use StaticImage for optimized forrest background */}
           <StaticImage
             src="../assets/img/forrest.webp"
             alt="Lesní cesta - klidné prostředí pro psychoterapii v centru Brna"
             placeholder="blurred"
             layout="fullWidth"
             objectFit="cover"
+            objectPosition="center"
             style={{
               height: '100%',
               width: '100%',
               position: 'absolute',
               top: 0,
               left: 0,
-              zIndex: 0
+              zIndex: 0,
             }}
-            formats={['auto', 'webp', 'avif']}
-            quality={85}
-            priority={true}
             loading="eager"
-            imgStyle={{
-              objectFit: 'cover',
-              objectPosition: 'center'
-            }}
-            breakpoints={[400, 768, 1200, 1920]}
-            sizes="100vw"
-            transformOptions={{
-              fit: 'cover',
-              cropFocus: 'center',
-            }}
+            priority={true}
           />
           <Box
             position="absolute"
@@ -189,7 +183,7 @@ export default function Home({ data }) {
             <HeroTextBox
               title="Psychoterapie"
               titleAccent="v centru Brna"
-              description="Vítejte, jmenuji se Tomáš Nováček. Věnuji se pomoci lidem překonávat životní výzvy a dosahovat osobního růstu. Společně s klienty se vydávám na cestu k hlubšímu porozumění sobě sama, svým vztahům a slepým uličkám, ve kterých se nacházejí. Snažím se, aby se na tomto putování cítili bezpečně a našli v sobě schopnost zahlédnout světlo nadějě prosvítající i potemnělým lesem."
+              description="Vítejte, jmenuji se Tomáš Nováček. Doprovázím lidi při překonvání jejich životních výchev. Snažím se, aby se na tomto putování cítili bezpečně a našli v sobě schopnost zahlédnout světlo nadějě prosvítající i potemnělým lesem."
               primaryText="Objednat konzultaci"
               primaryHref="/calendar"
               secondaryText="Moje služby"
@@ -210,35 +204,25 @@ export default function Home({ data }) {
                 width="100%"
                 mt="auto"
               >
-                {/* Optimized portrait image using Gatsby StaticImage */}
+                {/* Portrait image using StaticImage for optimized image */}
                 <StaticImage
-                  src="../assets/img/tom1.png"
+                  src="../../static/img/tom1.png"
                   alt="Tomáš Nováček - psycholog a terapeut v centru Brna"
                   placeholder="blurred"
-                  layout="constrained"
+                  layout="fullWidth"
                   width={600}
                   height={800}
+                  quality={90}
                   style={{
                     mixBlendMode: 'normal',
                     backgroundColor: 'transparent',
                     filter: 'brightness(1.1)',
                     height: 'auto',
-                    width: '100%'
-                  }}
-                  formats={['auto', 'webp', 'avif']}
-                  quality={90}
-                  priority={true}
-                  loading="eager"
-                  imgStyle={{
+                    width: '100%',
                     objectFit: 'contain',
                     objectPosition: 'center'
                   }}
-                  breakpoints={[400, 600, 800]}
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  transformOptions={{
-                    fit: 'contain',
-                    background: 'transparent',
-                  }}
+                  loading="eager"
                 />
               </Box>
             </Box>
@@ -422,7 +406,7 @@ export default function Home({ data }) {
 
             <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={8}>
               {newestPosts.map(post => (
-                <BlogCard key={post.slug} post={post} />
+                <BlogCard key={post.slug} post={post} allImages={allImages} />
               ))}
             </SimpleGrid>
 
@@ -517,6 +501,17 @@ export const pageQuery = graphql`
         }
         internal {
           contentFilePath
+        }
+        fields {
+          imageRelativePath
+        }
+      }
+    }
+    allFile(filter: {sourceInstanceName: {eq: "images"}}) {
+      nodes {
+        relativePath
+        childImageSharp {
+          gatsbyImageData(width: 400, height: 200, placeholder: BLURRED, formats: [AUTO, WEBP, AVIF])
         }
       }
     }
