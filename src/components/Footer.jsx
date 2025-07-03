@@ -81,28 +81,21 @@ export default function Footer() {
               {/* Logo */}
               <Box 
                 minH="120px" 
-                minW="200px" 
-                maxH="120px" 
+                minW="120px" 
+                maxH="200px" 
                 maxW="200px"
                 display="flex"
                 justifyContent={{ base: 'center', md: 'flex-end' }}
                 width="100%"
               >
                 <StaticImage
-                  src="../../static/img/CAP.png"
-                  alt="ČAP Logo"
+                  src="../assets/img/CAP.png"
+                  alt="CAP logo"
+                  placeholder="blurred"
+                  layout="constrained"
                   width={120}
                   height={120}
-                  quality={90}
-                  placeholder="blurred"
-                  loading="lazy"
-                  style={{
-                    maxWidth: '200px',
-                    maxHeight: '120px',
-                    width: 'auto',
-                    height: 'auto',
-                    objectFit: 'contain',
-                  }}
+                  style={{ height: '120px', width: 'auto' }}
                 />
               </Box>
             </Stack>

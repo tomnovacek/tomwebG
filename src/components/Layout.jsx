@@ -29,7 +29,7 @@ const Layout = ({ children }) => {
               position="relative"
             >
               <Navbar />
-              <Box as="main" pt="60px">
+              <Box as="main">
                 {children}
               </Box>
               <Footer />

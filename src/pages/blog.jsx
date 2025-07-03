@@ -57,6 +57,17 @@ export default function BlogPage({ data }) {
     }))
   }, [allMdx?.nodes])
 
+  // Debug logging - moved after posts is defined
+  console.log('Blog page - allImages:', allImages)
+  console.log('Blog page - posts:', posts)
+  posts.forEach(post => {
+    console.log(`Post ${post.slug}:`, {
+      image: post.frontmatter.image,
+      imageRelativePath: post.fields?.imageRelativePath,
+      hasOptimizedImage: allImages.some(img => img?.relativePath === post.fields?.imageRelativePath)
+    })
+  })
+
   // Get all unique tags from posts
   const tags = useMemo(() => {
     const tagSet = new Set()

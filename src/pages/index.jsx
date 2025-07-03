@@ -1,20 +1,17 @@
 import React from 'react'
 import { graphql } from 'gatsby'
-import Layout from '../components/Layout'
 import SEO from '../components/SEO'
 import Home from './homepage'
 
 const IndexPage = ({ data }) => {
   return (
-    <Layout>
+    <>
       <SEO 
         title="Psychoterapie v centru Brna | Tomáš Nováček"
         description="Psycholog a terapeut Tomáš Nováček nabízí psychoterapii v centru Brna. Pomáhám lidem překonávat životní výzvy a dosahovat osobního růstu."
-        url="https://tomnovacek.com/"
-        image="/img/forrest.webp"
       />
       <Home data={data} />
-    </Layout>
+    </>
   )
 }
 

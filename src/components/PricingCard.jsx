@@ -11,6 +11,7 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react'
 import { CheckCircleIcon } from '@chakra-ui/icons'
+import { StaticImage } from 'gatsby-plugin-image'
 
 export default function PricingCard({
   title,
@@ -58,17 +59,76 @@ export default function PricingCard({
         height="260px"
         overflow="hidden"
       >
-        <img
-          src={`/img/${image}`}
-          alt={title}
-          style={{
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover',
-            filter: 'brightness(1.1)',
-          }}
-          loading="lazy"
-        />
+        {(() => {
+          switch (image) {
+            case 'individual.webp':
+              return (
+                <StaticImage
+                  src="../assets/img/individual.webp"
+                  alt={title}
+                  placeholder="blurred"
+                  layout="constrained"
+                  width={400}
+                  height={200}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                  }}
+                  loading="lazy"
+                />
+              )
+            case 'couple.webp':
+              return (
+                <StaticImage
+                  src="../assets/img/couple.webp"
+                  alt={title}
+                  placeholder="blurred"
+                  layout="constrained"
+                  width={400}
+                  height={200}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                  }}
+                  loading="lazy"
+                />
+              )
+            case 'family.webp':
+              return (
+                <StaticImage
+                  src="../assets/img/family.webp"
+                  alt={title}
+                  placeholder="blurred"
+                  layout="constrained"
+                  width={400}
+                  height={200}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                  }}
+                  loading="lazy"
+                />
+              )
+            default:
+              return (
+                <Box
+                  bg="gray.200"
+                  width="100%"
+                  height="100%"
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="center"
+                >
+                  <Text color="gray.500" fontSize="sm">
+                    {title}
+                  </Text>
+                </Box>
+              )
+          }
+        })()}
         <Box
           position="absolute"
           top={0}

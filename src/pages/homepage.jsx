@@ -29,103 +29,33 @@ import StructuredData from '../components/StructuredData'
 import BlogCard from '../components/BlogCard'
 import HeroTextBox from '../components/HeroTextBox'
 
-export default function Home({ data }) {
-  // Process the blog posts data
-  const newestPosts = React.useMemo(() => {
-    if (!data?.allMdx?.nodes) {
-      return []
-    }
-    
-    // Function to generate slug from file path
-    const generateSlug = (internal) => {
-      if (internal?.contentFilePath) {
-        const pathParts = internal.contentFilePath.split('/')
-        const fileName = pathParts[pathParts.length - 1]
-        return fileName.replace('.mdx', '')
-      }
-      return ''
-    }
-    
-    const processedPosts = data.allMdx.nodes
-      .map(node => ({
-        ...node,
-        slug: generateSlug(node.internal),
-        frontmatter: {
-          ...node.frontmatter,
-          slug: generateSlug(node.internal)
-        }
-      }))
-      .sort((a, b) => new Date(b.frontmatter.date) - new Date(a.frontmatter.date))
-      .slice(0, 3) // Get only the 3 most recent posts
-    
-    return processedPosts
-  }, [data?.allMdx?.nodes])
+const HomePage = ({ data }) => {
+  const { allMdx } = data
+  const newestPosts = allMdx.nodes.slice(0, 3)
 
-  // Get all images data safely
-  const allImages = data?.allFile?.nodes || []
+  // Move all useColorModeValue calls to the top level
+  const bgColor = useColorModeValue('white', 'gray.800')
+  const textColor = useColorModeValue('gray.600', 'gray.400')
+  const headingColor = useColorModeValue('gray.800', 'white')
+  const hoverBgColor = useColorModeValue('gray.50', 'gray.700')
 
-  // Hookd
-  const bgColor = useColorModeValue('gray.100', 'gray.900')
-  const cardBg = useColorModeValue('white', 'gray.800')
-  const textColor = useColorModeValue('gray.700', 'gray.300')
-  const headingColor = useColorModeValue('green.500', 'gray.200')
+  // Debug logging
+  console.log('Homepage - newestPosts:', newestPosts)
+  newestPosts.forEach(post => {
+    console.log(`Homepage Post ${post.frontmatter.title}:`, {
+      image: post.frontmatter.image,
+      hasImage: !!post.frontmatter.image
+    })
+  })
 
   return (
-    <>
+    <Layout>
       <SEO 
         title="Psychoterapie v centru Brna | Tomáš Nováček"
         description="Psycholog a terapeut Tomáš Nováček nabízí psychoterapii v centru Brna. Pomáhám lidem překonávat životní výzvy a dosahovat osobního růstu."
-        image="/img/forrest.webp"
         article={false}
-      >
-        {/* Preload critical hero images for LCP optimization */}
-        <link 
-          rel="preload" 
-          as="image" 
-          href="/img/forrest.webp" 
-          fetchpriority="high"
-          type="image/webp"
-        />
-        <link 
-          rel="preload" 
-          as="image" 
-          href="/img/tom1.png" 
-          fetchpriority="high"
-          type="image/png"
-        />
-        
-        {/* Image structured data for SEO */}
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "WebPage",
-            "name": "Psychoterapie v centru Brna | Tomáš Nováček",
-            "description": "Psycholog a terapeut Tomáš Nováček nabízí psychoterapii v centru Brna. Pomáhám lidem překonávat životní výzvy a dosahovat osobního růstu.",
-            "image": {
-              "@type": "ImageObject",
-              "url": "/img/forrest.webp",
-              "width": 1200,
-              "height": 630,
-              "alt": "Lesní cesta - klidné prostředí pro psychoterapii"
-            },
-            "mainEntity": {
-              "@type": "Person",
-              "name": "Tomáš Nováček",
-              "jobTitle": "Psycholog a terapeut",
-              "image": {
-                "@type": "ImageObject",
-                "url": "/img/tom1.png",
-                "width": 600,
-                "height": 800,
-                "alt": "Tomáš Nováček - psycholog a terapeut"
-              }
-            }
-          })}
-        </script>
-      </SEO>
-      <StructuredData type="MedicalBusiness" />
-      <StructuredData type="Person" />
-
+      />
+      
       {/* Hero Section */}
       <Box position="relative" width="100%" height={{ base: "auto", md: "75vh" }} overflow="hidden" className="hero-section">
         {/* Background Image */}
@@ -155,7 +85,6 @@ export default function Home({ data }) {
               zIndex: 0,
             }}
             loading="eager"
-            priority={true}
           />
           <Box
             position="absolute"
@@ -182,7 +111,7 @@ export default function Home({ data }) {
             <HeroTextBox
               title="Psychoterapie"
               titleAccent="v centru Brna"
-              description="Vítejte, jmenuji se Tomáš Nováček. Doprovázím lidi při překonvání jejich životních výchev. Snažím se, aby se na tomto putování cítili bezpečně a našli v sobě schopnost zahlédnout světlo nadějě prosvítající i potemnělým lesem."
+              description="Vítejte, jmenuji se Tomáš Nováček. Doprovázím lidi při překonávaní jejich životních výchev. Snažím se, aby se na tomto putování cítili bezpečně a našli v sobě schopnost zahlédnout světlo nadějě prosvítající i potemnělým lesem."
               primaryText="Objednat konzultaci"
               primaryHref="/calendar"
               secondaryText="Moje služby"
@@ -205,12 +134,10 @@ export default function Home({ data }) {
               >
                 {/* Portrait image using StaticImage for optimized image */}
                 <StaticImage
-                  src="../../static/img/tom1.png"
+                  src="../assets/img/tom1.png"
                   alt="Tomáš Nováček - psycholog a terapeut v centru Brna"
                   placeholder="blurred"
                   layout="fullWidth"
-                  width={600}
-                  height={800}
                   quality={90}
                   style={{
                     mixBlendMode: 'normal',
@@ -230,15 +157,15 @@ export default function Home({ data }) {
       </Box>
 
       {/* About Section */}
-      <Box py={20} bg={cardBg} position="relative" zIndex={2}>
+      <Box py={20} bg={useColorModeValue('gray.50', 'gray.900')} position="relative" zIndex={2}>
         <Container maxW={'7xl'} centerContent>
           <Stack spacing={4} maxW={'6xl'} textAlign={'center'} mb={10}>
-            <Heading as="h2" variant="section" color={headingColor}>
+            <Heading as="h2" variant="section" color={useColorModeValue('gray.800', 'white')}>
               <Text as={'span'} position={'relative'}>
                 O mně
               </Text>
             </Heading>
-            <Text color={textColor} fontSize={'xl'}>
+            <Text color={useColorModeValue('gray.600', 'gray.400')} fontSize={'xl'}>
               Jsem psycholog a terapeut s multioborovým vzděláním a zkušenostmi v doprovázení lidí překonávajících své životní výzvy. Znalosti a perspektivy z různých profesních oblastí mi pomáhají pochopit klientovu situaci a následně společně rozšiřovat obzory o perspektivy, které mohou přinášet větší svobodu při hledání cesty vpřed.
             </Text>
           </Stack>
@@ -263,7 +190,7 @@ export default function Home({ data }) {
               icon={FaUser}
               buttonText="Více o mně"
               buttonHref="/about"
-              textColor={textColor}
+              textColor={useColorModeValue('gray.600', 'gray.400')}
             />
             <AboutCard
               title="Můj přístup"
@@ -273,22 +200,22 @@ export default function Home({ data }) {
               icon={FaHandHoldingHeart}
               buttonText="Moje služby"
               buttonHref="/services"
-              textColor={textColor}
+              textColor={useColorModeValue('gray.600', 'gray.400')}
             />
           </SimpleGrid>
         </Container>
       </Box>
 
       {/* Services Section */}
-      <Box py={20} bg={bgColor}>
+      <Box py={20} bg={useColorModeValue('gray.50', 'gray.900')}>
         <Container maxW={'7xl'} centerContent>
           <Stack spacing={4} maxW={'6xl'} textAlign={'center'} mb={10}>
-            <Heading as="h2" variant="section" color={headingColor}>
+            <Heading as="h2" variant="section" color={useColorModeValue('gray.800', 'white')}>
               <Text as={'span'} position={'relative'} zIndex={1}>
                 S čím vám mohu pomoci
               </Text>
             </Heading>
-            <Text color={textColor} fontSize={'xl'}>
+            <Text color={useColorModeValue('gray.600', 'gray.400')} fontSize={'xl'}>
               Lidé za mnou přicházejí s nejrůznějšími tématy, ale nejčastěji se bavíme o vztazích (k sobě i k druhým), úzkosti, pokleslé náladě a&nbsp;o&nbsp;tom, jak najít klid ve shonu každodenního života.
             </Text>
           </Stack>
@@ -333,7 +260,7 @@ export default function Home({ data }) {
             ].map((service, index) => (
               <Box
                 key={index}
-                bg={cardBg}
+                bg={bgColor}
                 boxShadow={'2xl'}
                 rounded={'xl'}
                 overflow={'hidden'}
@@ -390,42 +317,57 @@ export default function Home({ data }) {
         </Container>
       </Box>
 
-      {/* Latest Posts Section */}
-      <Box py={20} bg={cardBg}>
+      {/* Latest Blog Posts Section */}
+      <Box py={16} bg={useColorModeValue('gray.50', 'gray.900')}>
         <Container maxW="container.xl">
           <VStack spacing={12} align="stretch">
             <Box textAlign="center">
-              <Heading as="h2" variant="section">
-                Z mého bloku
+              <Heading
+                as="h2"
+                size="xl"
+                mb={4}
+                color={useColorModeValue('gray.800', 'white')}
+              >
+                Nejnovější články
               </Heading>
-              <Text fontSize="xl" color="gray.600">
-                Píšu si poznámky – pro sebe, pro práci, pro život. Po čase jsem zjistil, že některé z nich mohou být užitečné i pro ostatní. Nejsou to vědecké články ani návody na štěstí, spíš takové mapy terénu, který znám z vlastní zkušenosti i z práce s klienty.
+              <Text
+                fontSize="lg"
+                color={useColorModeValue('gray.600', 'gray.400')}
+                maxW="2xl"
+                mx="auto"
+              >
+                Objevte praktické tipy a poznatky z psychoterapie, které vám pomohou 
+                lépe zvládat každodenní výzvy a rozvíjet osobní pohodu.
               </Text>
             </Box>
-
+            
             <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={8}>
-              {newestPosts.map(post => (
-                <BlogCard key={post.slug} post={post} allImages={allImages} />
+              {newestPosts.map((post) => (
+                <BlogCard key={post.id} post={post} />
               ))}
             </SimpleGrid>
-
+            
             <Box textAlign="center">
-              <AnalyticsButton
-                as={GatsbyLink}
+              <Button
+                as={Link}
                 to="/blog"
-                variant="outline"
-                buttonName="blog_button"
-                location="home_blog_section"
+                size="lg"
+                colorScheme="green"
+                variant="solid"
+                _hover={{
+                  transform: 'translateY(-2px)',
+                  boxShadow: 'lg',
+                }}
               >
-                Více článků
-              </AnalyticsButton>
+                Zobrazit všechny články
+              </Button>
             </Box>
           </VStack>
         </Container>
       </Box>
 
       {/* Call to Action Section */}
-      <Box py={20} bg={bgColor}>
+      <Box py={20} bg={useColorModeValue('gray.50', 'gray.900')}>
         <Container maxW={'7xl'}>
           <Stack
             spacing={8}
@@ -434,10 +376,10 @@ export default function Home({ data }) {
             maxW={'3xl'}
             mx="auto"
           >
-            <Heading as="h2" variant="section" color={headingColor}>
+            <Heading as="h2" variant="section" color={useColorModeValue('gray.800', 'white')}>
                 Vydejme se spolu na cestu
             </Heading>
-            <Text color={textColor} fontSize={'xl'} maxW={'2xl'}>
+            <Text color={useColorModeValue('gray.600', 'gray.400')} fontSize={'xl'} maxW={'2xl'}>
               První krok je často ten nejtěžší. Domluvte si úvodní konzultaci a společně prozkoumáme, jak vám mohu pomoci.
             </Text>
             <Stack
@@ -469,9 +411,7 @@ export default function Home({ data }) {
           </Stack>
         </Container>
       </Box>
-
-
-    </>
+    </Layout>
   )
 }
 
@@ -506,13 +446,7 @@ export const pageQuery = graphql`
         }
       }
     }
-    allFile(filter: {sourceInstanceName: {eq: "images"}}) {
-      nodes {
-        relativePath
-        childImageSharp {
-          gatsbyImageData(width: 400, height: 200, placeholder: BLURRED, formats: [AUTO, WEBP, AVIF])
-        }
-      }
-    }
   }
-` 
+`
+
+export default HomePage 

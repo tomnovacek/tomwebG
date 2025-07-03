@@ -10,14 +10,15 @@ import {
   Skeleton,
   VStack,
   HStack,
+  Center,
 } from '@chakra-ui/react'
 import { GatsbyImage, getImage } from 'gatsby-plugin-image'
+import { StaticImage } from 'gatsby-plugin-image'
 
-const BlogCard = ({ post, allImages }) => {
+const BlogCard = ({ post }) => {
   const {
     frontmatter: { title, excerpt, date, readTime, tags, image },
     slug,
-    fields,
   } = post
 
   const bgColor = useColorModeValue('white', 'gray.800')
@@ -25,13 +26,88 @@ const BlogCard = ({ post, allImages }) => {
   const textColor = useColorModeValue('gray.600', 'gray.400')
   const headingColor = useColorModeValue('gray.800', 'white')
   const hoverBgColor = useColorModeValue('gray.50', 'gray.700')
+  const placeholderBg = useColorModeValue('gray.200', 'gray.700')
+  const placeholderText = useColorModeValue('gray.500', 'gray.400')
 
-  // Find the optimized image from allImages
-  let optimizedImage = null
-  if (allImages && Array.isArray(allImages) && fields?.imageRelativePath) {
-    const match = allImages.find(img => img?.relativePath === fields.imageRelativePath)
-    if (match && match.childImageSharp) {
-      optimizedImage = getImage(match.childImageSharp)
+  // Simple image rendering based on frontmatter.image
+  const renderImage = () => {
+    if (!image) {
+      return (
+        <Center
+          bg={placeholderBg}
+          color={placeholderText}
+          height="100%"
+          fontSize="sm"
+        >
+          No Image
+        </Center>
+      )
+    }
+
+    // Use switch statement for known images
+    switch (image) {
+      case 'stress.webp':
+        return (
+          <StaticImage
+            src="../assets/img/blog/stress.webp"
+            alt={title}
+            placeholder="blurred"
+            layout="constrained"
+            width={400}
+            height={200}
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+            }}
+            loading="lazy"
+          />
+        )
+      case 'under-blanket.jpg':
+        return (
+          <StaticImage
+            src="../assets/img/blog/under-blanket.jpg"
+            alt={title}
+            placeholder="blurred"
+            layout="constrained"
+            width={400}
+            height={200}
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+            }}
+            loading="lazy"
+          />
+        )
+      case 'self-hug.jpg':
+        return (
+          <StaticImage
+            src="../assets/img/blog/self-hug.jpg"
+            alt={title}
+            placeholder="blurred"
+            layout="constrained"
+            width={400}
+            height={200}
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+            }}
+            loading="lazy"
+          />
+        )
+      default:
+        return (
+          <Center
+            bg={placeholderBg}
+            color={placeholderText}
+            height="100%"
+            fontSize="sm"
+          >
+            {image}
+          </Center>
+        )
     }
   }
 
@@ -61,14 +137,7 @@ const BlogCard = ({ post, allImages }) => {
           mb={4}
           position="relative"
         >
-          {optimizedImage && (
-            <GatsbyImage
-              image={optimizedImage}
-              alt={title}
-              style={{ width: '100%', height: '100%' }}
-              imgStyle={{ objectFit: 'cover' }}
-            />
-          )}
+          {renderImage()}
         </Box>
 
         {/* Content */}

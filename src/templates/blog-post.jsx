@@ -166,13 +166,12 @@ export default function BlogPost({ data, children }) {
             "@type": "BlogPosting",
             "headline": frontmatter.title,
             "description": frontmatter.excerpt,
-            "image": {
+            "image": frontmatter.image ? {
               "@type": "ImageObject",
-              "url": frontmatter.image ? `https://tomnovacek.cz${frontmatter.image}` : undefined,
               "width": 1200,
               "height": 630,
               "alt": frontmatter.title
-            },
+            } : undefined,
             "author": {
               "@type": "Person",
               "name": frontmatter.author?.name || "Tomáš Nováček",
@@ -180,11 +179,7 @@ export default function BlogPost({ data, children }) {
             },
             "publisher": {
               "@type": "Organization",
-              "name": "Tomáš Nováček - Psychoterapie",
-              "logo": {
-                "@type": "ImageObject",
-                "url": "https://tomnovacek.cz/img/tom1.png"
-              }
+              "name": "Tomáš Nováček - Psychoterapie"
             },
             "datePublished": frontmatter.date,
             "dateModified": frontmatter.date,

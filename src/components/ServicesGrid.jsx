@@ -9,6 +9,7 @@ import {
   useColorModeValue,
   Flex,
 } from '@chakra-ui/react'
+import { StaticImage } from 'gatsby-plugin-image'
 
 export default function ServicesGrid({ 
   title = "Naše služby", 
@@ -97,17 +98,127 @@ export default function ServicesGrid({
                   overflow="hidden"
                   rounded="lg"
                 >
-                  <img
-                    src={`/img/${service.image}`}
-                    alt={service.imageAlt}
-                    style={{
-                      width: '100%',
-                      height: '100%',
-                      objectFit: 'cover',
-                      filter: 'brightness(1.1)',
-                    }}
-                    loading="lazy"
-                  />
+                  {(() => {
+                    switch (service.image) {
+                      case 'healing-space.webp':
+                        return (
+                          <StaticImage
+                            src="../assets/img/healing-space.webp"
+                            alt={service.title}
+                            placeholder="blurred"
+                            layout="constrained"
+                            width={400}
+                            height={200}
+                            style={{
+                              width: '100%',
+                              height: '100%',
+                              objectFit: 'cover',
+                            }}
+                            loading="lazy"
+                          />
+                        )
+                      case 'safe-space.webp':
+                        return (
+                          <StaticImage
+                            src="../assets/img/safe-space.webp"
+                            alt={service.title}
+                            placeholder="blurred"
+                            layout="constrained"
+                            width={400}
+                            height={200}
+                            style={{
+                              width: '100%',
+                              height: '100%',
+                              objectFit: 'cover',
+                            }}
+                            loading="lazy"
+                          />
+                        )
+                      case 'stress.webp':
+                        return (
+                          <StaticImage
+                            src="../assets/img/stress.webp"
+                            alt={service.title}
+                            placeholder="blurred"
+                            layout="constrained"
+                            width={400}
+                            height={200}
+                            style={{
+                              width: '100%',
+                              height: '100%',
+                              objectFit: 'cover',
+                            }}
+                            loading="lazy"
+                          />
+                        )
+                      case 'mindfulness.webp':
+                        return (
+                          <StaticImage
+                            src="../assets/img/mindfulness.webp"
+                            alt={service.title}
+                            placeholder="blurred"
+                            layout="constrained"
+                            width={400}
+                            height={200}
+                            style={{
+                              width: '100%',
+                              height: '100%',
+                              objectFit: 'cover',
+                            }}
+                            loading="lazy"
+                          />
+                        )
+                      case 'relationships.webp':
+                        return (
+                          <StaticImage
+                            src="../assets/img/relationships.webp"
+                            alt={service.title}
+                            placeholder="blurred"
+                            layout="constrained"
+                            width={400}
+                            height={200}
+                            style={{
+                              width: '100%',
+                              height: '100%',
+                              objectFit: 'cover',
+                            }}
+                            loading="lazy"
+                          />
+                        )
+                      case 'family.webp':
+                        return (
+                          <StaticImage
+                            src="../assets/img/family.webp"
+                            alt={service.title}
+                            placeholder="blurred"
+                            layout="constrained"
+                            width={400}
+                            height={200}
+                            style={{
+                              width: '100%',
+                              height: '100%',
+                              objectFit: 'cover',
+                            }}
+                            loading="lazy"
+                          />
+                        )
+                      default:
+                        return (
+                          <Box
+                            bg="gray.200"
+                            width="100%"
+                            height="100%"
+                            display="flex"
+                            alignItems="center"
+                            justifyContent="center"
+                          >
+                            <Text color="gray.500" fontSize="sm">
+                              {service.title}
+                            </Text>
+                          </Box>
+                        )
+                    }
+                  })()}
                 </Box>
                 <Box flex={1}>
                   <Heading fontSize={'xl'} color={headingColor} mb={4}>

@@ -13,7 +13,7 @@ const SEO = ({
   const siteTitle = 'Tomáš Nováček - Psycholog a terapeut | Brno'
   const fullTitle = title ? `${title} | ${siteTitle}` : siteTitle
   const defaultDescription = 'Psycholog a terapeut Tomáš Nováček nabízí psychoterapii v centru Brna. Pomáhám lidem překonávat životní výzvy a dosahovat osobního růstu.'
-  const defaultImage = '/img/forrest.webp'
+  const defaultImage = null
 
   // Ensure all values are strings
   const safeTitle = String(fullTitle)
@@ -24,11 +24,14 @@ const SEO = ({
 
   // Convert relative image paths to absolute URLs for Open Graph
   const getAbsoluteImageUrl = (imagePath) => {
+    if (!imagePath) return null
     if (imagePath.startsWith('http')) {
       return imagePath
     }
     return `https://tomnovacek.com${imagePath}`
   }
+
+  const absoluteImageUrl = getAbsoluteImageUrl(safeImage)
 
   return (
     <Helmet>
@@ -62,9 +65,13 @@ const SEO = ({
       <meta property="og:description" content={safeDescription} />
       <meta property="og:url" content={safeUrl} />
       <meta property="og:type" content={article ? "article" : "website"} />
-      <meta property="og:image" content={getAbsoluteImageUrl(safeImage)} />
-      <meta property="og:image:width" content="1200" />
-      <meta property="og:image:height" content="630" />
+      {absoluteImageUrl && (
+        <>
+          <meta property="og:image" content={absoluteImageUrl} />
+          <meta property="og:image:width" content="1200" />
+          <meta property="og:image:height" content="630" />
+        </>
+      )}
       <meta property="og:locale" content="cs_CZ" />
       <meta property="og:site_name" content="Tomáš Nováček - Psycholog a terapeut" />
 
@@ -72,7 +79,9 @@ const SEO = ({
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={safeTitle} />
       <meta name="twitter:description" content={safeDescription} />
-      <meta name="twitter:image" content={getAbsoluteImageUrl(safeImage)} />
+      {absoluteImageUrl && (
+        <meta name="twitter:image" content={absoluteImageUrl} />
+      )}
       <meta name="twitter:creator" content="@tomnovacek" />
 
       {/* Additional meta tags for better SEO */}
