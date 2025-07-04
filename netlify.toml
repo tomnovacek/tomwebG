@@ -3,8 +3,8 @@
   publish = "public"
 
 [build.environment]
-  NODE_VERSION = "18"
-  NPM_VERSION = "9"
+  NODE_VERSION = "20.19.1"
+  NPM_VERSION = "10.2.4"
 
 # Clear build cache to fix case sensitivity issues
 [build.processing]
@@ -140,4 +140,9 @@
 [[headers]]
   for = "/*.js"
   [headers.values]
-    Content-Encoding = "gzip" 
+    Content-Encoding = "gzip"
+
+[[headers]]
+  for = "/page-data/*"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate" 

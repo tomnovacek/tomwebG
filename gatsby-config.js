@@ -26,7 +26,7 @@ module.exports = {
           breakpoints: [400, 768, 1200, 1920],
           backgroundColor: `transparent`,
         },
-        failOnError: false,
+        failOn: `none`,
         stripMetadata: true,
         defaultQuality: 85,
       },
@@ -111,36 +111,14 @@ module.exports = {
                 path
               }
             }
-            allFile(filter: {extension: {regex: "/(jpg|jpeg|png|webp|avif)/"}}) {
-              nodes {
-                publicURL
-                childImageSharp {
-                  gatsbyImageData
-                }
-              }
-            }
           }
         `,
-        serialize: ({ site, allSitePage, allFile }) => {
-          // Handle undefined values safely
-          const pages = allSitePage?.nodes?.map(page => ({
+        serialize: ({ site, allSitePage }) => {
+          return allSitePage?.nodes?.map(page => ({
             url: `${site?.siteMetadata?.siteUrl || ''}${page.path}`,
             changefreq: 'weekly',
             priority: page.path === '/' ? 1.0 : 0.7,
           })) || []
-          
-          // Add image sitemap entries if available
-          const images = allFile?.nodes
-            ? allFile.nodes
-                .filter(file => file.childImageSharp)
-                .map(file => ({
-                  url: `${site?.siteMetadata?.siteUrl || ''}${file.publicURL}`,
-                  changefreq: 'monthly',
-                  priority: 0.3,
-                }))
-            : []
-          
-          return [...pages, ...images]
         }
       },
     },
