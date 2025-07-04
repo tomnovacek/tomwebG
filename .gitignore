@@ -11,6 +11,11 @@ node_modules/
 /build
 /dist
 
+# Gatsby
+.cache/
+public/
+static/admin/
+
 # Misc
 .DS_Store
 .env
