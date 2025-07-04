@@ -1,7 +1,7 @@
 import React from 'react'
 
 const ImageSitemap = ({ pageContext }) => {
-  const { images } = pageContext
+  const { images = [] } = pageContext || {}
   const siteUrl = 'https://tomnovacek.com'
 
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>

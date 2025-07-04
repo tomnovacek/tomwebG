@@ -367,7 +367,7 @@ const HomePage = ({ data }) => {
             
             <Box textAlign="center">
               <Button
-                as={Link}
+                as={GatsbyLink}
                 to="/blog"
                 size="lg"
                 colorScheme="green"

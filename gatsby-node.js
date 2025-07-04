@@ -44,33 +44,41 @@ exports.createPages = async ({ graphql, actions }) => {
 
   // Create blog post pages
   posts.forEach((post) => {
-    const slug = post.frontmatter.slug || path.basename(post.internal.contentFilePath, '.mdx')
-    
-    console.log(`Creating page for ${slug}`)
-    console.log(`- Content file: ${post.internal.contentFilePath}`)
-    
-    createPage({
-      path: `/blog/${slug}`,
-      component: `${path.resolve('./src/templates/blog-post.jsx')}?__contentFilePath=${post.internal.contentFilePath}`,
-      context: {
-        id: post.id,
-        slug: slug,
-      },
-    })
+    try {
+      const slug = post.frontmatter.slug || path.basename(post.internal.contentFilePath, '.mdx')
+      
+      console.log(`Creating page for ${slug}`)
+      console.log(`- Content file: ${post.internal.contentFilePath}`)
+      
+      createPage({
+        path: `/blog/${slug}`,
+        component: `${path.resolve('./src/templates/blog-post.jsx')}?__contentFilePath=${post.internal.contentFilePath}`,
+        context: {
+          id: post.id,
+          slug: slug,
+        },
+      })
+    } catch (error) {
+      console.error(`Error creating page for post:`, error)
+    }
   })
 
   // Create tag pages
-  const tags = [...new Set(posts.flatMap(post => post.frontmatter.tags || []))]
-  
-  tags.forEach(tag => {
-    createPage({
-      path: `/tags/${tag}`,
-      component: path.resolve('./src/templates/tag.jsx'),
-      context: {
-        tag: tag,
-      },
+  try {
+    const tags = [...new Set(posts.flatMap(post => post.frontmatter.tags || []))]
+    
+    tags.forEach(tag => {
+      createPage({
+        path: `/tags/${tag}`,
+        component: path.resolve('./src/templates/tag.jsx'),
+        context: {
+          tag: tag,
+        },
+      })
     })
-  })
+  } catch (error) {
+    console.error('Error creating tag pages:', error)
+  }
 }
 
 // Create image connections for blog posts
@@ -91,39 +99,44 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
 exports.onPostBuild = async ({ graphql, actions }) => {
   const { createPage } = actions
 
-  const result = await graphql(`
-    query {
-      allFile(filter: {extension: {regex: "/(jpg|jpeg|png|webp|avif)/"}}) {
-        nodes {
-          publicURL
-          name
-          extension
-          childImageSharp {
-            gatsbyImageData
+  try {
+    const result = await graphql(`
+      query {
+        allFile(filter: {extension: {regex: "/(jpg|jpeg|png|webp|avif)/"}}) {
+          nodes {
+            publicURL
+            name
+            extension
+            childImageSharp {
+              gatsbyImageData
+            }
           }
         }
       }
+    `)
+
+    if (result.errors) {
+      console.error('Error creating image sitemap:', result.errors)
+      return
     }
-  `)
 
-  if (result.errors) {
-    throw result.errors
+    const images = result.data.allFile.nodes
+      .filter(file => file.childImageSharp)
+      .map(file => ({
+        url: file.publicURL,
+        name: file.name,
+        extension: file.extension,
+      }))
+
+    // Create image sitemap page
+    createPage({
+      path: '/image-sitemap.xml',
+      component: path.resolve('./src/templates/image-sitemap.jsx'),
+      context: {
+        images,
+      },
+    })
+  } catch (error) {
+    console.error('Error in onPostBuild:', error)
   }
-
-  const images = result.data.allFile.nodes
-    .filter(file => file.childImageSharp)
-    .map(file => ({
-      url: file.publicURL,
-      name: file.name,
-      extension: file.extension,
-    }))
-
-  // Create image sitemap page
-  createPage({
-    path: '/image-sitemap.xml',
-    component: path.resolve('./src/templates/image-sitemap.jsx'),
-    context: {
-      images,
-    },
-  })
 } 

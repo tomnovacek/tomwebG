@@ -7,6 +7,7 @@ const AnalyticsButton = ({
   buttonName, 
   location = 'unknown',
   onClick,
+  as,
   ...props 
 }) => {
   const { trackButtonClick } = useAnalytics()
@@ -22,7 +23,7 @@ const AnalyticsButton = ({
   }
 
   return (
-    <Button onClick={handleClick} {...props}>
+    <Button as={as} onClick={handleClick} {...props}>
       {children}
     </Button>
   )

@@ -5,10 +5,3 @@
  */
 
 // You can delete this file if you're not using it
-
-const React = require("react");
-const { HelmetProvider } = require("react-helmet-async");
-
-exports.wrapRootElement = ({ element }) => (
-  <HelmetProvider>{element}</HelmetProvider>
-);
