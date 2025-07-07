@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { graphql } from 'gatsby'
 import { getImage, GatsbyImage } from 'gatsby-plugin-image'
 import Layout from '../components/Layout'
+import CustomMDXProvider from '../components/MDXProvider'
 import {
   Container,
   Box,
@@ -162,7 +163,9 @@ const BlogPost = ({ data, children }) => {
                 'em': { fontStyle: 'italic' }
               }}
             >
-              {children}
+              <CustomMDXProvider>
+                {children}
+              </CustomMDXProvider>
             </Box>
           </Box>
 

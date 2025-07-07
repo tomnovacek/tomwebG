@@ -2,6 +2,7 @@ import React from 'react'
 import { MDXProvider } from '@mdx-js/react'
 import { Box, Heading, Text } from '@chakra-ui/react'
 import ContentFrame from './ContentFrame'
+import ExerciseFrame from './ExerciseFrame'
 
 // MDX components
 const mdxComponents = {
@@ -51,14 +52,16 @@ const mdxComponents = {
       )}
     </Box>
   ),
-  ExerciseFrame: (props) => <ContentFrame type="exercise" {...props} />,
+  ExerciseFrame: ExerciseFrame,
   InfoFrame: (props) => <ContentFrame type="info" {...props} />,
 }
 
-export default function MDXProviderWrapper({ children }) {
+const CustomMDXProvider = ({ children }) => {
   return (
     <MDXProvider components={mdxComponents}>
       {children}
     </MDXProvider>
   )
-} 
+}
+
+export default CustomMDXProvider 

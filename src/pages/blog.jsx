@@ -9,22 +9,30 @@ import {
   SimpleGrid, 
   useColorModeValue,
   HStack,
-  Button
+  Button,
+  Flex
 } from '@chakra-ui/react'
+import { FaTag } from 'react-icons/fa'
 import Layout from '../components/Layout'
 import BlogCard from '../components/BlogCard'
 import SEOGatsby from '../components/SEOGatsby'
 
 export default function BlogPage({ data }) {
   const [selectedTags, setSelectedTags] = useState([])
-  const { allMdx, allFile } = data
+  const { allMdx } = data
 
   const bgColor = useColorModeValue('gray.50', 'gray.900')
   const textColor = useColorModeValue('gray.600', 'gray.400')
   const headingColor = useColorModeValue('green.600', 'green.400')
 
-  // Get all images data safely
-  const allImages = allFile?.nodes || []
+  // Tag styling colors - moved to top level
+  const tagBgSelected = useColorModeValue('green.100', 'green.800')
+  const tagBgUnselected = useColorModeValue('green.50', 'green.900')
+  const tagColor = 'green.700'
+  const tagBorderSelected = useColorModeValue('green.300', 'green.600')
+  const tagBorderUnselected = useColorModeValue('green.200', 'green.700')
+  const tagHoverBg = useColorModeValue('green.100', 'green.800')
+  const tagHoverBorder = useColorModeValue('green.300', 'green.600')
 
   // Function to generate slug from file path
   const generateSlug = (internal, id) => {
@@ -53,17 +61,6 @@ export default function BlogPage({ data }) {
       }
     }))
   }, [allMdx?.nodes])
-
-  // Debug logging - moved after posts is defined
-  console.log('Blog page - allImages:', allImages)
-  console.log('Blog page - posts:', posts)
-  posts.forEach(post => {
-    console.log(`Post ${post.slug}:`, {
-      image: post.frontmatter.featuredImage,
-      imageRelativePath: post.fields?.imageRelativePath,
-      hasOptimizedImage: allImages.some(img => img?.relativePath === post.fields?.imageRelativePath)
-    })
-  })
 
   // Get all unique tags from posts
   const allTags = useMemo(() => {
@@ -130,19 +127,39 @@ export default function BlogPage({ data }) {
                 <Text fontSize="md" fontWeight="medium" mb={3} color={textColor}>
                   Filtrovat podle témat:
                 </Text>
-                <HStack spacing={2} flexWrap="wrap">
-                  {allTags.map((tag) => (
-                    <Button
-                      key={tag}
-                      size="sm"
-                      variant={selectedTags.includes(tag) ? "solid" : "outline"}
-                      colorScheme="green"
-                      onClick={() => handleTagClick(tag)}
-                    >
-                      {tag}
-                    </Button>
-                  ))}
-                </HStack>
+                <Flex gap={2} flexWrap="wrap">
+                  {allTags.map((tag) => {
+                    const isSelected = selectedTags.includes(tag)
+                    
+                    return (
+                      <Box
+                        key={tag}
+                        px={3}
+                        py={1.5}
+                        fontSize="sm"
+                        fontWeight="semibold"
+                        color={tagColor}
+                        bg={isSelected ? tagBgSelected : tagBgUnselected}
+                        border="1px solid"
+                        borderColor={isSelected ? tagBorderSelected : tagBorderUnselected}
+                        borderRadius="md"
+                        cursor="pointer"
+                        transition="all 0.2s"
+                        _hover={{
+                          bg: tagHoverBg,
+                          borderColor: tagHoverBorder,
+                        }}
+                        onClick={() => handleTagClick(tag)}
+                        display="flex"
+                        alignItems="center"
+                        gap={1}
+                      >
+                        <FaTag style={{ fontSize: '0.8em' }} />
+                        {tag}
+                      </Box>
+                    )
+                  })}
+                </Flex>
               </Box>
             )}
 
@@ -150,7 +167,7 @@ export default function BlogPage({ data }) {
             {filteredPosts.length > 0 ? (
               <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={8}>
                 {filteredPosts.map((post) => (
-                  <BlogCard key={post.id} post={post} allImages={allImages} />
+                  <BlogCard key={post.id} post={post} />
                 ))}
               </SimpleGrid>
             ) : (
@@ -183,9 +200,13 @@ export const pageQuery = graphql`
           tags
           featuredImage {
             childImageSharp {
-              gatsbyImageData(width: 400, height: 200, placeholder: BLURRED, formats: [AUTO, WEBP])
+              gatsbyImageData(
+                width: 400
+                height: 200
+                placeholder: BLURRED
+                formats: [AUTO, WEBP, AVIF]
+              )
             }
-            publicURL
           }
           author {
             name
@@ -194,14 +215,6 @@ export const pageQuery = graphql`
         }
         internal {
           contentFilePath
-        }
-      }
-    }
-    allFile(filter: {sourceInstanceName: {eq: "images"}}) {
-      nodes {
-        relativePath
-        childImageSharp {
-          gatsbyImageData(width: 400, height: 200, placeholder: BLURRED, formats: [AUTO, WEBP])
         }
       }
     }

@@ -13,11 +13,10 @@ import {
 import { GatsbyImage, getImage } from 'gatsby-plugin-image'
 import { FaRegClock, FaRegCalendarAlt, FaTag } from 'react-icons/fa'
 
-const BlogCard = ({ post, allImages = [] }) => {
+const BlogCard = ({ post }) => {
   const {
     frontmatter: { title, excerpt, date, readTime, tags, featuredImage },
     slug,
-    fields,
   } = post
 
   const bgColor = useColorModeValue('white', 'gray.800')
@@ -29,14 +28,12 @@ const BlogCard = ({ post, allImages = [] }) => {
   const tagColor = 'green.700'
   const tagBorder = useColorModeValue('green.200', 'green.700')
 
-  // Find the matching image from allImages using imageRelativePath
-  const imagePath = fields?.imageRelativePath || featuredImage
-  const matchedImage = allImages.find(img => img.relativePath === imagePath)
-  const image = matchedImage ? getImage(matchedImage) : null
+  // Get the image directly from frontmatter
+  const image = featuredImage ? getImage(featuredImage) : null
 
   // Image rendering using GatsbyImage
   const renderImage = () => {
-    if (!imagePath || !image) {
+    if (!image) {
       return (
         <Box
           bg={placeholderBg}

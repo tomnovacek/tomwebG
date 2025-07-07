@@ -17,15 +17,12 @@ import SEOGatsby from '../../components/SEOGatsby'
 import { useSiteMetadata } from '../../hooks/use-site-metadata'
 
 const BlogPost = ({ data, children }) => {
-  const { mdx, allFile } = data
+  const { mdx } = data
   const { frontmatter } = mdx
   const siteMetadata = useSiteMetadata()
   
-  // Find the featured image
-  const imageFile = allFile.nodes.find(
-    (file) => file.relativePath === frontmatter.featuredImage
-  )
-  const image = imageFile ? getImage(imageFile) : null
+  // Get the featured image directly from frontmatter
+  const image = frontmatter.featuredImage ? getImage(frontmatter.featuredImage) : null
 
   const bgColor = useColorModeValue('white', 'gray.800')
   const borderColor = useColorModeValue('gray.200', 'gray.700')
@@ -101,18 +98,14 @@ export const query = graphql`
         date
         excerpt
         tags
-        featuredImage
-      }
-    }
-    allFile(filter: { sourceInstanceName: { eq: "images" } }) {
-      nodes {
-        relativePath
-        childImageSharp {
-          gatsbyImageData(
-            width: 800
-            placeholder: BLURRED
-            formats: [AUTO, WEBP, AVIF]
-          )
+        featuredImage {
+          childImageSharp {
+            gatsbyImageData(
+              width: 800
+              placeholder: BLURRED
+              formats: [AUTO, WEBP, AVIF]
+            )
+          }
         }
       }
     }

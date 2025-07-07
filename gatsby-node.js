@@ -91,6 +91,20 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
         value: fileName,
       })
     }
+    
+    // Handle featuredImage connections for MDX nodes
+    if (node.frontmatter && node.frontmatter.featuredImage) {
+      // Create a field that points to the image in src/assets/img/
+      const imagePath = node.frontmatter.featuredImage.startsWith('img/') 
+        ? node.frontmatter.featuredImage 
+        : `img/${node.frontmatter.featuredImage}`
+      
+      createNodeField({
+        node,
+        name: 'imageRelativePath',
+        value: imagePath,
+      })
+    }
   }
   
   if (node.internal.type === 'MarkdownRemark' && node.frontmatter && node.frontmatter.featuredImage) {
