@@ -16,35 +16,67 @@ import {
   List,
   ListItem,
   Link,
-  Divider,
   useColorModeValue,
 } from '@chakra-ui/react'
 
-const BlogPost = ({ data, children }) => {
+const BlogPost = ({ data, children, pageContext }) => {
   const { mdx } = data
   const { frontmatter } = mdx
-  const [headings, setHeadings] = useState([])
   const [activeHeading, setActiveHeading] = useState('')
+  const [headings, setHeadings] = useState([])
+  const [isClient, setIsClient] = useState(false)
   
   const bgColor = useColorModeValue('white', 'gray.800')
   const borderColor = useColorModeValue('gray.200', 'gray.700')
   const tocBgColor = useColorModeValue('gray.50', 'gray.900')
 
-  // Extract headings from MDX content for TOC
+  // Set client flag
   useEffect(() => {
-    const headingElements = document.querySelectorAll('h1, h2, h3')
-    const headingData = Array.from(headingElements).map((element, index) => {
-      const id = element.id || `heading-${index}`
-      element.id = id
-      return {
-        id,
-        text: element.textContent,
-        level: parseInt(element.tagName.charAt(1)),
-      }
-    })
-    setHeadings(headingData)
+    setIsClient(true)
+  }, [])
 
-    // Intersection Observer for active heading
+  // Generate TOC from children content (client-side only)
+  useEffect(() => {
+    if (!isClient) return
+
+    // Wait for content to be rendered
+    const timer = setTimeout(() => {
+      const headingElements = document.querySelectorAll('h1, h2, h3')
+      const headingData = []
+      
+      headingElements.forEach((element) => {
+        const level = parseInt(element.tagName.charAt(1))
+        const text = element.textContent.trim()
+        const id = element.id || text.toLowerCase()
+          .replace(/[^a-z0-9\s-]/g, '')
+          .replace(/\s+/g, '-')
+          .replace(/-+/g, '-')
+          .replace(/^-|-$/g, '')
+        
+        // Ensure element has an ID for scrolling
+        if (!element.id) {
+          element.id = id
+        }
+        
+        headingData.push({
+          id,
+          text,
+          level
+        })
+      })
+      
+      setHeadings(headingData)
+    }, 100)
+
+    return () => clearTimeout(timer)
+  }, [children, isClient])
+
+  // Intersection Observer for active heading
+  useEffect(() => {
+    if (!isClient) return
+
+    const headingElements = document.querySelectorAll('h1, h2, h3')
+    
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -59,9 +91,11 @@ const BlogPost = ({ data, children }) => {
     headingElements.forEach((element) => observer.observe(element))
 
     return () => observer.disconnect()
-  }, [])
+  }, [headings, isClient])
 
   const scrollToHeading = (id) => {
+    if (!isClient) return
+    
     const element = document.getElementById(id)
     if (element) {
       element.scrollIntoView({ behavior: 'smooth', block: 'start' })

@@ -61,6 +61,14 @@ module.exports = {
           rehypePlugins: [
             require('rehype-slug'),
             require('rehype-autolink-headings'),
+            [require('rehype-toc'), {
+              nav: false,
+              headings: ['h1', 'h2', 'h3'],
+              cssClasses: {
+                toc: 'table-of-contents',
+                link: 'toc-link'
+              }
+            }],
           ],
         },
         gatsbyRemarkPlugins: [

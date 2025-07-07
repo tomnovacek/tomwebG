@@ -6,9 +6,30 @@ import ExerciseFrame from './ExerciseFrame'
 
 // MDX components
 const mdxComponents = {
-  h1: (props) => <Heading as="h1" size="xl" mb={4} {...props} />,
-  h2: (props) => <Heading as="h2" size="lg" mb={3} mt={6} {...props} />,
-  h3: (props) => <Heading as="h3" size="md" mb={2} mt={4} {...props} />,
+  h1: (props) => {
+    const id = props.children?.toString().toLowerCase()
+      .replace(/[^a-z0-9\s-]/g, '')
+      .replace(/\s+/g, '-')
+      .replace(/-+/g, '-')
+      .replace(/^-|-$/g, '')
+    return <Heading as="h1" size="xl" mb={4} id={id} scrollMarginTop="10px" {...props} />
+  },
+  h2: (props) => {
+    const id = props.children?.toString().toLowerCase()
+      .replace(/[^a-z0-9\s-]/g, '')
+      .replace(/\s+/g, '-')
+      .replace(/-+/g, '-')
+      .replace(/^-|-$/g, '')
+    return <Heading as="h2" size="lg" mb={3} mt={6} id={id} scrollMarginTop="10px" {...props} />
+  },
+  h3: (props) => {
+    const id = props.children?.toString().toLowerCase()
+      .replace(/[^a-z0-9\s-]/g, '')
+      .replace(/\s+/g, '-')
+      .replace(/-+/g, '-')
+      .replace(/^-|-$/g, '')
+    return <Heading as="h3" size="md" mb={2} mt={4} id={id} scrollMarginTop="10px" {...props} />
+  },
   p: (props) => <Text mb={4} lineHeight="tall" {...props} />,
   ul: (props) => <Box as="ul" pl={6} mb={4} {...props} />,
   ol: (props) => <Box as="ol" pl={6} mb={4} {...props} />,

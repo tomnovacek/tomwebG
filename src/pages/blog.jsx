@@ -27,10 +27,10 @@ export default function BlogPage({ data }) {
 
   // Tag styling colors - moved to top level
   const tagBgSelected = useColorModeValue('green.100', 'green.800')
-  const tagBgUnselected = useColorModeValue('green.50', 'green.900')
+  const tagBgUnselected = useColorModeValue('gray.50', 'gray.900')
   const tagColor = 'green.700'
   const tagBorderSelected = useColorModeValue('green.300', 'green.600')
-  const tagBorderUnselected = useColorModeValue('green.200', 'green.700')
+  const tagBorderUnselected = useColorModeValue('gray.200', 'gray.700')
   const tagHoverBg = useColorModeValue('green.100', 'green.800')
   const tagHoverBorder = useColorModeValue('green.300', 'green.600')
 
@@ -127,7 +127,7 @@ export default function BlogPage({ data }) {
                 <Text fontSize="md" fontWeight="medium" mb={3} color={textColor}>
                   Filtrovat podle témat:
                 </Text>
-                <Flex gap={2} flexWrap="wrap">
+                <Flex gap={1} flexWrap="wrap">
                   {allTags.map((tag) => {
                     const isSelected = selectedTags.includes(tag)
                     
@@ -135,8 +135,8 @@ export default function BlogPage({ data }) {
                       <Box
                         key={tag}
                         px={3}
-                        py={1.5}
-                        fontSize="sm"
+                        py={1}
+                        fontSize="xs"
                         fontWeight="semibold"
                         color={tagColor}
                         bg={isSelected ? tagBgSelected : tagBgUnselected}
