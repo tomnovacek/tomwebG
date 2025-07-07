@@ -3,12 +3,10 @@ import {
   Box,
   Heading,
   Text,
-  List,
-  ListItem,
-  Icon,
-  Flex,
   Button,
   useColorModeValue,
+  Flex,
+  Icon,
 } from '@chakra-ui/react'
 import { CheckCircleIcon } from '@chakra-ui/icons'
 import { StaticImage } from 'gatsby-plugin-image'
@@ -163,14 +161,14 @@ export default function PricingCard({
         <Text color={textColor} mb={6} textAlign="center">
           {description}
         </Text>
-        <List spacing={4} mb={8}>
+        <Box as="ul" spacing={4} mb={8}>
           {features.map((feature, idx) => (
-            <ListItem key={idx} display="flex" alignItems="center" gap={3}>
-              <Icon as={CheckCircleIcon} color="green.400" boxSize={5} />
-              <Text color={textColor}>{feature}</Text>
-            </ListItem>
+            <Box as="li" key={idx} display="flex" alignItems="center" gap={3}>
+              <Icon as={CheckCircleIcon} color="green.400" />
+              <Text>{feature}</Text>
+            </Box>
           ))}
-        </List>
+        </Box>
         <Button
           as="a"
           href="/calendar"

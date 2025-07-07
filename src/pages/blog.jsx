@@ -8,17 +8,12 @@ import {
   VStack, 
   SimpleGrid, 
   useColorModeValue,
-  Tag,
-  TagLabel,
-  TagLeftIcon,
   HStack,
-  Center,
   Button
 } from '@chakra-ui/react'
-import { FiTag } from 'react-icons/fi'
 import Layout from '../components/Layout'
-import SEO from '../components/SEO'
 import BlogCard from '../components/BlogCard'
+import SEOGatsby from '../components/SEOGatsby'
 
 export default function BlogPage({ data }) {
   const [selectedTags, setSelectedTags] = useState([])
@@ -32,13 +27,15 @@ export default function BlogPage({ data }) {
   const allImages = allFile?.nodes || []
 
   // Function to generate slug from file path
-  const generateSlug = (internal) => {
+  const generateSlug = (internal, id) => {
     if (internal?.contentFilePath) {
       const pathParts = internal.contentFilePath.split('/')
       const fileName = pathParts[pathParts.length - 1]
-      return fileName.replace('.mdx', '')
+      // Remove both .md and .mdx extensions
+      return fileName.replace(/\.(md|mdx)$/, '')
     }
-    return ''
+    // Fallback to using the post ID if contentFilePath is null
+    return id ? id.split('-').pop() : 'post'
   }
 
   // Process blog posts
@@ -49,10 +46,10 @@ export default function BlogPage({ data }) {
     
     return allMdx.nodes.map(post => ({
       ...post,
-      slug: generateSlug(post.internal),
+      slug: generateSlug(post.internal, post.id),
       frontmatter: {
         ...post.frontmatter,
-        slug: generateSlug(post.internal)
+        slug: generateSlug(post.internal, post.id)
       }
     }))
   }, [allMdx?.nodes])
@@ -62,21 +59,16 @@ export default function BlogPage({ data }) {
   console.log('Blog page - posts:', posts)
   posts.forEach(post => {
     console.log(`Post ${post.slug}:`, {
-      image: post.frontmatter.image,
+      image: post.frontmatter.featuredImage,
       imageRelativePath: post.fields?.imageRelativePath,
       hasOptimizedImage: allImages.some(img => img?.relativePath === post.fields?.imageRelativePath)
     })
   })
 
   // Get all unique tags from posts
-  const tags = useMemo(() => {
-    const tagSet = new Set()
-    posts.forEach((post) => {
-      if (post.frontmatter.tags) {
-        post.frontmatter.tags.forEach((tag) => tagSet.add(tag))
-      }
-    })
-    return Array.from(tagSet).sort()
+  const allTags = useMemo(() => {
+    const tags = posts.flatMap(post => post.frontmatter.tags || [])
+    return [...new Set(tags)]
   }, [posts])
 
   // Filter posts by selected tags
@@ -85,78 +77,76 @@ export default function BlogPage({ data }) {
       return posts
     }
     return posts.filter(post => 
-      post.frontmatter.tags && post.frontmatter.tags.some(tag => selectedTags.includes(tag))
+      post.frontmatter.tags?.some(tag => selectedTags.includes(tag))
     )
   }, [posts, selectedTags])
+
+  const handleTagClick = (tag) => {
+    setSelectedTags(prev => 
+      prev.includes(tag) 
+        ? prev.filter(t => t !== tag)
+        : [...prev, tag]
+    )
+  }
 
   if (!posts || posts.length === 0) {
     return (
       <Layout>
-        <SEO
-          title="Blog - Tom Nováček"
-          description="Články o duševním zdraví, psychoterapii a osobním rozvoji"
-        />
-        <Center minH="60vh">
+        <Box minH="60vh" display="flex" alignItems="center" justifyContent="center">
           <VStack spacing={4}>
             <Text>Žádné články nebyly nalezeny.</Text>
             <Button onClick={() => window.location.reload()}>
               Zkusit znovu
             </Button>
           </VStack>
-        </Center>
+        </Box>
       </Layout>
     )
   }
 
   return (
     <Layout>
-      <SEO
-        title="Blog - Tom Nováček"
-        description="Články o duševním zdraví, psychoterapii a osobním rozvoji"
-        keywords="blog, psychologie, osobní rozvoj, duševní zdraví"
-        url="https://tomnovacek.com/blog"
+      <SEOGatsby 
+        title="Blog | Tomáš Nováček - Psychoterapie"
+        description="Články o duševním zdraví, psychoterapii a osobním růstu. Praktické tipy a poznatky z terapeutické praxe."
+        pathname="/blog"
       />
-      
-      <Box bg={bgColor} minH="100vh" pt={20} pb={8}>
+      <Box bg={bgColor} minH="100vh" py={8}>
         <Container maxW="6xl">
           <VStack spacing={8} align="stretch">
-            <Box textAlign="center">
-              <Heading as="h1" size="2xl" color={headingColor} mb={4}>
+            {/* Header */}
+            <VStack spacing={4} textAlign="center">
+              <Heading as="h1" size="2xl" color={headingColor}>
                 Blog
               </Heading>
-              <Text fontSize="lg" color={textColor}>
-                Články o duševním zdraví, psychoterapii a osobním rozvoji
+              <Text fontSize="lg" color={textColor} maxW="2xl">
+                Články o duševním zdraví, psychoterapii a osobním růstu
               </Text>
-            </Box>
+            </VStack>
 
-            {tags.length > 0 && (
+            {/* Tag Filter */}
+            {allTags.length > 0 && (
               <Box>
-                <Heading as="h2" size="md" mb={4} color={headingColor}>
-                  Filtrovat podle témat
-                </Heading>
-                <HStack spacing={2} wrap="wrap">
-                  {tags.map(tag => (
-                    <Tag
+                <Text fontSize="md" fontWeight="medium" mb={3} color={textColor}>
+                  Filtrovat podle témat:
+                </Text>
+                <HStack spacing={2} flexWrap="wrap">
+                  {allTags.map((tag) => (
+                    <Button
                       key={tag}
-                      size="md"
-                      colorScheme={selectedTags.includes(tag) ? 'green' : 'gray'}
-                      cursor="pointer"
-                      onClick={() => {
-                        setSelectedTags(prev =>
-                          prev.includes(tag)
-                            ? prev.filter(t => t !== tag)
-                            : [...prev, tag]
-                        )
-                      }}
+                      size="sm"
+                      variant={selectedTags.includes(tag) ? "solid" : "outline"}
+                      colorScheme="green"
+                      onClick={() => handleTagClick(tag)}
                     >
-                      <TagLeftIcon as={FiTag} />
-                      <TagLabel>{tag}</TagLabel>
-                    </Tag>
+                      {tag}
+                    </Button>
                   ))}
                 </HStack>
               </Box>
             )}
-            
+
+            {/* Blog Posts Grid */}
             {filteredPosts.length > 0 ? (
               <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={8}>
                 {filteredPosts.map((post) => (
@@ -166,7 +156,7 @@ export default function BlogPage({ data }) {
             ) : (
               <Box textAlign="center" py={12}>
                 <Text fontSize="lg" color={textColor}>
-                  Žádné články neodpovídají vybraným filtrům.
+                  Žádné články nebyly nalezeny pro vybraná témata.
                 </Text>
               </Box>
             )}
@@ -191,19 +181,19 @@ export const pageQuery = graphql`
           readTime
           excerpt
           tags
-          image
+          featuredImage {
+            childImageSharp {
+              gatsbyImageData(width: 400, height: 200, placeholder: BLURRED, formats: [AUTO, WEBP])
+            }
+            publicURL
+          }
           author {
             name
-            image
-            role
           }
           status
         }
         internal {
           contentFilePath
-        }
-        fields {
-          imageRelativePath
         }
       }
     }
@@ -211,9 +201,9 @@ export const pageQuery = graphql`
       nodes {
         relativePath
         childImageSharp {
-          gatsbyImageData(width: 400, height: 200, placeholder: BLURRED, formats: [AUTO, WEBP, AVIF])
+          gatsbyImageData(width: 400, height: 200, placeholder: BLURRED, formats: [AUTO, WEBP])
         }
       }
     }
   }
-` 
+`

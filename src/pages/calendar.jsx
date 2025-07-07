@@ -9,20 +9,19 @@ import {
   Flex,
   Spinner,
   Button,
-  useToast,
 } from '@chakra-ui/react'
 import { useState, useEffect } from 'react'
 import { FaEnvelope, FaArrowRight } from 'react-icons/fa'
 import { Link as GatsbyLink } from 'gatsby'
 import Layout from '../components/Layout'
-import SEO from '../components/SEO'
+import SEOGatsby from '../components/SEOGatsby'
 import SecureEmail from '../components/SecureEmail'
 import SecureEmailButton from '../components/SecureEmailButton'
 
 const CalendarPage = () => {
   const [isLoading, setIsLoading] = useState(true)
   const [retryCount, setRetryCount] = useState(0)
-  const toast = useToast()
+  const [showError, setShowError] = useState(false)
   const bgColor = useColorModeValue('gray.50', 'gray.900')
   const cardBg = useColorModeValue('white', 'gray.800')
   const textColor = useColorModeValue('gray.600', 'gray.400')
@@ -32,19 +31,13 @@ const CalendarPage = () => {
       if (isLoading) {
         setRetryCount(prev => prev + 1)
         if (retryCount >= 2) {
-          toast({
-            title: "Problém s načítáním kalendáře",
-            description: "Zkuste to prosím znovu nebo nás kontaktujte emailem.",
-            status: "error",
-            duration: 5000,
-            isClosable: true,
-          })
+          setShowError(true)
         }
       }
     }, 10000) // 10 seconds timeout
 
     return () => clearTimeout(timer)
-  }, [isLoading, retryCount, toast])
+  }, [isLoading, retryCount])
 
   const handleIframeLoad = () => {
     setIsLoading(false)
@@ -52,13 +45,6 @@ const CalendarPage = () => {
 
   return (
     <Layout>
-      <SEO
-        title="Rezervace termínu"
-        description="Rezervujte si termín terapeutického sezení online. Vyberte si čas, který vám vyhovuje, přímo v kalendáři."
-        keywords="rezervace, termín, terapie, online rezervace, kalendář, sezení"
-        url="https://tomnovacek.com/calendar"
-      />
-
       <Box bg={bgColor}>
         <Box py={20}>
           <Container maxW={'7xl'}>
@@ -103,6 +89,12 @@ const CalendarPage = () => {
                     size="xl"
                   />
                   <Text color={textColor}>Načítání kalendáře...</Text>
+                  {showError && (
+                    <Box textAlign="center" p={4} bg="red.50" borderRadius="md" border="1px solid" borderColor="red.200">
+                      <Text color="red.600" fontWeight="bold">Problém s načítáním kalendáře</Text>
+                      <Text color="red.500" fontSize="sm">Zkuste to prosím znovu nebo nás kontaktujte emailem.</Text>
+                    </Box>
+                  )}
                 </Flex>
               )}
 
@@ -177,4 +169,12 @@ const CalendarPage = () => {
   )
 }
 
-export default CalendarPage 
+export default CalendarPage
+
+export const Head = () => (
+  <SEOGatsby 
+    title="Kalendář - Objednat konzultaci"
+    description="Objednejte si konzultaci s psychoterapeutem Tomášem Nováčkem v centru Brna."
+    pathname="/calendar"
+  />
+) 

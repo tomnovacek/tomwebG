@@ -13,6 +13,10 @@ module.exports = {
     description: `Certifikovaný psychoterepeut pro dospělé v centru Brna`,
     author: `@tomnovacek`,
     siteUrl: `https://tomnovacek.com/`,
+    image: `/img/tom1.png`,
+    twitterUsername: `@tomnovacek`,
+    language: `cs`,
+    locale: `cs_CZ`,
   },
   plugins: [
     `gatsby-plugin-image`,
@@ -20,7 +24,7 @@ module.exports = {
       resolve: `gatsby-plugin-sharp`,
       options: {
         defaults: {
-          formats: [`auto`, `webp`, `avif`],
+          formats: [`auto`, `webp`],
           placeholder: `blurred`,
           quality: 85,
           breakpoints: [400, 768, 1200, 1920],
@@ -49,6 +53,16 @@ module.exports = {
     {
       resolve: `gatsby-plugin-mdx`,
       options: {
+        extensions: [`.mdx`, `.md`],
+        mdxOptions: {
+          remarkPlugins: [
+            require('remark-gfm'),
+          ],
+          rehypePlugins: [
+            require('rehype-slug'),
+            require('rehype-autolink-headings'),
+          ],
+        },
         gatsbyRemarkPlugins: [
           {
             resolve: `gatsby-remark-images`,
@@ -56,17 +70,12 @@ module.exports = {
               maxWidth: 1200,
               quality: 85,
               withWebp: true,
-              withAvif: true,
               linkImagesToOriginal: false,
               showCaptions: true,
               markdownCaptions: true,
             },
           },
         ],
-        mdxOptions: {
-          remarkPlugins: [],
-          rehypePlugins: [],
-        },
       },
     },
     {

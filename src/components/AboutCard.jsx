@@ -51,7 +51,7 @@ export default function AboutCard({
               width: '100%',
               filter: 'brightness(1.2)',
             }}
-            formats={['auto', 'webp', 'avif']}
+            formats={['auto', 'webp']}
             quality={85}
             breakpoints={[400, 768, 1200]}
             sizes="(max-width: 768px) 100vw, 50vw"
@@ -73,7 +73,7 @@ export default function AboutCard({
               width: '100%',
               filter: 'brightness(1.2)',
             }}
-            formats={['auto', 'webp', 'avif']}
+            formats={['auto', 'webp']}
             quality={85}
             breakpoints={[400, 768, 1200]}
             sizes="(max-width: 768px) 100vw, 50vw"
@@ -95,7 +95,7 @@ export default function AboutCard({
               width: '100%',
               filter: 'brightness(1.2)',
             }}
-            formats={['auto', 'webp', 'avif']}
+            formats={['auto', 'webp']}
             quality={85}
             breakpoints={[400, 768, 1200]}
             sizes="(max-width: 768px) 100vw, 50vw"

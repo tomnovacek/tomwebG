@@ -181,63 +181,6 @@ const theme = extendTheme({
         },
       },
     },
-    // Add MDX-specific components
-    MDX: {
-      baseStyle: {
-        h1: {
-          color: 'green.600',
-          fontSize: '2xl',
-          fontWeight: 'bold',
-          mb: 4,
-        },
-        h2: {
-          color: 'green.600',
-          fontSize: 'xl',
-          fontWeight: 'bold',
-          mb: 3,
-          mt: 8,
-        },
-        h3: {
-          color: 'green.600',
-          fontSize: 'xl',
-          fontWeight: 'bold',
-          mb: 2,
-          mt: 6,
-        },
-        p: {
-          color: 'gray.700',
-          mb: 4,
-          lineHeight: 'tall',
-        },
-        a: {
-          color: 'green.500',
-        },
-        li: {
-          color: 'gray.700',
-          pl: 2,
-          mb: 2,
-          ml: 4,
-        },
-        blockquote: {
-          pl: 4,
-          borderLeft: '4px solid',
-          borderColor: 'green.500',
-          fontStyle: 'italic',
-          mb: 4,
-          color: 'gray.700',
-        },
-      },
-      variants: {
-        dark: {
-          h1: { color: 'gray.200' },
-          h2: { color: 'gray.200' },
-          h3: { color: 'gray.200' },
-          p: { color: 'gray.300' },
-          li: { color: 'gray.300' },
-          blockquote: { color: 'gray.300' },
-        },
-      },
-    },
   },
 })
 

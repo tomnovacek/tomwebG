@@ -1,381 +1,239 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { graphql } from 'gatsby'
-import { MDXProvider } from '@mdx-js/react'
-import { Box, Container, Heading, Text, Badge, Flex, Avatar, useColorModeValue } from '@chakra-ui/react'
+import { getImage, GatsbyImage } from 'gatsby-plugin-image'
 import Layout from '../components/Layout'
-import SEO from '../components/SEO'
-import ExerciseFrame from '../components/ExerciseFrame'
-import InfoFrame from '../components/InfoFrame'
-import TableOfContents from '../components/TableOfContents'
-import { StaticImage } from 'gatsby-plugin-image'
+import {
+  Container,
+  Box,
+  Heading,
+  Text,
+  VStack,
+  Tag,
+  TagLabel,
+  HStack,
+  Flex,
+  List,
+  ListItem,
+  Link,
+  Divider,
+  useColorModeValue,
+} from '@chakra-ui/react'
 
-// Helper function to generate slug from text
-const slugify = (text) => {
-  return text
-    .toString()
-    .toLowerCase()
-    .replace(/\s+/g, '-')           // Replace spaces with -
-    .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
-    .replace(/\-\-+/g, '-')         // Replace multiple - with single -
-    .replace(/^-+/, '')             // Trim - from start of text
-    .replace(/-+$/, '');            // Trim - from end of text
-}
-
-export default function BlogPost({ data, children }) {
+const BlogPost = ({ data, children }) => {
   const { mdx } = data
   const { frontmatter } = mdx
-
-  const bgColor = useColorModeValue('white', 'gray.900')
-  const textColor = useColorModeValue('gray.600', 'gray.400')
+  const [headings, setHeadings] = useState([])
+  const [activeHeading, setActiveHeading] = useState('')
+  
+  const bgColor = useColorModeValue('white', 'gray.800')
   const borderColor = useColorModeValue('gray.200', 'gray.700')
-  const headingColor = useColorModeValue('gray.800', 'white')
-  const subHeadingColor = useColorModeValue('gray.700', 'gray.200')
-  const tertiaryHeadingColor = useColorModeValue('gray.600', 'gray.300')
-  const bodyTextColor = useColorModeValue('gray.700', 'gray.300')
-  const listTextColor = useColorModeValue('gray.700', 'gray.300')
-  const blockquoteBorderColor = useColorModeValue('green.400', 'green.300')
-  const blockquoteBgColor = useColorModeValue('green.50', 'green.900')
-  const codeBgColor = useColorModeValue('gray.100', 'gray.700')
-  const preBgColor = useColorModeValue('gray.100', 'gray.700')
-  const headingGreen = useColorModeValue('green.600', 'green.300')
+  const tocBgColor = useColorModeValue('gray.50', 'gray.900')
 
-  // MDX components - now using the color values from hooks
-  const mdxComponents = {
-    h1: (props) => {
-      const id = slugify(props.children)
-      return (
-        <Heading as="h1" size="sm" mb={6} mt={8} color={headingGreen} id={id} {...props} />
-      )
-    },
-    h2: (props) => {
-      const id = slugify(props.children)
-      return (
-        <Heading as="h2" size="xs" mb={4} mt={6} color={headingGreen} id={id} {...props} />
-      )
-    },
-    h3: (props) => {
-      const id = slugify(props.children)
-      return (
-        <Heading as="h3" size="xs" mb={3} mt={5} color={headingGreen} id={id} {...props} />
-      )
-    },
-    h4: (props) => {
-      const id = slugify(props.children)
-      return (
-        <Heading as="h4" size="xs" mb={2} mt={4} color={headingGreen} id={id} {...props} />
-      )
-    },
-    p: (props) => (
-      <Box as="p" mb={4} color={bodyTextColor} lineHeight="1.7" fontSize="sm" {...props} />
-    ),
-    ul: (props) => (
-      <Box as="ul" mb={4} pl={6} color={listTextColor} {...props} />
-    ),
-    ol: (props) => (
-      <Box as="ol" mb={4} pl={6} color={listTextColor} {...props} />
-    ),
-    li: (props) => (
-      <Box as="li" mb={2} lineHeight="1.6" color={listTextColor} {...props} />
-    ),
-    blockquote: (props) => (
-      <Box
-        as="blockquote"
-        borderLeft="4px solid"
-        borderColor={blockquoteBorderColor}
-        pl={4}
-        py={2}
-        my={6}
-        bg={blockquoteBgColor}
-        borderRadius="md"
-        {...props}
-      />
-    ),
-    code: (props) => (
-      <Box
-        as="code"
-        bg={codeBgColor}
-        px={2}
-        py={1}
-        borderRadius="md"
-        fontSize="sm"
-        {...props}
-      />
-    ),
-    pre: (props) => (
-      <Box
-        as="pre"
-        bg={preBgColor}
-        p={4}
-        borderRadius="md"
-        overflowX="auto"
-        mb={4}
-        {...props}
-      />
-    ),
-    // Optimized img component for MDX content using Gatsby's image optimization
-    img: (props) => {
-      // For images in static/img directory, we can optimize them
-      if (props.src && props.src.startsWith('/img/')) {
-        return (
-          <Box my={6} textAlign="center">
-            <img
-              src={props.src}
-              alt={props.alt || 'Blog post image'}
-              style={{
-                maxWidth: '100%',
-                height: 'auto',
-                borderRadius: '8px',
-                display: 'block',
-                margin: '0 auto',
-                boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-              }}
-              loading="lazy"
-              decoding="async"
-              onLoad={(e) => {
-                // Prevent layout shift by setting aspect ratio
-                e.target.style.aspectRatio = '16/9'
-              }}
-            />
-            {props.alt && (
-              <Text fontSize="sm" color={textColor} mt={2} fontStyle="italic">
-                {props.alt}
-              </Text>
-            )}
-          </Box>
-        )
+  // Extract headings from MDX content for TOC
+  useEffect(() => {
+    const headingElements = document.querySelectorAll('h1, h2, h3')
+    const headingData = Array.from(headingElements).map((element, index) => {
+      const id = element.id || `heading-${index}`
+      element.id = id
+      return {
+        id,
+        text: element.textContent,
+        level: parseInt(element.tagName.charAt(1)),
       }
-      
-      // For external images or other sources, use standard img tag
-      return (
-        <Box my={6} textAlign="center">
-          <img
-            src={props.src}
-            alt={props.alt || 'Blog post image'}
-            style={{
-              maxWidth: '100%',
-              height: 'auto',
-              borderRadius: '8px',
-              display: 'block',
-              margin: '0 auto',
-              boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-            }}
-            loading="lazy"
-            decoding="async"
-            onLoad={(e) => {
-              // Prevent layout shift by setting aspect ratio
-              e.target.style.aspectRatio = '16/9'
-            }}
-          />
-          {props.alt && (
-            <Text fontSize="sm" color={textColor} mt={2} fontStyle="italic">
-              {props.alt}
-            </Text>
-          )}
-        </Box>
-      )
-    },
-    // Add the custom components that MDX files are trying to use
-    ExerciseFrame: ExerciseFrame,
-    InfoFrame: InfoFrame,
+    })
+    setHeadings(headingData)
+
+    // Intersection Observer for active heading
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveHeading(entry.target.id)
+          }
+        })
+      },
+      { rootMargin: '-20% 0px -35% 0px' }
+    )
+
+    headingElements.forEach((element) => observer.observe(element))
+
+    return () => observer.disconnect()
+  }, [])
+
+  const scrollToHeading = (id) => {
+    const element = document.getElementById(id)
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
   }
+
+  const image = frontmatter.featuredImage ? getImage(frontmatter.featuredImage) : null
 
   return (
     <Layout>
-      <SEO
-        title={frontmatter.title}
-        description={frontmatter.excerpt}
-        image={frontmatter.image}
-      >
-        {/* Blog post structured data for SEO */}
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "BlogPosting",
-            "headline": frontmatter.title,
-            "description": frontmatter.excerpt,
-            "image": frontmatter.image ? {
-              "@type": "ImageObject",
-              "width": 1200,
-              "height": 630,
-              "alt": frontmatter.title
-            } : undefined,
-            "author": {
-              "@type": "Person",
-              "name": frontmatter.author?.name || "Tomáš Nováček",
-              "jobTitle": "Psycholog a terapeut"
-            },
-            "publisher": {
-              "@type": "Organization",
-              "name": "Tomáš Nováček - Psychoterapie"
-            },
-            "datePublished": frontmatter.date,
-            "dateModified": frontmatter.date,
-            "mainEntityOfPage": {
-              "@type": "WebPage",
-              "@id": `https://tomnovacek.cz/blog/${frontmatter.slug}`
-            }
-          })}
-        </script>
-      </SEO>
-      
-      <Container maxW="4xl" py={8}>
-        <Box bg={bgColor} borderRadius="lg" p={8} shadow="sm" border="1px solid" borderColor={borderColor}>
-          {/* Featured Image */}
-          {frontmatter.image && (
-            <Box mb={4} borderRadius="lg" overflow="hidden" maxH="200px">
-              {(() => {
-                switch (frontmatter.image) {
-                  case 'stress.webp':
-                    return (
-                      <StaticImage
-                        src="../assets/img/blog/stress.webp"
-                        alt={frontmatter.title}
-                        placeholder="blurred"
-                        layout="constrained"
-                        width={800}
-                        height={200}
-                        style={{ width: '100%', height: '200px', objectFit: 'cover' }}
-                        loading="eager"
-                      />
-                    )
-                  case 'under-blanket.jpg':
-                    return (
-                      <StaticImage
-                        src="../assets/img/blog/under-blanket.jpg"
-                        alt={frontmatter.title}
-                        placeholder="blurred"
-                        layout="constrained"
-                        width={800}
-                        height={200}
-                        style={{ width: '100%', height: '200px', objectFit: 'cover' }}
-                        loading="eager"
-                      />
-                    )
-                  case 'self-hug.jpg':
-                    return (
-                      <StaticImage
-                        src="../assets/img/blog/self-hug.jpg"
-                        alt={frontmatter.title}
-                        placeholder="blurred"
-                        layout="constrained"
-                        width={800}
-                        height={200}
-                        style={{ width: '100%', height: '200px', objectFit: 'cover' }}
-                        loading="eager"
-                      />
-                    )
-                  case 'emotion-faces.jpg':
-                    return (
-                      <StaticImage
-                        src="../assets/img/blog/emotion-faces.jpg"
-                        alt={frontmatter.title}
-                        placeholder="blurred"
-                        layout="constrained"
-                        width={800}
-                        height={200}
-                        style={{ width: '100%', height: '200px', objectFit: 'cover' }}
-                        loading="eager"
-                      />
-                    )
-                  default:
-                    // Always render something for unknown images
-                    return (
-                      <Box bg="gray.100" height="200px" display="flex" alignItems="center" justifyContent="center">
-                        <Text color="gray.400">Obrázek nenalezen</Text>
-                      </Box>
-                    )
-                }
-              })()}
-            </Box>
-          )}
-          {/* Header */}
-          <Box mb={6}>
-            <Heading as="h1" size="md" mb={2} mt={2} color={headingGreen}>
-              {frontmatter.title}
-            </Heading>
-            
-            <Flex align="center" mb={4} flexWrap="wrap" gap={4}>
-              {frontmatter.author && (
-                <Flex align="center" gap={2}>
-                  <Avatar 
-                    size="sm" 
-                    name={frontmatter.author.name} 
-                    src={frontmatter.author.image ? `/img/${frontmatter.author.image}` : undefined} 
-                  />
-                  <Box>
-                    <Text fontWeight="medium" color={subHeadingColor}>
-                      {frontmatter.author.name}
-                    </Text>
-                    {frontmatter.author.role && (
-                      <Text fontSize="sm" color={textColor}>
-                        {frontmatter.author.role}
-                      </Text>
-                    )}
-                  </Box>
-                </Flex>
-              )}
-              
-              <Text fontSize="sm" color={textColor}>
-                {new Date(frontmatter.date).toLocaleDateString('cs-CZ', {
-                  year: 'numeric',
-                  month: 'long',
-                  day: 'numeric'
-                })}
-              </Text>
-              
-              {frontmatter.readTime && (
-                <Text fontSize="sm" color={textColor}>
-                  {frontmatter.readTime}
+      <Container maxW="6xl" py={8}>
+        <Flex gap={8} direction={{ base: 'column', lg: 'row' }}>
+          {/* Main Content */}
+          <Box flex="1" bg={bgColor} borderRadius="xl" p={8} boxShadow="lg" border="1px solid" borderColor={borderColor}>
+            <VStack spacing={6} align="stretch" mb={8}>
+              <Heading as="h1" size="2xl" textAlign="center">
+                {frontmatter.title}
+              </Heading>
+              {frontmatter.excerpt && (
+                <Text fontSize="xl" color="gray.600" textAlign="center">
+                  {frontmatter.excerpt}
                 </Text>
               )}
-            </Flex>
+              
+              {/* Featured Image */}
+              {image && (
+                <Box borderRadius="lg" overflow="hidden" boxShadow="md">
+                  <GatsbyImage
+                    image={image}
+                    alt={frontmatter.title}
+                    style={{ width: '100%', height: 'auto' }}
+                  />
+                </Box>
+              )}
+              
+              <HStack spacing={4} justify="center" wrap="wrap">
+                {frontmatter.date && (
+                  <Text color="gray.500" fontSize="sm">
+                    {new Date(frontmatter.date).toLocaleDateString('cs-CZ')}
+                  </Text>
+                )}
+                {frontmatter.readTime && (
+                  <Text color="gray.500" fontSize="sm">
+                    {frontmatter.readTime} min čtení
+                  </Text>
+                )}
+              </HStack>
+              {frontmatter.tags && frontmatter.tags.length > 0 && (
+                <HStack spacing={2} justify="center" wrap="wrap">
+                  {frontmatter.tags.map(tag => (
+                    <Tag key={tag} size="sm" colorScheme="green" variant="outline">
+                      <TagLabel>{tag}</TagLabel>
+                    </Tag>
+                  ))}
+                </HStack>
+              )}
+            </VStack>
             
-            {frontmatter.tags && frontmatter.tags.length > 0 && (
-              <Flex gap={2} flexWrap="wrap">
-                {frontmatter.tags.map((tag) => (
-                  <Badge key={tag} colorScheme="green" variant="subtle">
-                    {tag}
-                  </Badge>
-                ))}
-              </Flex>
-            )}
+            {/* MDX content rendered using children prop */}
+            <Box
+              sx={{
+                'h1': { fontSize: '2xl', fontWeight: 'bold', mb: 4, mt: 8, scrollMarginTop: '100px' },
+                'h2': { fontSize: 'xl', fontWeight: 'bold', mb: 3, mt: 6, scrollMarginTop: '100px' },
+                'h3': { fontSize: 'lg', fontWeight: 'bold', mb: 2, mt: 4, scrollMarginTop: '100px' },
+                'p': { mb: 4, lineHeight: 1.7 },
+                'ul': { mb: 4, pl: 6 },
+                'ol': { mb: 4, pl: 6 },
+                'li': { mb: 1 },
+                'blockquote': { 
+                  borderLeft: '4px solid', 
+                  borderColor: 'green.300', 
+                  pl: 4, 
+                  py: 2, 
+                  mb: 4,
+                  fontStyle: 'italic',
+                  bg: 'gray.50'
+                },
+                'code': { 
+                  bg: 'gray.100', 
+                  px: 2, 
+                  py: 1, 
+                  borderRadius: 'md',
+                  fontSize: 'sm'
+                },
+                'pre': { 
+                  bg: 'gray.800', 
+                  color: 'white', 
+                  p: 4, 
+                  borderRadius: 'md', 
+                  mb: 4,
+                  overflow: 'auto'
+                },
+                'a': { 
+                  color: 'green.600', 
+                  textDecoration: 'underline',
+                  '&:hover': { color: 'green.700' }
+                },
+                'strong': { fontWeight: 'bold' },
+                'em': { fontStyle: 'italic' }
+              }}
+            >
+              {children}
+            </Box>
           </Box>
-          
-          {/* Main Content with TOC */}
-          <Flex align="start" gap={10}>
-            <Box flex="1" minW={0} className="prose">
-              <MDXProvider components={mdxComponents}>
-                {children}
-              </MDXProvider>
+
+          {/* Table of Contents */}
+          {headings.length > 0 && (
+            <Box
+              w={{ base: '100%', lg: '300px' }}
+              h="fit-content"
+              bg={tocBgColor}
+              borderRadius="lg"
+              p={6}
+              border="1px solid"
+              borderColor={borderColor}
+              position={{ base: 'static', lg: 'sticky' }}
+              top="100px"
+            >
+              <Heading size="md" mb={4}>
+                Obsah
+              </Heading>
+              <List spacing={2}>
+                {headings.map((heading) => (
+                  <ListItem key={heading.id}>
+                    <Link
+                      onClick={() => scrollToHeading(heading.id)}
+                      color={activeHeading === heading.id ? 'green.600' : 'gray.600'}
+                      fontWeight={activeHeading === heading.id ? 'bold' : 'normal'}
+                      fontSize="sm"
+                      pl={(heading.level - 1) * 4}
+                      _hover={{ color: 'green.600' }}
+                      cursor="pointer"
+                      display="block"
+                      py={1}
+                    >
+                      {heading.text}
+                    </Link>
+                  </ListItem>
+                ))}
+              </List>
             </Box>
-            <Box display={{ base: 'none', md: 'block' }} minW="220px" maxW="260px">
-              <TableOfContents />
-            </Box>
-          </Flex>
-        </Box>
+          )}
+        </Flex>
       </Container>
     </Layout>
   )
 }
 
-export const pageQuery = graphql`
-  query BlogPostQuery($id: String!) {
+export const query = graphql`
+  query($id: String) {
     mdx(id: { eq: $id }) {
-      id
       frontmatter {
         title
         date
         readTime
         excerpt
         tags
-        image
+        featuredImage {
+          childImageSharp {
+            gatsbyImageData(
+              width: 800
+              quality: 85
+              placeholder: BLURRED
+              formats: [AUTO, WEBP]
+            )
+          }
+        }
         author {
           name
-          image
-          role
         }
-        status
       }
     }
   }
-` 
+`
+
+export default BlogPost 

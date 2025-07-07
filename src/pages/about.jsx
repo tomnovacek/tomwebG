@@ -11,12 +11,9 @@ import {
   Flex,
   Link,
   Icon,
-  List,
-  ListItem,
-  ListIcon,
   Button,
 } from '@chakra-ui/react'
-import { CheckCircleIcon } from '@chakra-ui/icons'
+import { FaCheck } from 'react-icons/fa'
 import {
   FaGraduationCap,
   FaHeart,
@@ -29,7 +26,7 @@ import {
 import { Link as GatsbyLink } from 'gatsby'
 import { StaticImage } from 'gatsby-plugin-image'
 import HeroTextBox from '../components/HeroTextBox'
-import SEO from '../components/SEO'
+import SEOGatsby from '../components/SEOGatsby'
 
 const About = () => {
   const bgColor = useColorModeValue('gray.100', 'gray.900')
@@ -39,14 +36,6 @@ const About = () => {
 
   return (
     <Layout>
-      <SEO
-        title="Tomáš Nováček - psycholog a terapeut v Brně"
-        description="Posledních sedm let věnuji doprovazení lidí, kteří překonávají náročné životní výzvy a hledají cestu k sobě."
-        keywords="psychoterapeut, Tomáš Nováček, terapie, poradenství, Brno, Česká republika, profesionální zkušenosti, kvalifikace"
-        url="https://tomnovacek.com/about"
-        image="tom1.png"
-      />
-
       {/* Hero Section */}
       <Box position="relative" width="100%" height={{ base: "auto", md: "75vh" }} overflow="hidden">
         {/* Background Image */}
@@ -68,7 +57,7 @@ const About = () => {
               width: '100%',
               height: '100%',
             }}
-            formats={['auto', 'webp', 'avif']}
+            formats={['auto', 'webp']}
             quality={85}
             priority="true"
           />
@@ -121,7 +110,7 @@ const About = () => {
                     height: 'auto',
                     width: '100%'
                   }}
-                  formats={['auto', 'webp', 'avif']}
+                  formats={['auto', 'webp']}
                   quality={90}
                   priority="true"
                 />
@@ -227,64 +216,70 @@ const About = () => {
                     <Icon as={FaGraduationCap} w={8} h={8} color="green.400" />
                     <Heading as="h3" fontSize={'xl'} color={headingColor}>Vzdělání</Heading>
                   </Flex>
-                  <List spacing={3}>
-                    <ListItem color={textColor}>
-                      <ListIcon as={CheckCircleIcon} color="green.400" />
-                      Magisterský titul v psychologii
-                    </ListItem>
-                    <ListItem color={textColor}>
-                      <ListIcon as={CheckCircleIcon} color="green.400" />
-                      Magisterský titul v managementu
-                    </ListItem>
-                    <ListItem color={textColor}>
-                      <ListIcon as={CheckCircleIcon} color="green.400" />
-                      Certifikovaný výcvik v koučování
-                    </ListItem>
-                    <ListItem color={textColor}>
-                      <ListIcon as={CheckCircleIcon} color="green.400" />
-                      Výcvik v <Link href='https://www.psychoterapie-integrace.cz/vycvik/popis-vycviku-VIP4' isExternal target='_blank' rel='noopener noreferrer'>integrativní psychoterapii</Link>
-                    </ListItem>
-                  </List>
+                  <Box>
+                    <Box as="ul" spacing={3}>
+                      <Box as="li" color={textColor} display="flex" alignItems="center" gap={2} mb={2}>
+                        <Icon as={FaCheck} color="green.400" />
+                        Magisterský titul v psychologii
+                      </Box>
+                      <Box as="li" color={textColor} display="flex" alignItems="center" gap={2} mb={2}>
+                        <Icon as={FaCheck} color="green.400" />
+                        Magisterský titul v managementu
+                      </Box>
+                      <Box as="li" color={textColor} display="flex" alignItems="center" gap={2} mb={2}>
+                        <Icon as={FaCheck} color="green.400" />
+                        Certifikovaný výcvik v koučování
+                      </Box>
+                      <Box as="li" color={textColor} display="flex" alignItems="center" gap={2} mb={2}>
+                        <Icon as={FaCheck} color="green.400" />
+                        Výcvik v <Link href='https://www.psychoterapie-integrace.cz/vycvik/popis-vycviku-VIP4' isExternal target='_blank' rel='noopener noreferrer'>integrativní psychoterapii</Link>
+                      </Box>
+                    </Box>
+                  </Box>
                 </Box>
                 <Box>
                   <Flex align="center" gap={3} mb={4}>
                     <Icon as={FaCertificate} w={8} h={8} color="green.400" />
                     <Heading as="h3" color={headingColor} fontSize={'xl'}>Profesionální členství</Heading>
                   </Flex>
-                  <List spacing={3}>
-                    <ListItem color={textColor}>
-                      <ListIcon as={CheckCircleIcon} color="green.400" />
-                      Certifikovaný psychoterapeut – 1010 hodin výcviku <Link href='src/ext/Certifikat.pdf' target='_blank' rel='noopener noreferrer' color="green.400">(Certifikát)</Link>
-                    </ListItem>
-                    <ListItem color={textColor}>
-                      <ListIcon as={CheckCircleIcon} color="green.400" />
-                      Certifikovaný kouč
-                    </ListItem>
-                    <ListItem color={textColor}>
-                      <ListIcon as={CheckCircleIcon} color="green.400" />
-                      Člen profesionální psychoterapeutické asociace <Link href="https://czap.cz/" isExternal color="green.400">(ČAP)</Link>
-                    </ListItem>
-                  </List>
+                  <Box>
+                    <Box as="ul" spacing={3}>
+                      <Box as="li" color={textColor} display="flex" alignItems="center" gap={2} mb={2}>
+                        <Icon as={FaCheck} color="green.400" />
+                        Certifikovaný psychoterapeut – 1010 hodin výcviku <Link href='src/ext/Certifikat.pdf' target='_blank' rel='noopener noreferrer' color="green.400">(Certifikát)</Link>
+                      </Box>
+                      <Box as="li" color={textColor} display="flex" alignItems="center" gap={2} mb={2}>
+                        <Icon as={FaCheck} color="green.400" />
+                        Certifikovaný kouč
+                      </Box>
+                      <Box as="li" color={textColor} display="flex" alignItems="center" gap={2} mb={2}>
+                        <Icon as={FaCheck} color="green.400" />
+                        Člen profesionální psychoterapeutické asociace <Link href="https://czap.cz/" isExternal color="green.400">(ČAP)</Link>
+                      </Box>
+                    </Box>
+                  </Box>
                 </Box>
                 <Box>
                   <Flex align="center" gap={3} mb={4}>
                     <Icon as={FaBook} w={8} h={8} color="green.400" />
                     <Heading as="h3" color={headingColor} fontSize={'xl'}>Další absolvované kurzy</Heading>
                   </Flex>
-                  <List spacing={3}>
-                    <ListItem color={textColor}>
-                      <ListIcon as={CheckCircleIcon} color="green.400" />
-                      Psychofarmaka v terapeutické praxi
-                    </ListItem>
-                    <ListItem color={textColor}>
-                      <ListIcon as={CheckCircleIcon} color="green.400" />
-                      Neurodiverzita (ADHD, ADD, Autismus)
-                    </ListItem>
-                    <ListItem color={textColor}>
-                      <ListIcon as={CheckCircleIcon} color="green.400" />
-                      Bezpečí v práci s tělem s traumatizovaným klientem
-                    </ListItem>
-                  </List>
+                  <Box>
+                    <Box as="ul" spacing={3}>
+                      <Box as="li" color={textColor} display="flex" alignItems="center" gap={2} mb={2}>
+                        <Icon as={FaCheck} color="green.400" />
+                        Psychofarmaka v terapeutické praxi
+                      </Box>
+                      <Box as="li" color={textColor} display="flex" alignItems="center" gap={2} mb={2}>
+                        <Icon as={FaCheck} color="green.400" />
+                        Neurodiverzita (ADHD, ADD, Autismus)
+                      </Box>
+                      <Box as="li" color={textColor} display="flex" alignItems="center" gap={2} mb={2}>
+                        <Icon as={FaCheck} color="green.400" />
+                        Bezpečí v práci s tělem s traumatizovaným klientem
+                      </Box>
+                    </Box>
+                  </Box>
                 </Box>
               </SimpleGrid>
             </Box>
@@ -314,7 +309,7 @@ const About = () => {
                   height: '100%',
                   objectFit: 'contain'
                 }}
-                formats={['auto', 'webp', 'avif']}
+                formats={['auto', 'webp']}
                 quality={85}
               />
             </Box>
@@ -375,7 +370,7 @@ const About = () => {
                   width: '100%',
                   height: '100%'
                 }}
-                formats={['auto', 'webp', 'avif']}
+                formats={['auto', 'webp']}
                 quality={85}
               />
             </Box>
@@ -428,4 +423,13 @@ const About = () => {
   )
 }
 
-export default About 
+export default About
+
+export const Head = () => (
+  <SEOGatsby 
+    title="Tomáš Nováček - psycholog a terapeut v Brně"
+    description="Posledních sedm let věnuji doprovazení lidí, kteří překonávají náročné životní výzvy a hledají cestu k sobě."
+    pathname="/about"
+    image="/img/tom1.png"
+  />
+) 

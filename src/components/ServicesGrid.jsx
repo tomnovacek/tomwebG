@@ -7,10 +7,10 @@ import {
   Stack,
   SimpleGrid,
   useColorModeValue,
-  Flex,
+  Icon,
 } from '@chakra-ui/react'
 import { StaticImage } from 'gatsby-plugin-image'
-import { FaLeaf, FaUser, FaUserFriends, FaHeartbeat, FaPeopleGroup, FaExchangeAlt } from 'react-icons/fa'
+import { FaLeaf, FaUser, FaUserFriends, FaHeartbeat, FaUsers, FaExchangeAlt } from 'react-icons/fa'
 
 export default function ServicesGrid() {
   const textColor = useColorModeValue('gray.700', 'gray.300')
@@ -88,7 +88,7 @@ export default function ServicesGrid() {
             </Box>
             <Box flex={1}>
               <Stack direction="row" align="center" spacing={2} mb={2}>
-                <Box as={FaPeopleGroup} color={headingColor} boxSize={6} />
+                <Box as={FaUsers} color={headingColor} boxSize={6} />
                 <Heading fontSize={'xl'} color={headingColor}>Vztahy</Heading>
               </Stack>
               <Text color={textColor} fontSize={'md'}>Podpora v budování zdravých a naplňujících vztahů. Vztahy s dětmi, partnery, přáteli, kolegy.</Text>

@@ -13,7 +13,6 @@ import {
   Divider,
   useColorModeValue,
   SimpleGrid,
-  useStyleConfig,
   Grid,
   GridItem,
   Tooltip,
@@ -30,11 +29,11 @@ export const blogPosts = [
     readTime: '5 min',
     author: {
       name: 'Tom Nováček',
-      image: '/src/assets/img/tom1.png',
+      image: '../assets/img/tom1.png',
       role: 'Licencovaný psychoterapeut'
     },
     tags: ['Úzkost', 'Duševní zdraví', 'Strategie zvládání'],
-    image: '/src/assets/img/stress.webp',
+    image: '../assets/img/stress.webp',
     slug: 'porozumeni-uzkosti-kompletni-pruvodce'
   },
   {
@@ -44,11 +43,11 @@ export const blogPosts = [
     readTime: '4 min',
     author: {
       name: 'Tom Nováček',
-      image: '/src/assets/img/tom1.png',
+      image: '../assets/img/tom1.png',
       role: 'Licencovaný psychoterapeut'
     },
     tags: ['Všímavost', 'Terapie', 'Pohoda'],
-    image: '/src/assets/img/tom1.png',
+    image: '../assets/img/mindfulness.webp',
     slug: 'sila-vsimavosti-v-terapii'
   }
 ]
@@ -59,11 +58,11 @@ const defaultPost = {
   readTime: '0 min čtení',
   excerpt: 'Požadovaný článek nebyl nalezen.',
   tags: [],
-  image: 'tom1.png',
+  image: '../assets/img/tom1.png',
   author: {
     name: 'Tom Nováček',
     role: 'Licencovaný psychoterapeut',
-    image: 'tom1.png'
+    image: '../assets/img/tom1.png'
   }
 }
 

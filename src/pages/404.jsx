@@ -1,4 +1,5 @@
 import React from 'react'
+import { graphql } from 'gatsby'
 import {
   Box,
   Container,
@@ -11,6 +12,7 @@ import {
   Icon,
   Link,
   SimpleGrid,
+  Image,
 } from '@chakra-ui/react'
 import {
   FaHome,
@@ -19,8 +21,10 @@ import {
   FaEnvelope,
 } from 'react-icons/fa'
 import { Link as GatsbyLink } from 'gatsby'
+import { StaticImage } from 'gatsby-plugin-image'
 import Layout from '../components/Layout'
-import SEO from '../components/SEO'
+import AnalyticsButton from '../components/AnalyticsButton'
+import SEOGatsby from '../components/SEOGatsby'
 import SecureEmail from '../components/SecureEmail'
 
 const NotFoundPage = () => {
@@ -32,14 +36,6 @@ const NotFoundPage = () => {
 
   return (
     <Layout>
-      <SEO
-        title="Stránka nenalezena | 404"
-        description="Požadovaná stránka nebyla nalezena. Vraťte se na hlavní stránku nebo kontaktujte Tomáše Nováčka."
-        keywords="404, stránka nenalezena, chyba, psychoterapie, Brno"
-        url="https://tomnovacek.com/404"
-        noindex={true}
-      />
-
       <Box bg={bgColor} minH="calc(100vh - 64px)" display="flex" alignItems="center">
         <Container maxW="container.md" py={10}>
           <VStack spacing={8} textAlign="center">
@@ -224,4 +220,12 @@ const NotFoundPage = () => {
   )
 }
 
-export default NotFoundPage 
+export default NotFoundPage
+
+export const Head = () => (
+  <SEOGatsby 
+    title="404 - Stránka nenalezena"
+    description="Požadovaná stránka nebyla nalezena."
+    pathname="/404"
+  />
+) 

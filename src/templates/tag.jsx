@@ -1,8 +1,8 @@
 import React from 'react'
-import { graphql, Link } from 'gatsby'
+import { graphql, Link as GatsbyLink } from 'gatsby'
 import { Box, Container, Heading, Text, VStack, SimpleGrid, useColorModeValue } from '@chakra-ui/react'
 import Layout from '../components/Layout'
-import SEO from '../components/SEO'
+import SEOGatsby from '../components/SEOGatsby'
 import BlogCard from '../components/BlogCard'
 
 export default function TagTemplate({ data, pageContext }) {
@@ -14,62 +14,50 @@ export default function TagTemplate({ data, pageContext }) {
   const headingColor = useColorModeValue('green.600', 'green.400')
 
   // Function to generate slug from file path
-  const generateSlug = (internal) => {
+  const generateSlug = (internal, id) => {
     if (internal?.contentFilePath) {
       const pathParts = internal.contentFilePath.split('/')
       const fileName = pathParts[pathParts.length - 1]
       return fileName.replace('.mdx', '')
     }
-    return ''
+    // Fallback to using the post ID if contentFilePath is null
+    return id ? id.split('-').pop() : 'post'
   }
 
   // Process blog posts
   const posts = allMdx.nodes.map(post => ({
     ...post,
-    slug: generateSlug(post.internal),
+    slug: generateSlug(post.internal, post.id),
     frontmatter: {
       ...post.frontmatter,
-      slug: generateSlug(post.internal)
+      slug: generateSlug(post.internal, post.id)
     }
   }))
 
   return (
     <Layout>
-      <SEO
-        title={`Články s tagem "${tag}"`}
-        description={`Všechny články s tagem "${tag}"`}
+      <SEOGatsby 
+        title={`${tag} | Blog - Tomáš Nováček`}
+        description={`Články o tématu ${tag} na blogu Tomáše Nováčka`}
+        pathname={`/tags/${tag}`}
       />
-      
       <Box bg={bgColor} minH="100vh" py={8}>
         <Container maxW="6xl">
           <VStack spacing={8} align="stretch">
-            <Box textAlign="center">
-              <Heading as="h1" size="2xl" color={headingColor} mb={4}>
-                Články s tagem "{tag}"
+            <VStack spacing={4} textAlign="center">
+              <Heading as="h1" size="2xl" color={headingColor}>
+                Tag: {tag}
               </Heading>
               <Text fontSize="lg" color={textColor}>
-                Našli jsme {posts.length} článků s tímto tagem
+                {posts.length} článků s tímto tématem
               </Text>
-            </Box>
-            
-            {posts.length > 0 ? (
-              <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={8}>
-                {posts.map((post) => (
-                  <BlogCard key={post.id} post={post} />
-                ))}
-              </SimpleGrid>
-            ) : (
-              <Box textAlign="center" py={12}>
-                <Text fontSize="lg" color={textColor} mb={4}>
-                  Žádné články s tímto tagem nebyly nalezeny.
-                </Text>
-                <Link to="/blog">
-                  <Text color={headingColor} fontWeight="medium">
-                    Zobrazit všechny články
-                  </Text>
-                </Link>
-              </Box>
-            )}
+            </VStack>
+
+            <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={8}>
+              {posts.map((post) => (
+                <BlogCard key={post.id} post={post} />
+              ))}
+            </SimpleGrid>
           </VStack>
         </Container>
       </Box>
@@ -78,13 +66,13 @@ export default function TagTemplate({ data, pageContext }) {
 }
 
 export const pageQuery = graphql`
-  query PostsByTag($tag: String!) {
+  query TagQuery($tag: String!) {
     allMdx(
-      filter: {
+      filter: { 
         frontmatter: { 
-          tags: { in: [$tag] }
+          tags: { in: [$tag] },
           status: { eq: "published" }
-        }
+        } 
       }
       sort: { frontmatter: { date: DESC } }
     ) {
@@ -96,12 +84,16 @@ export const pageQuery = graphql`
           readTime
           excerpt
           tags
-          image
+          featuredImage {
+            childImageSharp {
+              gatsbyImageData(width: 400, height: 200, placeholder: BLURRED, formats: [AUTO, WEBP])
+            }
+            publicURL
+          }
           author {
             name
-            image
-            role
           }
+          status
         }
         internal {
           contentFilePath

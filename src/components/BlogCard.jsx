@@ -1,32 +1,27 @@
 import React from 'react'
-import { Link } from 'gatsby'
+import { Link as GatsbyLink } from 'gatsby'
 import {
   Box,
   Heading,
   Text,
-  Badge,
   Flex,
   useColorModeValue,
   Skeleton,
   VStack,
   HStack,
-  Center,
 } from '@chakra-ui/react'
 import { GatsbyImage, getImage } from 'gatsby-plugin-image'
-import { StaticImage } from 'gatsby-plugin-image'
 import { FaRegClock, FaRegCalendarAlt, FaTag } from 'react-icons/fa'
 
-const BlogCard = ({ post }) => {
+const BlogCard = ({ post, allImages = [] }) => {
   const {
-    frontmatter: { title, excerpt, date, readTime, tags, image },
+    frontmatter: { title, excerpt, date, readTime, tags, featuredImage },
     slug,
+    fields,
   } = post
 
   const bgColor = useColorModeValue('white', 'gray.800')
-  const borderColor = useColorModeValue('gray.200', 'gray.700')
   const textColor = useColorModeValue('gray.600', 'gray.400')
-  const headingColor = useColorModeValue('gray.800', 'white')
-  const hoverBgColor = useColorModeValue('gray.50', 'gray.700')
   const placeholderBg = useColorModeValue('gray.200', 'gray.700')
   const placeholderText = useColorModeValue('gray.500', 'gray.400')
 
@@ -34,107 +29,45 @@ const BlogCard = ({ post }) => {
   const tagColor = 'green.700'
   const tagBorder = useColorModeValue('green.200', 'green.700')
 
-  // Simple image rendering based on frontmatter.image
+  // Find the matching image from allImages using imageRelativePath
+  const imagePath = fields?.imageRelativePath || featuredImage
+  const matchedImage = allImages.find(img => img.relativePath === imagePath)
+  const image = matchedImage ? getImage(matchedImage) : null
+
+  // Image rendering using GatsbyImage
   const renderImage = () => {
-    if (!image) {
+    if (!imagePath || !image) {
       return (
-        <Center
+        <Box
           bg={placeholderBg}
           color={placeholderText}
           height="100%"
           fontSize="sm"
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
         >
           No Image
-        </Center>
+        </Box>
       )
     }
 
-    // Use switch statement for known images
-    switch (image) {
-      case 'stress.webp':
-        return (
-          <StaticImage
-            src="../assets/img/blog/stress.webp"
-            alt={title}
-            placeholder="blurred"
-            layout="constrained"
-            width={400}
-            height={200}
-            style={{
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-            }}
-            loading="lazy"
-          />
-        )
-      case 'under-blanket.jpg':
-        return (
-          <StaticImage
-            src="../assets/img/blog/under-blanket.jpg"
-            alt={title}
-            placeholder="blurred"
-            layout="constrained"
-            width={400}
-            height={200}
-            style={{
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-            }}
-            loading="lazy"
-          />
-        )
-      case 'self-hug.jpg':
-        return (
-          <StaticImage
-            src="../assets/img/blog/self-hug.jpg"
-            alt={title}
-            placeholder="blurred"
-            layout="constrained"
-            width={400}
-            height={200}
-            style={{
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-            }}
-            loading="lazy"
-          />
-        )
-      case 'emotion-faces.jpg':
-        return (
-          <StaticImage
-            src="../assets/img/blog/emotion-faces.jpg"
-            alt={title}
-            placeholder="blurred"
-            layout="constrained"
-            width={400}
-            height={200}
-            style={{
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-            }}
-            loading="lazy"
-          />
-        )
-      default:
-        return (
-          <Center
-            bg={placeholderBg}
-            color={placeholderText}
-            height="100%"
-            fontSize="sm"
-          >
-            {image}
-          </Center>
-        )
-    }
+    return (
+      <GatsbyImage
+        image={image}
+        alt={title}
+        style={{
+          height: '100%',
+          width: '100%',
+          objectFit: 'cover',
+        }}
+        loading="lazy"
+      />
+    )
   }
 
   return (
-    <Link to={`/blog/${slug}`} style={{ textDecoration: 'none' }}>
+    <GatsbyLink to={`/blog/${slug}`} style={{ textDecoration: 'none' }}>
       <Box
         bg={bgColor}
         borderRadius="xl"
@@ -213,7 +146,7 @@ const BlogCard = ({ post }) => {
           )}
         </Box>
       </Box>
-    </Link>
+    </GatsbyLink>
   )
 }
 

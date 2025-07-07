@@ -8,7 +8,7 @@ tags:
   - duševní zdraví
   - terapie
   - emoce
-featuredImage: "../assets/img/blog/under-blanket.jpg"
+featuredImage: "img/blog/under-blanket.jpg"
 status: "published"
 author:
   name: "Tomáš Nováček"

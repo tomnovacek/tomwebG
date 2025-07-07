@@ -4,28 +4,23 @@ import {
   Container,
   Heading,
   Text,
-  VStack,
-  List,
-  ListItem,
-  ListIcon,
-  Divider,
+  Stack,
+  useColorModeValue,
+  Flex,
+  Link,
+  Icon,
+  Button,
 } from '@chakra-ui/react';
 import { FaUserShield, FaFileAlt, FaLock } from 'react-icons/fa';
 import Layout from '../components/Layout'
-import SEO from '../components/SEO';
+import SEOGatsby from '../components/SEOGatsby'
 import SecureEmail from '../components/SecureEmail';
 
 const GDPRPage = () => {
   return (
     <Layout>
-      <SEO
-        title="Ochrana osobních údajů"
-        description="Informace o zpracování osobních údajů v rámci psychoterapeutických služeb Tomáše Nováčka. GDPR compliance a práva subjektů údajů."
-        keywords="GDPR, ochrana osobních údajů, psychoterapie, Brno, soukromí, práva klientů"
-        url="https://tomnovacek.com/gdpr"
-      />
       <Container maxW="container.md" py={10}>
-        <VStack spacing={8} align="stretch">
+        <Stack spacing={8} align="stretch">
           <Heading as="h1" size="xl">Ochrana osobních údajů</Heading>
           
           <Box>
@@ -41,124 +36,108 @@ const GDPRPage = () => {
             </Text>
           </Box>
 
-          <Divider />
-
           <Box>
             <Heading as="h2" size="lg" mb={4}>Rozsah zpracování osobních údajů</Heading>
             <Text mb={4}>
               V rámci poskytování psychoterapeutických služeb zpracovávám následující osobní údaje:
             </Text>
-            <List spacing={3}>
-              <ListItem>
-                <ListIcon as={FaUserShield} color="blue.500" />
+            <Stack spacing={3}>
+              <Box>
+                <Icon as={FaUserShield} color="blue.500" />
                 <Text as="span" fontWeight="bold">Identifikační údaje:</Text>
                 <Text>jméno, příjmení, datum narození, kontaktní údaje</Text>
-              </ListItem>
-              <ListItem>
-                <ListIcon as={FaFileAlt} color="blue.500" />
+              </Box>
+              <Box>
+                <Icon as={FaFileAlt} color="blue.500" />
                 <Text as="span" fontWeight="bold">Zdravotní údaje:</Text>
                 <Text>informace o psychickém stavu, anamnéza, průběh terapie</Text>
-              </ListItem>
-              <ListItem>
-                <ListIcon as={FaLock} color="blue.500" />
+              </Box>
+              <Box>
+                <Icon as={FaLock} color="blue.500" />
                 <Text as="span" fontWeight="bold">Ostatní údaje:</Text>
                 <Text>platební údaje, pojištění, doporučení od lékaře</Text>
-              </ListItem>
-            </List>
+              </Box>
+            </Stack>
           </Box>
-
-          <Divider />
 
           <Box>
             <Heading as="h2" size="lg" mb={4}>Účel zpracování</Heading>
             <Text>
               Osobní údaje zpracovávám za účelem:
             </Text>
-            <List spacing={2} mt={2}>
-              <ListItem>• Poskytování psychoterapeutických služeb</ListItem>
-              <ListItem>• Vedení dokumentace o průběhu terapie</ListItem>
-              <ListItem>• Komunikace s klientem</ListItem>
-              <ListItem>• Fakturace a účetnictví</ListItem>
-              <ListItem>• Plnění zákonných povinností</ListItem>
-            </List>
+            <Stack spacing={2} mt={2}>
+              <Box>• Poskytování psychoterapeutických služeb</Box>
+              <Box>• Vedení dokumentace o průběhu terapie</Box>
+              <Box>• Komunikace s klientem</Box>
+              <Box>• Fakturace a účetnictví</Box>
+              <Box>• Plnění zákonných povinností</Box>
+            </Stack>
           </Box>
-
-          <Divider />
 
           <Box>
             <Heading as="h2" size="lg" mb={4}>Právní základ zpracování</Heading>
             <Text>
               Zpracování osobních údajů je založeno na:
             </Text>
-            <List spacing={2} mt={2}>
-              <ListItem>• Váš souhlas se zpracováním osobních údajů</ListItem>
-              <ListItem>• Plnění smlouvy o poskytování služeb</ListItem>
-              <ListItem>• Plnění zákonných povinností (např. účetnictví)</ListItem>
-              <ListItem>• Oprávněný zájem správce</ListItem>
-            </List>
+            <Stack spacing={2} mt={2}>
+              <Box>• Váš souhlas se zpracováním osobních údajů</Box>
+              <Box>• Plnění smlouvy o poskytování služeb</Box>
+              <Box>• Plnění zákonných povinností (např. účetnictví)</Box>
+              <Box>• Oprávněný zájem správce</Box>
+            </Stack>
           </Box>
-
-          <Divider />
 
           <Box>
             <Heading as="h2" size="lg" mb={4}>Doba zpracování</Heading>
             <Text>
               Osobní údaje zpracovávám po dobu nezbytně nutnou k naplnění výše uvedených účelů:
             </Text>
-            <List spacing={2} mt={2}>
-              <ListItem>• Dokumentace o průběhu terapie: 10 let od poslední terapie</ListItem>
-              <ListItem>• Účetní doklady: 10 let</ListItem>
-              <ListItem>• Kontaktní údaje: po dobu aktivní spolupráce</ListItem>
-            </List>
+            <Stack spacing={2} mt={2}>
+              <Box>• Dokumentace o průběhu terapie: 10 let od poslední terapie</Box>
+              <Box>• Účetní doklady: 10 let</Box>
+              <Box>• Kontaktní údaje: po dobu aktivní spolupráce</Box>
+            </Stack>
           </Box>
-
-          <Divider />
 
           <Box>
             <Heading as="h2" size="lg" mb={4}>Způsob zpracování</Heading>
             <Text>
               Osobní údaje jsou zpracovávány:
             </Text>
-            <List spacing={2} mt={2}>
-              <ListItem>• Elektronicky v zabezpečených systémech</ListItem>
-              <ListItem>• Manuálně v uzamčených prostorách</ListItem>
-              <ListItem>• S využitím šifrované komunikace</ListItem>
-            </List>
+            <Stack spacing={2} mt={2}>
+              <Box>• Elektronicky v zabezpečených systémech</Box>
+              <Box>• Manuálně v uzamčených prostorách</Box>
+              <Box>• S využitím šifrované komunikace</Box>
+            </Stack>
           </Box>
-
-          <Divider />
 
           <Box>
             <Heading as="h2" size="lg" mb={4}>Práva subjektu údajů</Heading>
             <Text mb={4}>
               Máte právo na:
             </Text>
-            <List spacing={2}>
-              <ListItem>• Přístup k osobním údajům</ListItem>
-              <ListItem>• Opravu osobních údajů</ListItem>
-              <ListItem>• Výmaz osobních údajů (s výjimkou údajů, které musíme ze zákona uchovávat)</ListItem>
-              <ListItem>• Omezení zpracování</ListItem>
-              <ListItem>• Přenositelnost údajů</ListItem>
-              <ListItem>• Odvolání souhlasu se zpracováním</ListItem>
-              <ListItem>• Podání stížnosti u dozorového úřadu</ListItem>
-            </List>
+            <Stack spacing={2}>
+              <Box>• Přístup k osobním údajům</Box>
+              <Box>• Opravu osobních údajů</Box>
+              <Box>• Výmaz osobních údajů (s výjimkou údajů, které musíme ze zákona uchovávat)</Box>
+              <Box>• Omezení zpracování</Box>
+              <Box>• Přenositelnost údajů</Box>
+              <Box>• Odvolání souhlasu se zpracováním</Box>
+              <Box>• Podání stížnosti u dozorového úřadu</Box>
+            </Stack>
           </Box>
-
-          <Divider />
 
           <Box>
             <Heading as="h2" size="lg" mb={4}>Předávání údajů</Heading>
             <Text>
               Osobní údaje mohou být předány:
             </Text>
-            <List spacing={2} mt={2}>
-              <ListItem>• Vašemu pojišťovacímu ústavu (na základě vašeho souhlasu)</ListItem>
-              <ListItem>• Dalším zdravotnickým pracovníkům (na základě vašeho souhlasu)</ListItem>
-              <ListItem>• Finančnímu úřadu (ze zákona)</ListItem>
-            </List>
+            <Stack spacing={2} mt={2}>
+              <Box>• Vašemu pojišťovacímu ústavu (na základě vašeho souhlasu)</Box>
+              <Box>• Dalším zdravotnickým pracovníkům (na základě vašeho souhlasu)</Box>
+              <Box>• Finančnímu úřadu (ze zákona)</Box>
+            </Stack>
           </Box>
-
-          <Divider />
 
           <Box>
             <Heading as="h2" size="lg" mb={4}>Kontaktní údaje</Heading>
@@ -176,15 +155,23 @@ const GDPRPage = () => {
             </Text>
           </Box>
 
-          <Box bg="gray.50" p={4} borderRadius="md">
-            <Text fontSize="sm" color="gray.600">
+          <Box bg={useColorModeValue('gray.50', 'gray.700')} p={4} borderRadius="md">
+            <Text fontSize="sm" color={useColorModeValue('gray.600', 'gray.400')}>
               Poslední aktualizace: {new Date().toLocaleDateString('cs-CZ')}
             </Text>
           </Box>
-        </VStack>
+        </Stack>
       </Container>
     </Layout>
   );
 }
 
-export default GDPRPage 
+export default GDPRPage
+
+export const Head = () => (
+  <SEOGatsby 
+    title="Ochrana osobních údajů - Tomáš Nováček"
+    description="Informace o ochraně osobních údajů a GDPR."
+    pathname="/gdpr"
+  />
+) 

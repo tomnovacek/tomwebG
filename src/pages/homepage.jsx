@@ -5,47 +5,47 @@ import {
   Container,
   Heading,
   Text,
+  Button,
   SimpleGrid,
   Stack,
-  List,
-  ListItem,
-  ListIcon,
-  Button,
   useColorModeValue,
   Flex,
-  VStack,
-  Link,
   Icon,
+  VStack,
+  Link as ChakraLink,
 } from '@chakra-ui/react'
-import { CheckCircleIcon } from '@chakra-ui/icons'
-import { FaUser, FaUserFriends, FaHeartbeat, FaHandHoldingHeart, FaCalendarAlt, FaArrowRight } from 'react-icons/fa'
 import { Link as GatsbyLink } from 'gatsby'
 import { StaticImage } from 'gatsby-plugin-image'
-import Layout from '../components/Layout'
-import SEO from '../components/SEO'
-import AboutCard from '../components/AboutCard'
-import AnalyticsButton from '../components/AnalyticsButton'
-import StructuredData from '../components/StructuredData'
+import { FaCheck, FaArrowRight, FaCalendar, FaUser, FaHeart, FaUsers, FaHandshake } from 'react-icons/fa'
 import BlogCard from '../components/BlogCard'
+import AnalyticsButton from '../components/AnalyticsButton'
+import AboutCard from '../components/AboutCard'
 import HeroTextBox from '../components/HeroTextBox'
+import SEOGatsby from '../components/SEOGatsby'
 
 const HomePage = ({ data }) => {
-  const { allMdx } = data
-  const generateSlug = (internal) => {
+  const { allMdx, allFile } = data
+  
+  // Get all images data safely
+  const allImages = allFile?.nodes || []
+  
+  const generateSlug = (internal, id) => {
     if (internal?.contentFilePath) {
       const pathParts = internal.contentFilePath.split('/')
       const fileName = pathParts[pathParts.length - 1]
-      return fileName.replace('.mdx', '')
+      // Remove both .md and .mdx extensions
+      return fileName.replace(/\.(md|mdx)$/, '')
     }
-    return ''
+    // Fallback to using the post ID if contentFilePath is null
+    return id ? id.split('-').pop() : 'post'
   }
 
   const newestPosts = allMdx.nodes.slice(0, 3).map(post => ({
     ...post,
-    slug: generateSlug(post.internal),
+    slug: generateSlug(post.internal, post.id),
     frontmatter: {
       ...post.frontmatter,
-      slug: generateSlug(post.internal)
+      slug: generateSlug(post.internal, post.id)
     }
   }))
 
@@ -53,7 +53,6 @@ const HomePage = ({ data }) => {
   const bgColor = useColorModeValue('white', 'gray.800')
   const textColor = useColorModeValue('gray.600', 'gray.400')
   const headingColor = useColorModeValue('gray.800', 'white')
-  const hoverBgColor = useColorModeValue('gray.50', 'gray.700')
 
   // Debug logging
   console.log('Homepage - newestPosts:', newestPosts)
@@ -65,15 +64,88 @@ const HomePage = ({ data }) => {
   })
 
   return (
-    <Layout>
-      <SEO 
-        title="Psychoterapie v centru Brna | Tomáš Nováček"
-        description="Psycholog a terapeut Tomáš Nováček nabízí psychoterapii v centru Brna. Pomáhám lidem překonávat životní výzvy a dosahovat osobního růstu."
-        article={false}
+    <>
+      <SEOGatsby 
+        title="Psychoterapie v centru Brna | Tomáš Nováček - Psycholog a terapeut"
+        description="Certifikovaný psychoterapeut Tomáš Nováček nabízí psychoterapii v centru Brna. Pomáhám lidem překonávat životní výzvy, úzkosti, deprese a vztahové problémy. Objednejte si konzultaci."
+        pathname="/"
+        keywords={["psychoterapie", "psycholog", "Brno", "úzkost", "deprese", "vztahy", "terapie", "duševní zdraví"]}
+        image="/img/tom1.png"
+      />
+      
+      {/* Structured Data for SEO */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Person",
+            "name": "Tomáš Nováček",
+            "jobTitle": "Psycholog a terapeut",
+            "description": "Certifikovaný psychoterapeut pro dospělé v centru Brna",
+            "url": "https://tomnovacek.com",
+            "image": "https://tomnovacek.com/img/tom1.png",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "Sukova 4",
+              "addressLocality": "Brno",
+              "addressCountry": "CZ"
+            },
+            "telephone": "+420 602 773 440",
+            "email": "terapie@tomnovacek.com",
+            "sameAs": [
+              "https://www.psychoterapie-integrace.cz",
+              "https://www.czap.cz/"
+            ],
+            "knowsAbout": [
+              "Psychoterapie",
+              "Integrativní psychoterapie",
+              "Úzkost",
+              "Deprese",
+              "Vztahové problémy",
+              "Duševní zdraví"
+            ],
+            "worksFor": {
+              "@type": "Organization",
+              "name": "Soukromá psychoterapeutická praxe"
+            }
+          })
+        }}
+      />
+      
+      {/* Local Business Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "LocalBusiness",
+            "name": "Tomáš Nováček - Psychoterapie",
+            "description": "Certifikovaný psychoterapeut pro dospělé v centru Brna",
+            "url": "https://tomnovacek.com",
+            "telephone": "+420 602 773 440",
+            "email": "terapie@tomnovacek.com",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "Sukova 4",
+              "addressLocality": "Brno",
+              "addressCountry": "CZ"
+            },
+            "geo": {
+              "@type": "GeoCoordinates",
+              "latitude": "49.1951",
+              "longitude": "16.6068"
+            },
+            "openingHours": "Mo-Fr 09:00-18:00",
+            "priceRange": "$$",
+            "serviceType": "Psychoterapie",
+            "areaServed": "Brno a okolí"
+          })
+        }}
       />
       
       {/* Hero Section */}
-      <Box position="relative" width="100%" height={{ base: "auto", md: "75vh" }} overflow="hidden" className="hero-section">
+      <Box as="main" position="relative" width="100%" height={{ base: "auto", md: "75vh" }} overflow="hidden" className="hero-section">
         {/* Background Image */}
         <Box
           position="absolute"
@@ -173,7 +245,7 @@ const HomePage = ({ data }) => {
       </Box>
 
       {/* About Section */}
-      <Box py={20} bg={useColorModeValue('gray.50', 'gray.900')} position="relative" zIndex={2}>
+      <Box as="section" py={20} bg={useColorModeValue('gray.50', 'gray.900')} position="relative" zIndex={2}>
         <Container maxW={'7xl'} centerContent>
           <Stack spacing={4} maxW={'6xl'} textAlign={'center'} mb={10}>
             <Heading as="h2" variant="section">
@@ -191,13 +263,13 @@ const HomePage = ({ data }) => {
               description={
                 <>
                   Posledních sedm let se intenzivně věnuji psychologickému poradenství a čtyři roky praktikuji terapii v soukromé praxi v centru Brna. Vystudoval jsem jednooborovou psychologii a absolvoval dvouletý výcvik v koučování, následně šestiletý výcvik v{' '}
-                  <Link href="https://www.psychoterapie-integrace.cz" isExternal color="grey.400">
+                  <ChakraLink href="https://www.psychoterapie-integrace.cz" isExternal color="grey.400">
                     integrativní psychoterapii
-                  </Link>
+                  </ChakraLink>
                   . Jsem řádným členem{' '}
-                  <Link href="https://www.czap.cz/" isExternal color="grey.400">
+                  <ChakraLink href="https://www.czap.cz/" isExternal color="grey.400">
                     České asociace pro psychoterapii
-                  </Link>
+                  </ChakraLink>
                   {' '}- komunity, která klade důraz na etické standardy a vysokou kvalifikaci v oboru psychoterapie. Jinými slovy, snažím pracovat poctivě a stále se učit.
                 </>
               }
@@ -213,7 +285,7 @@ const HomePage = ({ data }) => {
               description="Věřím, že všichni máme vnitřní zdroje k zvládání životních výzev, které se před námi objevují. Mohou se však objevit situace, ve kterých se můžeme cítit uvězněni nebo bezmocní. V takových chvílích  podporuji klienty v pochopení jejich problémů a hledání efektivních způsobů, jak je překonat. Společně prozkoumáváme jejich osobní cestu k sebepoznání a odhalujeme vnitřní síly, které jim mohou pomoci žít plnější a spokojenější život. Nemám všechny odpovědi, pomůžu vám najít ty vaše."
               image="mountinHikeGroup.jpg"
               imageAlt="Skupina lidí na horách"
-              icon={FaHandHoldingHeart}
+              icon={FaHandshake}
               buttonText="Moje služby"
               buttonHref="/services"
               textColor={useColorModeValue('gray.600', 'gray.400')}
@@ -223,7 +295,7 @@ const HomePage = ({ data }) => {
       </Box>
 
       {/* Services Section */}
-      <Box py={20} bg={useColorModeValue('gray.50', 'gray.900')}>
+      <Box as="section" py={20} bg={useColorModeValue('gray.50', 'gray.900')}>
         <Container maxW={'7xl'} centerContent>
           <Stack spacing={4} maxW={'6xl'} textAlign={'center'} mb={10}>
             <Heading as="h2" variant="section">
@@ -250,7 +322,7 @@ const HomePage = ({ data }) => {
                 ]
               },
               {
-                icon: FaUserFriends,
+                icon: FaUsers,
                 title: 'Vztahy a vztahové problémy',
                 description: 'Porozumění a řešení vztahových potíží.',
                 features: [
@@ -262,7 +334,7 @@ const HomePage = ({ data }) => {
                 ]
               },
               {
-                icon: FaHeartbeat,
+                icon: FaHeart,
                 title: 'Zvládání stresu',
                 description: 'Strategie zvládání stresu.',
                 features: [
@@ -306,14 +378,14 @@ const HomePage = ({ data }) => {
                     <Text color={textColor} mb={4}>
                       {service.description}
                     </Text>
-                    <List spacing={2}>
+                    <Box as="ul" spacing={2}>
                       {service.features.map((feature, idx) => (
-                        <ListItem key={idx} color={textColor}>
-                          <ListIcon as={CheckCircleIcon} color="green.400" />
+                        <Box as="li" key={idx} color={textColor} display="flex" alignItems="center" gap={2} mb={2}>
+                          <Icon as={FaCheck} color="green.400" size="14px" />
                           {feature}
-                        </ListItem>
+                        </Box>
                       ))}
-                    </List>
+                    </Box>
                   </Stack>
                 </Box>
               </Box>
@@ -334,7 +406,7 @@ const HomePage = ({ data }) => {
       </Box>
 
       {/* Latest Blog Posts Section */}
-      <Box py={16} bg={useColorModeValue('gray.50', 'gray.900')}>
+      <Box as="section" py={16} bg={useColorModeValue('gray.50', 'gray.900')}>
         <Container maxW="container.xl">
           <VStack spacing={12} align="stretch">
             <Box textAlign="center">
@@ -361,7 +433,7 @@ const HomePage = ({ data }) => {
             
             <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={8}>
               {newestPosts.map((post) => (
-                <BlogCard key={post.id} post={post} />
+                <BlogCard key={post.id} post={post} allImages={allImages} />
               ))}
             </SimpleGrid>
             
@@ -385,7 +457,7 @@ const HomePage = ({ data }) => {
       </Box>
 
       {/* Call to Action Section */}
-      <Box py={20} bg={useColorModeValue('gray.50', 'gray.900')}>
+      <Box as="section" py={20} bg={useColorModeValue('gray.50', 'gray.900')}>
         <Container maxW={'7xl'}>
           <Stack
             spacing={8}
@@ -409,7 +481,7 @@ const HomePage = ({ data }) => {
                 as={GatsbyLink}
                 to="/calendar"
                 variant="cta"
-                leftIcon={<FaCalendarAlt />}
+                leftIcon={<FaCalendar />}
                 buttonName="cta_consultation_button"
                 location="home_cta_section"
               >
@@ -429,9 +501,11 @@ const HomePage = ({ data }) => {
           </Stack>
         </Container>
       </Box>
-    </Layout>
+    </>
   )
 }
+
+export default HomePage
 
 export const pageQuery = graphql`
   query HomePageQuery {
@@ -448,23 +522,29 @@ export const pageQuery = graphql`
           readTime
           excerpt
           tags
-          image
+          featuredImage {
+            childImageSharp {
+              gatsbyImageData(width: 400, height: 200, placeholder: BLURRED, formats: [AUTO, WEBP])
+            }
+            publicURL
+          }
           author {
             name
-            image
-            role
           }
           status
         }
         internal {
           contentFilePath
         }
-        fields {
-          imageRelativePath
+      }
+    }
+    allFile(filter: {sourceInstanceName: {eq: "assets"}}) {
+      nodes {
+        relativePath
+        childImageSharp {
+          gatsbyImageData(width: 400, height: 200, placeholder: BLURRED, formats: [AUTO, WEBP])
         }
       }
     }
   }
 `
-
-export default HomePage 

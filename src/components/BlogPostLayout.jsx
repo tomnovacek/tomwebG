@@ -1,11 +1,13 @@
 import React from 'react'
+import { graphql } from 'gatsby'
 import { MDXProvider } from '@mdx-js/react'
-import { Box, Container, Heading, Text, VStack, HStack, Tag, TagLabel, useColorModeValue } from '@chakra-ui/react'
+import { MDXRenderer } from 'gatsby-plugin-mdx'
+import { Box, Container, Heading, Text, VStack, HStack, Tag, TagLabel, useColorModeValue, Flex, Avatar } from '@chakra-ui/react'
 import { format } from 'date-fns'
 import { cs } from 'date-fns/locale'
 import Layout from './Layout'
-import SEO from './SEO'
 import ContentFrame from './ContentFrame'
+import SEOGatsby from './SEOGatsby'
 
 const BlogPostLayout = ({ children, frontmatter, slug }) => {
   // Move all useColorModeValue calls to the top level
@@ -111,7 +113,7 @@ const BlogPostLayout = ({ children, frontmatter, slug }) => {
 
   return (
     <Layout>
-      <SEO title={title} description={excerpt} />
+      <SEOGatsby title={title} description={excerpt} />
       <Container maxW="4xl" py={8}>
         <VStack spacing={8} align="stretch">
           {/* Header */}

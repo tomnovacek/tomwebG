@@ -1,6 +1,5 @@
 import React from 'react'
 import Layout from '../components/Layout'
-import SEO from '../components/SEO'
 import ServicesGrid from '../components/ServicesGrid'
 import PricingCard from '../components/PricingCard'
 import HeroTextBox from '../components/HeroTextBox'
@@ -38,13 +37,6 @@ const ServicesPage = () => {
 
   return (
     <Layout>
-      <SEO
-        title="Služby | Tomáš Nováček - Psychoterapie"
-        description="Certifikované psychoterapeutické služby v centru Brna. Individuální terapie pro dospělé, pro podporu osobního růstu, při úzkosti, depresi a vztahových problémech."
-        url="https://tomnovacek.com/services"
-        image="https://tomnovacek.com/static/room-1200x630.webp"
-      />
-
       {/* Hero Section */}
       <Box position="relative" width="100%" height={{ base: "auto", md: "75vh" }} overflow="hidden">
         {/* Background Image */}
@@ -66,7 +58,7 @@ const ServicesPage = () => {
               width: '100%',
               height: '100%',
             }}
-            formats={['auto', 'webp', 'avif']}
+            formats={['auto', 'webp']}
             quality={85}
             priority="true"
           />
@@ -127,7 +119,7 @@ const ServicesPage = () => {
                     height: 'auto',
                     width: '100%'
                   }}
-                  formats={['auto', 'webp', 'avif']}
+                  formats={['auto', 'webp']}
                   quality={90}
                   priority="true"
                 />

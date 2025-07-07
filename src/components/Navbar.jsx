@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import { Link } from 'gatsby'
+import React from 'react'
+import { Link as GatsbyLink } from 'gatsby'
 import {
   Box,
   Flex,
@@ -11,9 +11,10 @@ import {
   Container,
   useColorModeValue,
   useDisclosure,
+  Icon,
 } from '@chakra-ui/react'
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons'
-import { FaCalendarAlt, FaSms } from 'react-icons/fa'
+import { FaCalendarAlt, FaUser } from 'react-icons/fa'
 import { StaticImage } from 'gatsby-plugin-image'
 
 // Konstanty pro konzistentní rozměry
@@ -21,23 +22,14 @@ const NAV_HEIGHT = '60px'
 const BUTTON_HEIGHT = '40px'
 const LOGO_SIZE = '48px'
 
-// Přidání font-display: swap pro písma
-const fontStyles = {
-  fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
-  fontDisplay: 'swap',
-}
-
-const DesktopNav = ({ isScrolled, isHomepage }) => {
-  const defaultLinkColor = useColorModeValue('gray.600', 'gray.200')
-  const defaultLinkHoverColor = useColorModeValue('gray.800', 'white')
-  
-  const linkColor = isHomepage && !isScrolled ? 'white' : defaultLinkColor
-  const linkHoverColor = isHomepage && !isScrolled ? 'gray.200' : defaultLinkHoverColor
+const DesktopNav = () => {
+  const linkColor = useColorModeValue('gray.600', 'gray.200')
+  const linkHoverColor = useColorModeValue('gray.800', 'white')
 
   return (
     <Stack direction={'row'} spacing={4} h="100%" alignItems="center">
       <Button
-        as={Link}
+        as={GatsbyLink}
         to="/"
         variant={'ghost'}
         color={linkColor}
@@ -47,12 +39,11 @@ const DesktopNav = ({ isScrolled, isHomepage }) => {
         }}
         h={BUTTON_HEIGHT}
         minH={BUTTON_HEIGHT}
-        style={fontStyles}
       >
         Domů
       </Button>
       <Button
-        as={Link}
+        as={GatsbyLink}
         to="/about/"
         variant={'ghost'}
         color={linkColor}
@@ -62,12 +53,11 @@ const DesktopNav = ({ isScrolled, isHomepage }) => {
         }}
         h={BUTTON_HEIGHT}
         minH={BUTTON_HEIGHT}
-        style={fontStyles}
       >
         O mně
       </Button>
       <Button
-        as={Link}
+        as={GatsbyLink}
         to="/services/"
         variant={'ghost'}
         color={linkColor}
@@ -77,12 +67,11 @@ const DesktopNav = ({ isScrolled, isHomepage }) => {
         }}
         h={BUTTON_HEIGHT}
         minH={BUTTON_HEIGHT}
-        style={fontStyles}
       >
         Služby
       </Button>
       <Button
-        as={Link}
+        as={GatsbyLink}
         to="/calendar/"
         variant={'ghost'}
         color={linkColor}
@@ -92,12 +81,11 @@ const DesktopNav = ({ isScrolled, isHomepage }) => {
         }}
         h={BUTTON_HEIGHT}
         minH={BUTTON_HEIGHT}
-        style={fontStyles}
       >
         Kalendář
       </Button>
       <Button
-        as={Link}
+        as={GatsbyLink}
         to="/blog/"
         variant={'ghost'}
         color={linkColor}
@@ -107,7 +95,6 @@ const DesktopNav = ({ isScrolled, isHomepage }) => {
         }}
         h={BUTTON_HEIGHT}
         minH={BUTTON_HEIGHT}
-        style={fontStyles}
       >
         Blog
       </Button>
@@ -115,23 +102,19 @@ const DesktopNav = ({ isScrolled, isHomepage }) => {
   )
 }
 
-const MobileNav = ({ onClose, isScrolled, isHomepage }) => {
-  const defaultLinkColor = useColorModeValue('gray.600', 'gray.200')
-  const defaultLinkHoverColor = useColorModeValue('gray.800', 'white')
-  
-  const linkColor = isHomepage && !isScrolled ? 'white' : defaultLinkColor
-  const linkHoverColor = isHomepage && !isScrolled ? 'gray.200' : defaultLinkHoverColor
+const MobileNav = ({ onClose }) => {
+  const linkColor = useColorModeValue('gray.600', 'gray.200')
+  const linkHoverColor = useColorModeValue('gray.800', 'white')
 
   return (
     <Stack
       bg={useColorModeValue('white', 'gray.800')}
       p={4}
       display={{ md: 'none' }}
-      style={fontStyles}
     >
       <Stack spacing={4}>
         <Button
-          as={Link}
+          as={GatsbyLink}
           to="/"
           variant={'ghost'}
           color={linkColor}
@@ -140,12 +123,11 @@ const MobileNav = ({ onClose, isScrolled, isHomepage }) => {
             color: linkHoverColor,
           }}
           onClick={onClose}
-          style={fontStyles}
         >
           Domů
         </Button>
         <Button
-          as={Link}
+          as={GatsbyLink}
           to="/about/"
           variant={'ghost'}
           color={linkColor}
@@ -154,12 +136,11 @@ const MobileNav = ({ onClose, isScrolled, isHomepage }) => {
             color: linkHoverColor,
           }}
           onClick={onClose}
-          style={fontStyles}
         >
           O mně
         </Button>
         <Button
-          as={Link}
+          as={GatsbyLink}
           to="/services/"
           variant={'ghost'}
           color={linkColor}
@@ -168,12 +149,11 @@ const MobileNav = ({ onClose, isScrolled, isHomepage }) => {
             color: linkHoverColor,
           }}
           onClick={onClose}
-          style={fontStyles}
         >
           Služby
         </Button>
         <Button
-          as={Link}
+          as={GatsbyLink}
           to="/calendar/"
           variant={'ghost'}
           color={linkColor}
@@ -182,12 +162,11 @@ const MobileNav = ({ onClose, isScrolled, isHomepage }) => {
             color: linkHoverColor,
           }}
           onClick={onClose}
-          style={fontStyles}
         >
           Kalendář
         </Button>
         <Button
-          as={Link}
+          as={GatsbyLink}
           to="/blog/"
           variant={'ghost'}
           color={linkColor}
@@ -196,7 +175,6 @@ const MobileNav = ({ onClose, isScrolled, isHomepage }) => {
             color: linkHoverColor,
           }}
           onClick={onClose}
-          style={fontStyles}
         >
           Blog
         </Button>
@@ -207,77 +185,25 @@ const MobileNav = ({ onClose, isScrolled, isHomepage }) => {
 
 export default function Navbar() {
   const { isOpen, onToggle } = useDisclosure()
-  const [isScrolled, setIsScrolled] = useState(false)
-  const [isHomepage, setIsHomepage] = useState(false)
 
-  // Move all useColorModeValue calls to the top level
-  const defaultBg = useColorModeValue('whiteAlpha.98', 'gray.800Alpha.98')
-  const defaultBorderColor = useColorModeValue('gray.200', 'gray.900')
-  const defaultColor = useColorModeValue('gray.600', 'white')
+  const bgColor = useColorModeValue('white', 'gray.800')
+  const borderColor = useColorModeValue('gray.200', 'gray.700')
+  const textColor = useColorModeValue('gray.600', 'white')
   const defaultTextColor = useColorModeValue('gray.500', 'white')
-  const mobileBg = useColorModeValue('white', 'gray.800')
-  const mobileBorderColor = useColorModeValue('gray.200', 'gray.700')
-  const mobileBgAlpha = useColorModeValue('whiteAlpha.95', 'gray.800Alpha.95')
-
-  useEffect(() => {
-    // Check if we're on homepage
-    setIsHomepage(window.location.pathname === '/' || window.location.pathname === '/homepage')
-
-    const handleScroll = () => {
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop
-      setIsScrolled(scrollTop > 50)
-    }
-
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
-
-  const handleToggle = () => {
-    console.log('Hamburger clicked, current state:', isOpen)
-    onToggle()
-  }
-
-  // Dynamic styling based on scroll and homepage
-  const getNavbarStyles = () => {
-    if (isHomepage && !isScrolled) {
-      return {
-        bg: 'transparent',
-        borderBottom: 'none',
-        boxShadow: 'none',
-        color: 'white'
-      }
-    }
-    return {
-      bg: defaultBg,
-      borderBottom: 1,
-      borderStyle: 'solid',
-      borderColor: defaultBorderColor,
-      boxShadow: 'lg',
-      color: defaultColor
-    }
-  }
-
-  const navbarStyles = getNavbarStyles()
 
   return (
     <Box
       as="nav"
-      data-testid="navbar"
-      position="fixed"
-      top={0}
-      zIndex={1000}
-      backdropFilter={isHomepage && !isScrolled ? 'none' : 'blur(10px)'}
+      bg={bgColor}
+      borderBottom="1px solid"
+      borderColor={borderColor}
       width="100%"
       height={NAV_HEIGHT}
       minH={NAV_HEIGHT}
-      transition="all 0.3s ease-in-out"
-      style={fontStyles}
-      {...navbarStyles}
     >
       <Container maxW="1680px" h="100%">
         <Flex
-          bg="transparent"
-          color={navbarStyles.color}
+          color={textColor}
           h="100%"
           py={{ base: 2 }}
           px={{ base: 4 }}
@@ -291,7 +217,7 @@ export default function Navbar() {
             minH={BUTTON_HEIGHT}
           >
             <IconButton
-              onClick={handleToggle}
+              onClick={onToggle}
               icon={
                 isOpen ? <CloseIcon w={3} h={3} /> : <HamburgerIcon w={5} h={5} />
               }
@@ -301,7 +227,7 @@ export default function Navbar() {
               w={BUTTON_HEIGHT}
               minH={BUTTON_HEIGHT}
               minW={BUTTON_HEIGHT}
-              color={navbarStyles.color}
+              color={textColor}
             />
           </Flex>
           <Flex 
@@ -310,7 +236,7 @@ export default function Navbar() {
             h="100%"
           >
             <Box
-              as={Link}
+              as={GatsbyLink}
               to="/"
               display={{ base: 'none', md: 'flex' }}
               alignItems="center"
@@ -336,7 +262,7 @@ export default function Navbar() {
               h="100%" 
               alignItems="center"
             >
-              <DesktopNav isScrolled={isScrolled} isHomepage={isHomepage} />
+              <DesktopNav />
             </Flex>
           </Flex>
 
@@ -357,7 +283,7 @@ export default function Navbar() {
             >
               <Text 
                 fontSize={'sm'} 
-                color={isHomepage && !isScrolled ? 'white' : defaultTextColor} 
+                color={defaultTextColor} 
                 fontWeight={400} 
                 variant={'link'} 
                 display="flex" 
@@ -366,13 +292,12 @@ export default function Navbar() {
                 textAlign="center" 
                 whiteSpace="nowrap"
                 lineHeight="1.2"
-                style={fontStyles}
               >
-                <Box as={FaSms} boxSize={8}/> Tomáš Nováček <br /> +420 602 773 440
+                <Icon as={FaUser} boxSize={8}/> Tomáš Nováček <br /> +420 602 773 440
               </Text>
             </Box>
             <Button
-              as={Link}
+              as={GatsbyLink}
               to="/calendar"
               rounded={'full'}
               size={'lg'}
@@ -382,13 +307,12 @@ export default function Navbar() {
               minH={BUTTON_HEIGHT}
               minW="180px"
               colorScheme={'green'}
-              variant={isHomepage && !isScrolled ? 'solid' : 'outline'}
+              variant={'outline'}
               _hover={{
                 bg: 'green.400',
                 color: 'white',
               }}
               leftIcon={<FaCalendarAlt />}
-              style={fontStyles}
               display={{ base: 'none', md: 'inline-flex' }}
             >
               Objednat se
@@ -400,18 +324,12 @@ export default function Navbar() {
           <Box
             display={{ base: 'block', md: 'none' }}
             w="100%"
-            position="absolute"
-            top="100%"
-            left={0}
-            right={0}
-            zIndex={999}
-            bg={mobileBgAlpha}
-            backdropFilter="blur(10px)"
+            bg={bgColor}
             borderTop="1px solid"
-            borderColor={mobileBorderColor}
+            borderColor={borderColor}
             boxShadow="lg"
           >
-            <MobileNav onClose={onToggle} isScrolled={isScrolled} isHomepage={isHomepage} />
+            <MobileNav onClose={onToggle} />
           </Box>
         </Collapse>
       </Container>
