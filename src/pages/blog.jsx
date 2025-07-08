@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react'
+import React, { useState, useMemo, useEffect } from 'react'
 import { graphql } from 'gatsby'
 import { 
   Box, 
@@ -19,20 +19,12 @@ import SEOGatsby from '../components/SEOGatsby'
 
 export default function BlogPage({ data }) {
   const [selectedTags, setSelectedTags] = useState([])
+  const [isClient, setIsClient] = useState(false)
   const { allMdx } = data
 
   const bgColor = useColorModeValue('gray.50', 'gray.900')
   const textColor = useColorModeValue('gray.600', 'gray.400')
   const headingColor = useColorModeValue('green.600', 'green.400')
-
-  // Tag styling colors - moved to top level
-  const tagBgSelected = useColorModeValue('green.100', 'green.800')
-  const tagBgUnselected = useColorModeValue('gray.50', 'gray.900')
-  const tagColor = 'green.700'
-  const tagBorderSelected = useColorModeValue('green.300', 'green.600')
-  const tagBorderUnselected = useColorModeValue('gray.200', 'gray.700')
-  const tagHoverBg = useColorModeValue('green.100', 'green.800')
-  const tagHoverBorder = useColorModeValue('green.300', 'green.600')
 
   // Function to generate slug from file path
   const generateSlug = (internal, id) => {
@@ -49,10 +41,11 @@ export default function BlogPage({ data }) {
   // Process blog posts
   const posts = useMemo(() => {
     if (!allMdx?.nodes) {
+      console.log('No MDX nodes found')
       return []
     }
     
-    return allMdx.nodes.map(post => ({
+    const processedPosts = allMdx.nodes.map(post => ({
       ...post,
       slug: generateSlug(post.internal, post.id),
       frontmatter: {
@@ -60,30 +53,51 @@ export default function BlogPage({ data }) {
         slug: generateSlug(post.internal, post.id)
       }
     }))
+    
+    console.log('Processed posts:', processedPosts.length)
+    console.log('Sample post tags:', processedPosts[0]?.frontmatter?.tags)
+    
+    return processedPosts
   }, [allMdx?.nodes])
 
   // Get all unique tags from posts
   const allTags = useMemo(() => {
     const tags = posts.flatMap(post => post.frontmatter.tags || [])
-    return [...new Set(tags)]
+    const uniqueTags = [...new Set(tags)]
+    console.log('All tags found:', uniqueTags)
+    return uniqueTags
   }, [posts])
 
   // Filter posts by selected tags
   const filteredPosts = useMemo(() => {
+    console.log('Filtering posts. Selected tags:', selectedTags)
     if (selectedTags.length === 0) {
       return posts
     }
-    return posts.filter(post => 
+    const filtered = posts.filter(post => 
       post.frontmatter.tags?.some(tag => selectedTags.includes(tag))
     )
+    console.log('Filtered posts count:', filtered.length)
+    return filtered
   }, [posts, selectedTags])
 
+  // Debug effect
+  useEffect(() => {
+    setIsClient(true)
+    console.log('Blog page mounted')
+    console.log('Initial data:', data)
+    console.log('All MDX nodes:', allMdx?.nodes?.length)
+  }, [data, allMdx])
+
   const handleTagClick = (tag) => {
-    setSelectedTags(prev => 
-      prev.includes(tag) 
+    console.log('Tag clicked:', tag)
+    setSelectedTags(prev => {
+      const newTags = prev.includes(tag) 
         ? prev.filter(t => t !== tag)
         : [...prev, tag]
-    )
+      console.log('New selected tags:', newTags)
+      return newTags
+    })
   }
 
   if (!posts || posts.length === 0) {
@@ -121,8 +135,18 @@ export default function BlogPage({ data }) {
               </Text>
             </VStack>
 
+            {/* Debug info - show in both development and production for troubleshooting */}
+            <Box p={4} bg="yellow.100" borderRadius="md">
+              <Text fontSize="sm" fontWeight="bold">Debug Info:</Text>
+              <Text fontSize="xs">Posts: {posts.length}</Text>
+              <Text fontSize="xs">Tags: {allTags.join(', ')}</Text>
+              <Text fontSize="xs">Selected: {selectedTags.join(', ')}</Text>
+              <Text fontSize="xs">Filtered: {filteredPosts.length}</Text>
+              <Text fontSize="xs">Is Client: {isClient ? 'Yes' : 'No'}</Text>
+            </Box>
+
             {/* Tag Filter */}
-            {allTags.length > 0 && (
+            {allTags.length > 0 && isClient && (
               <Box>
                 <Text fontSize="md" fontWeight="medium" mb={3} color={textColor}>
                   Filtrovat podle témat:
@@ -138,16 +162,16 @@ export default function BlogPage({ data }) {
                         py={1}
                         fontSize="xs"
                         fontWeight="semibold"
-                        color={tagColor}
-                        bg={isSelected ? tagBgSelected : tagBgUnselected}
+                        color="green.700"
+                        bg={isSelected ? "green.100" : "gray.50"}
                         border="1px solid"
-                        borderColor={isSelected ? tagBorderSelected : tagBorderUnselected}
+                        borderColor={isSelected ? "green.300" : "gray.200"}
                         borderRadius="md"
                         cursor="pointer"
                         transition="all 0.2s"
                         _hover={{
-                          bg: tagHoverBg,
-                          borderColor: tagHoverBorder,
+                          bg: "green.100",
+                          borderColor: "green.300",
                         }}
                         onClick={() => handleTagClick(tag)}
                         display="flex"

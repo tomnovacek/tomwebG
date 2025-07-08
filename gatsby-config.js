@@ -19,6 +19,7 @@ module.exports = {
     locale: `cs_CZ`,
   },
   plugins: [
+    // Core image processing plugins (load first)
     `gatsby-plugin-image`,
     {
       resolve: `gatsby-plugin-sharp`,
@@ -36,6 +37,8 @@ module.exports = {
       },
     },
     `gatsby-transformer-sharp`,
+    
+    // Source plugins (load before transformers)
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -50,25 +53,16 @@ module.exports = {
         path: `${__dirname}/src/blogPosts`,
       },
     },
+    
+    // MDX plugin (load after source plugins)
     {
       resolve: `gatsby-plugin-mdx`,
       options: {
         extensions: [`.mdx`, `.md`],
         mdxOptions: {
-          remarkPlugins: [
-            require('remark-gfm'),
-          ],
           rehypePlugins: [
             require('rehype-slug'),
             require('rehype-autolink-headings'),
-            [require('rehype-toc'), {
-              nav: false,
-              headings: ['h1', 'h2', 'h3'],
-              cssClasses: {
-                toc: 'table-of-contents',
-                link: 'toc-link'
-              }
-            }],
           ],
         },
         gatsbyRemarkPlugins: [
@@ -86,6 +80,8 @@ module.exports = {
         ],
       },
     },
+    
+    // PWA and SEO plugins (load last)
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
