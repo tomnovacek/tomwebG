@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link as GatsbyLink } from 'gatsby'
 import {
   Box,
@@ -7,14 +7,12 @@ import {
   IconButton,
   Button,
   Stack,
-  Collapse,
   Container,
   useColorModeValue,
-  useDisclosure,
   Icon,
 } from '@chakra-ui/react'
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons'
-import { FaCalendarAlt, FaUser } from 'react-icons/fa'
+import { FaCalendarAlt, FaUser, FaSms } from 'react-icons/fa'
 import { StaticImage } from 'gatsby-plugin-image'
 
 // Konstanty pro konzistentní rozměry
@@ -107,10 +105,18 @@ const MobileNav = ({ onClose }) => {
   const linkHoverColor = useColorModeValue('gray.800', 'white')
 
   return (
-    <Stack
+    <Box
       bg={useColorModeValue('white', 'gray.800')}
       p={4}
       display={{ md: 'none' }}
+      borderTop="1px solid"
+      borderColor={useColorModeValue('gray.200', 'gray.700')}
+      boxShadow="lg"
+      position="absolute"
+      top="100%"
+      left={0}
+      right={0}
+      zIndex={999}
     >
       <Stack spacing={4}>
         <Button
@@ -123,6 +129,8 @@ const MobileNav = ({ onClose }) => {
             color: linkHoverColor,
           }}
           onClick={onClose}
+          justifyContent="flex-start"
+          w="100%"
         >
           Domů
         </Button>
@@ -136,6 +144,8 @@ const MobileNav = ({ onClose }) => {
             color: linkHoverColor,
           }}
           onClick={onClose}
+          justifyContent="flex-start"
+          w="100%"
         >
           O mně
         </Button>
@@ -149,6 +159,8 @@ const MobileNav = ({ onClose }) => {
             color: linkHoverColor,
           }}
           onClick={onClose}
+          justifyContent="flex-start"
+          w="100%"
         >
           Služby
         </Button>
@@ -162,6 +174,8 @@ const MobileNav = ({ onClose }) => {
             color: linkHoverColor,
           }}
           onClick={onClose}
+          justifyContent="flex-start"
+          w="100%"
         >
           Kalendář
         </Button>
@@ -175,21 +189,45 @@ const MobileNav = ({ onClose }) => {
             color: linkHoverColor,
           }}
           onClick={onClose}
+          justifyContent="flex-start"
+          w="100%"
         >
           Blog
         </Button>
+        <Button
+          as={GatsbyLink}
+          to="/calendar"
+          colorScheme={'green'}
+          variant={'outline'}
+          _hover={{
+            bg: 'green.400',
+            color: 'white',
+          }}
+          leftIcon={<FaCalendarAlt />}
+          onClick={onClose}
+          w="100%"
+        >
+          Objednat se
+        </Button>
       </Stack>
-    </Stack>
+    </Box>
   )
 }
 
 export default function Navbar() {
-  const { isOpen, onToggle } = useDisclosure()
+  const [isOpen, setIsOpen] = useState(false)
 
   const bgColor = useColorModeValue('white', 'gray.800')
   const borderColor = useColorModeValue('gray.200', 'gray.700')
   const textColor = useColorModeValue('gray.600', 'white')
   const defaultTextColor = useColorModeValue('gray.500', 'white')
+
+  // Debug function to handle hamburger click
+  const handleHamburgerClick = () => {
+    console.log('Hamburger clicked! Current isOpen:', isOpen)
+    setIsOpen(!isOpen)
+    console.log('After toggle, isOpen will be:', !isOpen)
+  }
 
   return (
     <Box
@@ -200,6 +238,7 @@ export default function Navbar() {
       width="100%"
       height={NAV_HEIGHT}
       minH={NAV_HEIGHT}
+      position="relative"
     >
       <Container maxW="1680px" h="100%">
         <Flex
@@ -217,7 +256,7 @@ export default function Navbar() {
             minH={BUTTON_HEIGHT}
           >
             <IconButton
-              onClick={onToggle}
+              onClick={handleHamburgerClick}
               icon={
                 isOpen ? <CloseIcon w={3} h={3} /> : <HamburgerIcon w={5} h={5} />
               }
@@ -293,7 +332,7 @@ export default function Navbar() {
                 whiteSpace="nowrap"
                 lineHeight="1.2"
               >
-                <Icon as={FaUser} boxSize={8}/> Tomáš Nováček <br /> +420 602 773 440
+                <Icon as={FaSms} boxSize={8}/> Tomáš Nováček <br /> +420 602 773 440
               </Text>
             </Box>
             <Button
@@ -320,18 +359,10 @@ export default function Navbar() {
           </Stack>
         </Flex>
 
-        <Collapse in={isOpen} animateOpacity>
-          <Box
-            display={{ base: 'block', md: 'none' }}
-            w="100%"
-            bg={bgColor}
-            borderTop="1px solid"
-            borderColor={borderColor}
-            boxShadow="lg"
-          >
-            <MobileNav onClose={onToggle} />
-          </Box>
-        </Collapse>
+        {/* Mobile Navigation */}
+        {isOpen && (
+          <MobileNav onClose={() => setIsOpen(false)} />
+        )}
       </Container>
     </Box>
   )
