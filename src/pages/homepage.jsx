@@ -245,7 +245,7 @@ const HomePage = ({ data }) => {
       </Box>
 
       {/* About Section */}
-      <Box as="section" py={20} bg={useColorModeValue('gray.50', 'gray.900')} position="relative" zIndex={2}>
+      <Box as="section" py={20} bg={useColorModeValue('white', 'gray.900')} position="relative" zIndex={2}>
         <Container maxW={'7xl'} centerContent>
           <Stack spacing={4} maxW={'6xl'} textAlign={'center'} mb={10}>
             <Heading as="h2" variant="section">
@@ -406,7 +406,7 @@ const HomePage = ({ data }) => {
       </Box>
 
       {/* Latest Blog Posts Section */}
-      <Box as="section" py={16} bg={useColorModeValue('gray.50', 'gray.900')}>
+      <Box as="section" py={16} bg={useColorModeValue('white', 'gray.900')}>
         <Container maxW="container.xl">
           <VStack spacing={12} align="stretch">
             <Box textAlign="center">
