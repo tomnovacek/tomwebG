@@ -135,7 +135,7 @@ export default function BlogPage({ data }) {
               </Text>
             </VStack>
 
-            {/* Debug info - show in both development and production for troubleshooting */}
+            {/* Debug info - show in both development and production for troubleshooting 
             <Box p={4} bg="yellow.100" borderRadius="md">
               <Text fontSize="sm" fontWeight="bold">Debug Info:</Text>
               <Text fontSize="xs">Posts: {posts.length}</Text>
@@ -143,7 +143,7 @@ export default function BlogPage({ data }) {
               <Text fontSize="xs">Selected: {selectedTags.join(', ')}</Text>
               <Text fontSize="xs">Filtered: {filteredPosts.length}</Text>
               <Text fontSize="xs">Is Client: {isClient ? 'Yes' : 'No'}</Text>
-            </Box>
+            </Box>*/}
 
             {/* Tag Filter */}
             {allTags.length > 0 && isClient && (

@@ -38,14 +38,35 @@ exports.createPages = async ({ graphql, actions }) => {
   `)
 
   if (result.errors) {
+    console.error('GraphQL errors:', result.errors)
     throw result.errors
   }
 
   const posts = result.data.allMdx.nodes
+  console.log(`Found ${posts.length} blog posts`)
+
+  // Debug: Log each post's contentFilePath
+  posts.forEach((post, index) => {
+    console.log(`Post ${index + 1}:`, {
+      id: post.id,
+      title: post.frontmatter.title,
+      contentFilePath: post.internal.contentFilePath,
+      hasContentFilePath: !!post.internal.contentFilePath
+    })
+  })
 
   // Create individual blog post pages
   posts.forEach(post => {
+    if (!post.internal.contentFilePath) {
+      console.warn(`Skipping post ${post.id} - no contentFilePath`)
+      console.warn(`Post title: ${post.frontmatter.title}`)
+      return
+    }
+
     const slug = post.fields?.slug || path.basename(post.internal.contentFilePath, path.extname(post.internal.contentFilePath))
+    
+    console.log(`Creating page for ${slug}`)
+    console.log(`- Content file: ${post.internal.contentFilePath}`)
     
     createPage({
       path: `/blog/${slug}`,
@@ -81,6 +102,15 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
   const { createNodeField } = actions
   
   if (node.internal.type === 'Mdx') {
+    // Debug: Log MDX node creation
+    console.log('Creating MDX node:', {
+      id: node.id,
+      contentFilePath: node.internal.contentFilePath,
+      hasContentFilePath: !!node.internal.contentFilePath,
+      absolutePath: node.internal.absolutePath,
+      relativePath: node.internal.relativePath
+    })
+    
     // Create slug field for MDX files
     const filePath = node.internal.contentFilePath
     if (filePath && filePath.includes('/blogPosts/')) {

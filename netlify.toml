@@ -13,19 +13,63 @@
   # Ensure consistent plugin loading
   GATSBY_EXPERIMENTAL_QUERY_ON_DEMAND = "false"
   GATSBY_EXPERIMENTAL_PAGE_BUILD_ON_DATA_CHANGES = "false"
+  # Disable compression at server level
+  NETLIFY_USE_YARN = "false"
+  NODE_ENV = "production"
+  # Force fresh build
+  FORCE_FRESH_BUILD = "true"
 
-# Clear build cache to fix case sensitivity issues
-[build.processing]
-  skip_processing = false
+# Fix compression issues - disable all compression
+[[headers]]
+  for = "*.js"
+  [headers.values]
+    Content-Encoding = "identity"
+    Cache-Control = "public, max-age=31536000, immutable"
+    Vary = "Accept-Encoding"
 
-# Force fresh build
-[build.processing.css]
-  bundle = true
-  minify = true
+[[headers]]
+  for = "*.css"
+  [headers.values]
+    Content-Encoding = "identity"
+    Cache-Control = "public, max-age=31536000, immutable"
+    Vary = "Accept-Encoding"
 
-[build.processing.js]
-  bundle = true
-  minify = true
+[[headers]]
+  for = "*.html"
+  [headers.values]
+    Content-Encoding = "identity"
+    Cache-Control = "public, max-age=0, must-revalidate"
+    Vary = "Accept-Encoding"
+
+[[headers]]
+  for = "*.json"
+  [headers.values]
+    Content-Encoding = "identity"
+    Cache-Control = "public, max-age=0, must-revalidate"
+    Vary = "Accept-Encoding"
+
+# Disable compression for all static assets
+[[headers]]
+  for = "/static/*"
+  [headers.values]
+    Content-Encoding = "identity"
+    Cache-Control = "public, max-age=31536000, immutable"
+    Vary = "Accept-Encoding"
+
+# Disable compression for webpack chunks
+[[headers]]
+  for = "/*.js"
+  [headers.values]
+    Content-Encoding = "identity"
+    Cache-Control = "public, max-age=31536000, immutable"
+    Vary = "Accept-Encoding"
+
+# Force no compression for all files
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Content-Encoding = "identity"
+    Vary = "Accept-Encoding"
 
 # 301 redirects for www/non-www subdomain handling
 [[redirects]]
@@ -133,30 +177,8 @@
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "camera=(), microphone=(), geolocation=()"
 
-# Compression for text-based assets
-[[headers]]
-  for = "/*.html"
-  [headers.values]
-    Cache-Control = "public, max-age=0, must-revalidate"
-    Content-Encoding = "gzip"
-
-[[headers]]
-  for = "/*.css"
-  [headers.values]
-    Content-Encoding = "gzip"
-
-[[headers]]
-  for = "/*.js"
-  [headers.values]
-    Content-Encoding = "gzip"
-
+# Page data caching
 [[headers]]
   for = "/page-data/*"
   [headers.values]
-    Cache-Control = "public, max-age=0, must-revalidate"
-
-# Disable compression for debugging
-[[headers]]
-  for = "/*"
-  [headers.values]
-    X-Content-Type-Options = "nosniff" 
+    Cache-Control = "public, max-age=0, must-revalidate" 
