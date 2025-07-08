@@ -41,7 +41,11 @@ const BlogPost = ({ data, children, pageContext }) => {
 
     // Wait for content to be rendered
     const timer = setTimeout(() => {
-      const headingElements = document.querySelectorAll('h1, h2, h3')
+      // Select only headings within the main content area, excluding footer
+      const mainContent = document.querySelector('[data-content="main"]')
+      if (!mainContent) return
+      
+      const headingElements = mainContent.querySelectorAll('h2, h3')
       const headingData = []
       
       headingElements.forEach((element) => {
@@ -69,13 +73,17 @@ const BlogPost = ({ data, children, pageContext }) => {
     }, 100)
 
     return () => clearTimeout(timer)
-  }, [children, isClient])
+  }, [isClient])
 
-  // Intersection Observer for active heading
+  // Intersection Observer for active heading highlighting
   useEffect(() => {
-    if (!isClient) return
+    if (!isClient || headings.length === 0) return
 
-    const headingElements = document.querySelectorAll('h1, h2, h3')
+    // Select only headings within the main content area
+    const mainContent = document.querySelector('[data-content="main"]')
+    if (!mainContent) return
+    
+    const headingElements = mainContent.querySelectorAll('h2, h3')
     
     const observer = new IntersectionObserver(
       (entries) => {
@@ -109,7 +117,16 @@ const BlogPost = ({ data, children, pageContext }) => {
       <Container maxW="6xl" py={8}>
         <Flex gap={8} direction={{ base: 'column', lg: 'row' }}>
           {/* Main Content */}
-          <Box flex="1" bg={bgColor} borderRadius="xl" p={8} boxShadow="lg" border="1px solid" borderColor={borderColor}>
+          <Box 
+            flex="1" 
+            bg={bgColor} 
+            borderRadius="xl" 
+            p={8} 
+            boxShadow="lg" 
+            border="1px solid" 
+            borderColor={borderColor}
+            data-content="main"
+          >
             <VStack spacing={6} align="stretch" mb={8}>
               <Heading as="h1" size="2xl" textAlign="center">
                 {frontmatter.title}
