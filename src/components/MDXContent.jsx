@@ -2,6 +2,8 @@ import React from 'react'
 import { MDXProvider } from '@mdx-js/react'
 import { Box, Heading, Text } from '@chakra-ui/react'
 import ContentFrame from './ContentFrame'
+import ExerciseFrame from './ExerciseFrame'
+import InfoFrame from './InfoFrame'
 
 // MDX components
 const mdxComponents = {
@@ -51,8 +53,8 @@ const mdxComponents = {
       )}
     </Box>
   ),
-  ExerciseFrame: (props) => <ContentFrame type="exercise" {...props} />,
-  InfoFrame: (props) => <ContentFrame type="info" {...props} />,
+  ExerciseFrame: ExerciseFrame,
+  InfoFrame: InfoFrame,
 }
 
 export default function MDXContent({ content }) {

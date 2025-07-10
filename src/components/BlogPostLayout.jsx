@@ -7,6 +7,8 @@ import { format } from 'date-fns'
 import { cs } from 'date-fns/locale'
 import Layout from './Layout'
 import ContentFrame from './ContentFrame'
+import ExerciseFrame from './ExerciseFrame'
+import InfoFrame from './InfoFrame'
 import SEOGatsby from './SEOGatsby'
 
 const BlogPostLayout = ({ children, frontmatter, slug }) => {
@@ -79,8 +81,6 @@ const BlogPostLayout = ({ children, frontmatter, slug }) => {
       {...props}
     />
   )
-  const InfoFrame = (props) => <ContentFrame variant="info" {...props} />
-  const ExerciseFrame = (props) => <ContentFrame variant="exercise" {...props} />
 
   // MDX components
   const mdxComponents = {
