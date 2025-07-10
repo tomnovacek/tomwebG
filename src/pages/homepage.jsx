@@ -21,7 +21,6 @@ import BlogCard from '../components/BlogCard'
 import AnalyticsButton from '../components/AnalyticsButton'
 import AboutCard from '../components/AboutCard'
 import HeroTextBox from '../components/HeroTextBox'
-import SEOGatsby from '../components/SEOGatsby'
 
 const HomePage = ({ data }) => {
   const { allMdx, allFile } = data
@@ -65,14 +64,6 @@ const HomePage = ({ data }) => {
 
   return (
     <>
-      <SEOGatsby 
-        title="Psychoterapie v centru Brna | Tomáš Nováček - Psycholog a terapeut"
-        description="Certifikovaný psychoterapeut Tomáš Nováček nabízí psychoterapii v centru Brna. Pomáhám lidem překonávat životní výzvy, úzkosti, deprese a vztahové problémy. Objednejte si konzultaci."
-        pathname="/"
-        keywords={["psychoterapie", "psycholog", "Brno", "úzkost", "deprese", "vztahy", "terapie", "duševní zdraví"]}
-        image="/img/tom1.png"
-      />
-      
       {/* Structured Data for SEO */}
       <script
         type="application/ld+json"

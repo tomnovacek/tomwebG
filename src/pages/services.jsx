@@ -3,6 +3,7 @@ import Layout from '../components/Layout'
 import ServicesGrid from '../components/ServicesGrid'
 import PricingCard from '../components/PricingCard'
 import HeroTextBox from '../components/HeroTextBox'
+import SEOGatsby from '../components/SEOGatsby'
 import {
   Box,
   Container,
@@ -332,4 +333,13 @@ const ServicesPage = () => {
   )
 }
 
-export default ServicesPage 
+export default ServicesPage
+
+export const Head = () => (
+  <SEOGatsby 
+    title="Služby a ceník | Tomáš Nováček - Psychoterapie v Brně"
+    description="Nabízím individuální psychoterapii pro dospělé v centru Brna. Společně prozkoumáváme vaše životní výzvy a hledáme cesty k jejich překonání. Vytvářím bezpečný prostor pro vaše sebepoznání."
+    pathname="/services"
+    image="/img/tom1.png"
+  />
+) 

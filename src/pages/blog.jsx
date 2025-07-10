@@ -117,11 +117,6 @@ export default function BlogPage({ data }) {
 
   return (
     <Layout>
-      <SEOGatsby 
-        title="Blog | Tomáš Nováček - Psychoterapie"
-        description="Články o duševním zdraví, psychoterapii a osobním růstu. Praktické tipy a poznatky z terapeutické praxe."
-        pathname="/blog"
-      />
       <Box bg={bgColor} minH="100vh" py={8}>
         <Container maxW="6xl">
           <VStack spacing={8} align="stretch">
@@ -207,6 +202,14 @@ export default function BlogPage({ data }) {
     </Layout>
   )
 }
+
+export const Head = () => (
+  <SEOGatsby 
+    title="Blog | Tomáš Nováček - Psychoterapie"
+    description="Články o duševním zdraví, psychoterapii a osobním růstu. Praktické tipy a poznatky z terapeutické praxe."
+    pathname="/blog"
+  />
+)
 
 export const pageQuery = graphql`
   query BlogPageQuery {
