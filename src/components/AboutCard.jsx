@@ -53,8 +53,8 @@ export default function AboutCard({
             }}
             formats={['auto', 'webp']}
             quality={85}
-            breakpoints={[400, 768, 1200]}
-            sizes="(max-width: 768px) 100vw, 50vw"
+            breakpoints={[320, 480, 768, 1024]}
+            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
             transformOptions={{
               fit: 'cover',
               cropFocus: 'center',
@@ -75,8 +75,8 @@ export default function AboutCard({
             }}
             formats={['auto', 'webp']}
             quality={85}
-            breakpoints={[400, 768, 1200]}
-            sizes="(max-width: 768px) 100vw, 50vw"
+            breakpoints={[320, 480, 768, 1024]}
+            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
             transformOptions={{
               fit: 'cover',
               cropFocus: 'center',
@@ -97,8 +97,8 @@ export default function AboutCard({
             }}
             formats={['auto', 'webp']}
             quality={85}
-            breakpoints={[400, 768, 1200]}
-            sizes="(max-width: 768px) 100vw, 50vw"
+            breakpoints={[320, 480, 768, 1024]}
+            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
             transformOptions={{
               fit: 'cover',
               cropFocus: 'center',
