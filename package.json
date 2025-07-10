@@ -24,6 +24,7 @@
     "date-fns": "4.1.0",
     "framer-motion": "^10.18.0",
     "gatsby": "^5.14.1",
+    "gatsby-plugin-google-analytics": "5.14.0",
     "gatsby-plugin-image": "^3.14.0",
     "gatsby-plugin-manifest": "^5.14.0",
     "gatsby-plugin-mdx": "5.14.1",
