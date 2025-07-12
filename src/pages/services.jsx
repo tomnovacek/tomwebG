@@ -78,53 +78,57 @@ const ServicesPage = () => {
         <Container maxW="7xl" height="100%" position="relative" zIndex={1}>
           <Flex
             height="100%"
+            align="flex-end"
             justify="center"
-            align="center"
             direction={{ base: 'column', md: 'row' }}
             gap={8}
             pt={{ base: 10, md: 28 }}
             mt={{ base: 0, md: 0 }}
           >
-            {/* Text Box on the right */}
-            <HeroTextBox
-              title="Moje služby"
-              titleAccent="& Podmínky"
-              description="Nabízím individuální psychoterapii pro dospělé v centru Brna. Společně prozkoumáváme vaše životní výzvy a hledáme cesty k jejich překonání. Vytvářím bezpečný prostor pro vaše sebepoznání a osobní růst."
-              primaryText="Objednat konzultaci"
-              primaryHref="/calendar"
-              secondaryText="O mně"
-              secondaryHref="/about"
-            />
-
-            {/* Image on the left */}
+            {/* Text Box */}
             <Box
-              flex="1"
-              maxW="2xl"
-              position="relative"
-              bg="transparent"
-              height="100%"
-              minH={{ base: "400px", md: "500px" }}
               display="flex"
+              justifyContent="center"
+              flex={{ base: "1", md: "1" }}
             >
-              <Box
-                width="100%"
-                mt="auto"
-              >
-                <StaticImage
-                  src="../assets/img/tom1.png"
-                  alt="Tomáš Nováček - Psychoterapeut"
-                  placeholder="blurred"
-                  layout="fullWidth"
-                  style={{
-                    borderRadius: '12px',
-                    height: 'auto',
-                    width: '100%'
-                  }}
-                  formats={['auto', 'webp']}
-                  quality={90}
-                  priority="true"
-                />
-              </Box>
+              <HeroTextBox
+                title="Moje služby"
+                titleAccent="& Podmínky"
+                description="Nabízím individuální psychoterapii pro dospělé v centru Brna. Společně prozkoumáváme vaše životní výzvy a hledáme cesty k jejich překonání. Vytvářím bezpečný prostor pro vaše sebepoznání a osobní růst."
+                primaryText="Objednat konzultaci"
+                primaryHref="/calendar"
+                secondaryText="O mně"
+                secondaryHref="/about"
+              />
+            </Box>
+
+            {/* Portrait Image */}
+            <Box
+              display="flex"
+              alignItems="flex-end"
+              justifyContent="center"
+              flex={{ base: "1", md: "1" }}
+              py={{ base: 4, md: 0 }}
+            >
+              <StaticImage
+                src="../assets/img/tom1.png"
+                alt="Tomáš Nováček - Psychoterapeut"
+                placeholder="blurred"
+                layout="constrained"
+                width={480}
+                height={500}
+                quality={90}
+                style={{
+                  mixBlendMode: 'normal',
+                  backgroundColor: 'transparent',
+                  filter: 'brightness(1.1)',
+                  maxWidth: '100%',
+                  height: 'auto'
+                }}
+                loading="eager"
+                formats={['auto', 'webp']}
+                priority="true"
+              />
             </Box>
           </Flex>
         </Container>

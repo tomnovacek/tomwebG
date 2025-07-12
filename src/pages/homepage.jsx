@@ -179,57 +179,57 @@ const HomePage = ({ data }) => {
         <Container maxW="7xl" height="100%" position="relative" zIndex={1} className="hero-content">
           <Flex
             height="100%"
+            align="flex-end"
             justify="center"
-            align="center"
             direction={{ base: 'column', md: 'row' }}
-            gap={8}
+            gap={{ base: 6, md: 8 }}
             pt={{ base: 10, md: 28 }}
             mt={{ base: 0, md: 0 }}
           >
             {/* Text Box */}
-            <HeroTextBox
-              title="Psychoterapie"
-              titleAccent="v centru Brna"
-              description="Vítejte, jmenuji se Tomáš Nováček. Doprovázím lidi při překonávaní jejich životních výchev. Snažím se, aby se na tomto putování cítili bezpečně a našli v sobě schopnost zahlédnout světlo nadějě prosvítající i potemnělým lesem."
-              primaryText="Objednat konzultaci"
-              primaryHref="/calendar"
-              secondaryText="Moje služby"
-              secondaryHref="/services"
-            />
+            <Box
+              display="flex"
+              justifyContent="center"
+              flex={{ base: "1", md: "1" }}
+            >
+              <HeroTextBox
+                title="Psychoterapie"
+                titleAccent="v centru Brna"
+                description="Vítejte, jmenuji se Tomáš Nováček. Doprovázím lidi při překonávaní jejich životních výchev. Snažím se, aby se na tomto putování cítili bezpečně a našli v sobě schopnost zahlédnout světlo nadějě prosvítající i potemnělým lesem."
+                primaryText="Objednat konzultaci"
+                primaryHref="/calendar"
+                secondaryText="Moje služby"
+                secondaryHref="/services"
+              />
+            </Box>
 
             {/* Portrait Image */}
             <Box
-              flex="1"
-              maxW="2xl"
-              position="relative"
-              bg="transparent"
-              height="100%"
-              minH={{ base: "400px", md: "500px" }}
               display="flex"
+              alignItems="flex-end"
+              justifyContent="center"
+              flex={{ base: "1", md: "1" }}
+              py={{ base: 4, md: 0 }}
             >
-              <Box
-                width="100%"
-                mt="auto"
-              >
-                {/* Portrait image using StaticImage for optimized image */}
-                <StaticImage
-                  src="../assets/img/tom1.png"
-                  alt="Tomáš Nováček - psycholog a terapeut v centru Brna"
-                  placeholder="blurred"
-                  layout="fullWidth"
-                  quality={90}
-                  style={{
-                    mixBlendMode: 'normal',
-                    backgroundColor: 'transparent',
-                    filter: 'brightness(1.1)',
-                    height: 'auto',
-                    width: '100%',
-                    objectFit: 'contain',
-                    objectPosition: 'center'
-                  }}
-                  loading="eager"
-                />
-              </Box>
+              <StaticImage
+                src="../assets/img/tom1.png"
+                alt="Tomáš Nováček - psycholog a terapeut v centru Brna"
+                placeholder="blurred"
+                layout="constrained"
+                width={480}
+                height={500}
+                quality={90}
+                style={{
+                  mixBlendMode: 'normal',
+                  backgroundColor: 'transparent',
+                  filter: 'brightness(1.1)',
+                  maxWidth: '100%',
+                  height: 'auto'
+                }}
+                loading="eager"
+                formats={['auto', 'webp']}
+                priority="true"
+              />
             </Box>
           </Flex>
         </Container>
