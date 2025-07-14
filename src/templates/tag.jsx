@@ -36,11 +36,6 @@ export default function TagTemplate({ data, pageContext }) {
 
   return (
     <Layout>
-      <SEOGatsby 
-        title={`${tag} | Blog - Tomáš Nováček`}
-        description={`Články o tématu ${tag} na blogu Tomáše Nováčka`}
-        pathname={`/tags/${tag}`}
-      />
       <Box bg={bgColor} minH="100vh" py={8}>
         <Container maxW="6xl">
           <VStack spacing={8} align="stretch">
@@ -62,6 +57,18 @@ export default function TagTemplate({ data, pageContext }) {
         </Container>
       </Box>
     </Layout>
+  )
+}
+
+export const Head = ({ pageContext }) => {
+  const { tag } = pageContext
+  
+  return (
+    <SEOGatsby 
+      title={`${tag} | Blog - Tomáš Nováček`}
+      description={`Články o tématu ${tag} na blogu Tomáše Nováčka`}
+      pathname={`/tags/${tag.toLowerCase().replace(/\s+/g, '-')}`}
+    />
   )
 }
 
@@ -101,4 +108,4 @@ export const pageQuery = graphql`
       }
     }
   }
-` 
+`

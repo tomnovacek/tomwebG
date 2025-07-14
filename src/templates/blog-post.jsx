@@ -3,6 +3,7 @@ import { graphql } from 'gatsby'
 import { getImage, GatsbyImage } from 'gatsby-plugin-image'
 import Layout from '../components/Layout'
 import CustomMDXProvider from '../components/MDXProvider'
+import SEOGatsby from '../components/SEOGatsby'
 import {
   Container,
   Box,
@@ -290,4 +291,20 @@ export const query = graphql`
   }
 `
 
-export default BlogPost 
+export default BlogPost
+
+export const Head = ({ data, pageContext }) => {
+  const { mdx } = data
+  const { frontmatter } = mdx
+  const { slug } = pageContext
+  
+  return (
+    <SEOGatsby 
+      title={`${frontmatter.title} | Tomáš Nováček - Blog`}
+      description={frontmatter.excerpt || `Článek o ${frontmatter.title.toLowerCase()}`}
+      pathname={`/blog/${slug}`}
+      image={frontmatter.featuredImage?.publicURL || "/img/tom1.png"}
+      article={true}
+    />
+  )
+} 
