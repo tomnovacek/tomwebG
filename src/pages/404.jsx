@@ -34,6 +34,11 @@ const NotFoundPage = () => {
   const headingColor = useColorModeValue('green.600', 'green.400')
   const borderColor = useColorModeValue('gray.200', 'gray.700')
 
+  // Development test - you can access this at /404-test during development
+  if (typeof window !== 'undefined' && window.location.pathname === '/404-test') {
+    console.log('404 page accessed via test route')
+  }
+
   return (
     <Layout>
       <Box bg={bgColor} minH="calc(100vh - 64px)" display="flex" alignItems="center">
