@@ -126,7 +126,7 @@ export default function BlogPage({ data }) {
                 Blog
               </Heading>
               <Text fontSize="lg" color={textColor} maxW="2xl">
-                Články o duševním zdraví, psychoterapii a osobním růstu
+                Pár mých poznámek a odkazů, které by se Vám mohly hodit.
               </Text>
             </VStack>
 
