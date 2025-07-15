@@ -48,7 +48,7 @@ const About = () => {
           zIndex={0}
         >
           <StaticImage
-            src="../assets/img/mountainHike.jpg"
+            src="../assets/img/mountains.jpeg"
             alt="hiking in the mountains"
             placeholder="blurred"
             layout="fullWidth"
