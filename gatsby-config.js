@@ -121,29 +121,10 @@ module.exports = {
     {
       resolve: `gatsby-plugin-sitemap`,
       options: {
-        output: `/sitemap.xml`,
+        output: `/`,
         createLinkInHead: true,
-        query: `
-          {
-            site {
-              siteMetadata {
-                siteUrl
-              }
-            }
-            allSitePage {
-              nodes {
-                path
-              }
-            }
-          }
-        `,
-        serialize: ({ site, allSitePage }) => {
-          return allSitePage?.nodes?.map(page => ({
-            url: `${site?.siteMetadata?.siteUrl || ''}${page.path}`,
-            changefreq: 'weekly',
-            priority: page.path === '/' ? 1.0 : 0.7,
-          })) || []
-        }
+        entryLimit: 50000,
+        excludes: ['/tags/*'],
       },
     },
   ],
