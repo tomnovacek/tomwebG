@@ -147,12 +147,6 @@
   status = 301
   force = true
 
-# SPA routing - must come last to catch all other routes
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
-
 # Handle static assets with optimal caching
 [[headers]]
   for = "/static/*"
