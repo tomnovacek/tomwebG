@@ -84,12 +84,6 @@
   status = 301
   force = true
 
-[[redirects]]
-  from = "http://tomnovacek.com/*"
-  to = "https://tomnovacek.com/:splat"
-  status = 301
-  force = true
-
 # Redirect trailing slashes to non-trailing slash versions
 [[redirects]]
   from = "/about/"
