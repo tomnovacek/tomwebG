@@ -22,9 +22,18 @@ const CalendarPage = () => {
   const [isLoading, setIsLoading] = useState(true)
   const [retryCount, setRetryCount] = useState(0)
   const [showError, setShowError] = useState(false)
+  const [isSafariMobile, setIsSafariMobile] = useState(false)
   const bgColor = useColorModeValue('gray.50', 'gray.900')
   const cardBg = useColorModeValue('white', 'gray.800')
   const textColor = useColorModeValue('gray.600', 'gray.400')
+
+  useEffect(() => {
+    // Detect Safari mobile
+    const userAgent = navigator.userAgent
+    const isSafari = /Safari/.test(userAgent) && !/Chrome/.test(userAgent)
+    const isMobile = /iPhone|iPad|iPod/.test(userAgent)
+    setIsSafariMobile(isSafari && isMobile)
+  }, [])
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -34,13 +43,18 @@ const CalendarPage = () => {
           setShowError(true)
         }
       }
-    }, 10000) // 10 seconds timeout
+    }, 8000) // Reduced from 10 to 8 seconds for better mobile experience
 
     return () => clearTimeout(timer)
   }, [isLoading, retryCount])
 
   const handleIframeLoad = () => {
     setIsLoading(false)
+  }
+
+  const handleIframeError = () => {
+    setIsLoading(false)
+    setShowError(true)
   }
 
   return (
@@ -91,8 +105,28 @@ const CalendarPage = () => {
                   <Text color={textColor}>Načítání kalendáře...</Text>
                   {showError && (
                     <Box textAlign="center" p={4} bg="red.50" borderRadius="md" border="1px solid" borderColor="red.200">
-                      <Text color="red.600" fontWeight="bold">Problém s načítáním kalendáře</Text>
-                      <Text color="red.500" fontSize="sm">Zkuste to prosím znovu nebo nás kontaktujte emailem.</Text>
+                      <Text color="red.600" fontWeight="bold">
+                        {isSafariMobile ? 'Problém s načítáním kalendáře v Safari' : 'Problém s načítáním kalendáře'}
+                      </Text>
+                      <Text color="red.500" fontSize="sm">
+                        {isSafariMobile 
+                          ? 'Safari na mobilních zařízeních má omezení. Prosím použijte odkaz níže nebo nás kontaktujte emailem.'
+                          : 'Zkuste to prosím znovu nebo nás kontaktujte emailem.'
+                        }
+                      </Text>
+                      {isSafariMobile && (
+                        <Button
+                          as="a"
+                          href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ00ICmDJd6LyX3TG07oRvH7ni-wewoDDs0x0UXJMlWhkKUk1OBWw9wqj-TyqJgYdLOscITBiFtF?gv=true&color=%234CAF50"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          colorScheme="green"
+                          size="sm"
+                          mt={2}
+                        >
+                          Otevřít kalendář v novém okně
+                        </Button>
+                      )}
                     </Box>
                   )}
                 </Flex>
@@ -116,9 +150,12 @@ const CalendarPage = () => {
                     visibility: isLoading ? 'hidden' : 'visible',
                   }}
                   allowFullScreen
+                  allow="fullscreen"
                   onLoad={handleIframeLoad}
+                  onError={handleIframeError}
                   title="Rezervační kalendář"
-                  loading="lazy"
+                  sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox"
+                  referrerPolicy="no-referrer-when-downgrade"
                 />
               </Box>
             </Box>
