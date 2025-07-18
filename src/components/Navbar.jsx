@@ -42,7 +42,7 @@ const DesktopNav = () => {
       </Button>
       <Button
         as={GatsbyLink}
-        to="/about/"
+        to="/about"
         variant={'ghost'}
         color={linkColor}
         _hover={{
@@ -56,7 +56,7 @@ const DesktopNav = () => {
       </Button>
       <Button
         as={GatsbyLink}
-        to="/services/"
+        to="/services"
         variant={'ghost'}
         color={linkColor}
         _hover={{
@@ -70,7 +70,7 @@ const DesktopNav = () => {
       </Button>
       <Button
         as={GatsbyLink}
-        to="/calendar/"
+        to="/calendar"
         variant={'ghost'}
         color={linkColor}
         _hover={{
@@ -84,7 +84,7 @@ const DesktopNav = () => {
       </Button>
       <Button
         as={GatsbyLink}
-        to="/blog/"
+        to="/blog"
         variant={'ghost'}
         color={linkColor}
         _hover={{
@@ -136,7 +136,7 @@ const MobileNav = ({ onClose }) => {
         </Button>
         <Button
           as={GatsbyLink}
-          to="/about/"
+          to="/about"
           variant={'ghost'}
           color={linkColor}
           _hover={{
@@ -151,7 +151,7 @@ const MobileNav = ({ onClose }) => {
         </Button>
         <Button
           as={GatsbyLink}
-          to="/services/"
+          to="/services"
           variant={'ghost'}
           color={linkColor}
           _hover={{
@@ -166,7 +166,7 @@ const MobileNav = ({ onClose }) => {
         </Button>
         <Button
           as={GatsbyLink}
-          to="/calendar/"
+          to="/calendar"
           variant={'ghost'}
           color={linkColor}
           _hover={{
@@ -181,7 +181,7 @@ const MobileNav = ({ onClose }) => {
         </Button>
         <Button
           as={GatsbyLink}
-          to="/blog/"
+          to="/blog"
           variant={'ghost'}
           color={linkColor}
           _hover={{

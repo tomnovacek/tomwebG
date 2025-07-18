@@ -84,63 +84,6 @@
   status = 301
   force = true
 
-# Redirect trailing slashes to non-trailing slash versions
-[[redirects]]
-  from = "/about/"
-  to = "/about"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/services/"
-  to = "/services"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/blog/"
-  to = "/blog"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/calendar/"
-  to = "/calendar"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/gdpr/"
-  to = "/gdpr"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/cookies/"
-  to = "/cookies"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/legal/"
-  to = "/legal"
-  status = 301
-  force = true
-
-# Redirect blog post trailing slashes
-[[redirects]]
-  from = "/blog/*/"
-  to = "/blog/:splat"
-  status = 301
-  force = true
-
-# Redirect tag pages trailing slashes
-[[redirects]]
-  from = "/tags/*/"
-  to = "/tags/:splat"
-  status = 301
-  force = true
-
 # Handle static assets with optimal caching
 [[headers]]
   for = "/static/*"
