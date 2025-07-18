@@ -155,6 +155,8 @@ const HomePage = ({ data }) => {
             layout="fullWidth"
             objectFit="cover"
             objectPosition="center"
+            quality={85}
+            formats={['auto', 'webp', 'avif']}
             style={{
               height: '100%',
               width: '100%',
@@ -164,6 +166,8 @@ const HomePage = ({ data }) => {
               zIndex: 0,
             }}
             loading="eager"
+            breakpoints={[400, 768, 1200, 1600]}
+            sizes="100vw"
           />
           <Box
             position="absolute"

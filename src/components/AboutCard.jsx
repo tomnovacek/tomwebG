@@ -51,8 +51,8 @@ export default function AboutCard({
               width: '100%',
               filter: 'brightness(1.2)',
             }}
-            formats={['auto', 'webp']}
-            quality={85}
+            formats={['auto', 'webp', 'avif']}
+            quality={80}
             breakpoints={[320, 480, 768, 1024]}
             sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
             transformOptions={{
@@ -73,8 +73,8 @@ export default function AboutCard({
               width: '100%',
               filter: 'brightness(1.2)',
             }}
-            formats={['auto', 'webp']}
-            quality={85}
+            formats={['auto', 'webp', 'avif']}
+            quality={80}
             breakpoints={[320, 480, 768, 1024]}
             sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
             transformOptions={{
@@ -95,8 +95,8 @@ export default function AboutCard({
               width: '100%',
               filter: 'brightness(1.2)',
             }}
-            formats={['auto', 'webp']}
-            quality={85}
+            formats={['auto', 'webp', 'avif']}
+            quality={80}
             breakpoints={[320, 480, 768, 1024]}
             sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
             transformOptions={{
