@@ -2,8 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemap locations
-Sitemap: https://tomnovacek.com/sitemap.xml
-Sitemap: https://tomnovacek.com/image-sitemap.xml
+Sitemap: https://tomnovacek.com/sitemap-index.xml
 
 # Disallow admin or private areas (if any)
 Disallow: /admin/
