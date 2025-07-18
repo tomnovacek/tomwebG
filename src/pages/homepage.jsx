@@ -126,7 +126,7 @@ const HomePage = ({ data }) => {
               mb={{ base: 10, md: 10 }}
             >
               <HeroTextBox
-                title="Psychoterapie"
+                title="Psychoterapie "
                 titleAccent="v centru Brna"
                 description="Vítejte, jmenuji se Tomáš Nováček. Doprovázím lidi při překonávaní jejich životních výchev. Snažím se, aby se na tomto putování cítili bezpečně a našli v sobě schopnost zahlédnout světlo nadějě prosvítající i potemnělým lesem."
                 primaryText="Objednat konzultaci"
