@@ -39,6 +39,23 @@ const theme = extendTheme({
         textRendering: 'optimizeLegibility',
         fontDisplay: 'swap',
       },
+      // AboutImage styling for StaticImage components
+      '.about-image': {
+        height: '100%',
+        width: '100%',
+        filter: 'brightness(1.2)',
+        objectFit: 'cover',
+        placeholder: 'blurred',
+        layout: 'fullWidth',
+        formats: ['auto', 'webp', 'avif'],
+        quality: 80,
+        breakpoints: [320, 480, 768, 1024],
+        sizes: '(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw',
+        transformOptions: {
+          fit: 'cover',
+          cropFocus: 'center',
+        },
+      },
     },
   },
   components: {

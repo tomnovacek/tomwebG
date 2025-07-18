@@ -39,70 +39,17 @@ export default function AboutCard({
         height="260px"
         overflow="hidden"
       >
-        {image === 'room.jpeg' && (
-          <StaticImage
-            src="../assets/img/room.jpeg"
-            alt={imageAlt}
-            placeholder="blurred"
-            layout="fullWidth"
-            objectFit="cover"
-            style={{
-              height: '100%',
-              width: '100%',
-              filter: 'brightness(1.2)',
-            }}
-            formats={['auto', 'webp', 'avif']}
-            quality={80}
-            breakpoints={[320, 480, 768, 1024]}
-            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            transformOptions={{
-              fit: 'cover',
-              cropFocus: 'center',
-            }}
-          />
-        )}
-        {image === 'mountinHikeGroup.jpg' && (
+        {image === 'mountinHikeGroup.jpg' ? (
           <StaticImage
             src="../assets/img/mountinHikeGroup.jpg"
             alt={imageAlt}
-            placeholder="blurred"
-            layout="fullWidth"
-            objectFit="cover"
-            style={{
-              height: '100%',
-              width: '100%',
-              filter: 'brightness(1.2)',
-            }}
-            formats={['auto', 'webp', 'avif']}
-            quality={80}
-            breakpoints={[320, 480, 768, 1024]}
-            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            transformOptions={{
-              fit: 'cover',
-              cropFocus: 'center',
-            }}
+            className="about-image"
           />
-        )}
-        {(!image || (image !== 'room.jpeg' && image !== 'mountinHikeGroup.jpg')) && (
+        ) : (
           <StaticImage
             src="../assets/img/room.jpeg"
             alt={imageAlt}
-            placeholder="blurred"
-            layout="fullWidth"
-            objectFit="cover"
-            style={{
-              height: '100%',
-              width: '100%',
-              filter: 'brightness(1.2)',
-            }}
-            formats={['auto', 'webp', 'avif']}
-            quality={80}
-            breakpoints={[320, 480, 768, 1024]}
-            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            transformOptions={{
-              fit: 'cover',
-              cropFocus: 'center',
-            }}
+            className="about-image"
           />
         )}
         <Box
