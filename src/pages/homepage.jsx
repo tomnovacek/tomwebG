@@ -21,7 +21,6 @@ import BlogCard from '../components/BlogCard'
 import AnalyticsButton from '../components/AnalyticsButton'
 import AboutCard from '../components/AboutCard'
 import HeroTextBox from '../components/HeroTextBox'
-import SEOGatsby from '../components/SEOGatsby'
 
 const HomePage = ({ data }) => {
   const { allMdx, allFile } = data
@@ -65,13 +64,6 @@ const HomePage = ({ data }) => {
 
   return (
     <>
-      <SEOGatsby 
-        title="Psychoterapie v centru Brna - Tomáš Nováček"
-        description="Certifikovaný psychoterapeut pro dospělé v centru Brna. Individuální terapie, poradenství a doprovázení při životních výzvách."
-        pathname="/"
-      />
-      
-      {/* Hero Section */}
       <Box as="main" position="relative" width="100%" height={{ base: "auto", md: "75vh" }} overflow="hidden" className="hero-section">
         {/* Background Image */}
         <Box
@@ -438,86 +430,6 @@ const HomePage = ({ data }) => {
 }
 
 export default HomePage
-
-export const Head = () => (
-  <>
-    <SEOGatsby 
-      title="Psychoterapie v centru Brna - Tomáš Nováček"
-      description="Certifikovaný psychoterapeut pro dospělé v centru Brna. Individuální terapie, poradenství a doprovázení při životních výzvách."
-      pathname="/"
-    />
-    {/* Structured Data for SEO */}
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{
-        __html: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "Person",
-          "name": "Tomáš Nováček",
-          "jobTitle": "Psycholog a terapeut",
-          "description": "Certifikovaný psychoterapeut pro dospělé v centru Brna",
-          "url": "https://tomnovacek.com",
-          "image": "https://tomnovacek.com/img/tom1.png",
-          "address": {
-            "@type": "PostalAddress",
-            "streetAddress": "Sukova 4",
-            "addressLocality": "Brno",
-            "addressCountry": "CZ"
-          },
-          "telephone": "+420 602 773 440",
-          "email": "terapie@tomnovacek.com",
-          "sameAs": [
-            "https://www.psychoterapie-integrace.cz",
-            "https://www.czap.cz/"
-          ],
-          "knowsAbout": [
-            "Psychoterapie",
-            "Integrativní psychoterapie",
-            "Úzkost",
-            "Deprese",
-            "Vztahové problémy",
-            "Duševní zdraví"
-          ],
-          "worksFor": {
-            "@type": "Organization",
-            "name": "Soukromá psychoterapeutická praxe"
-          }
-        })
-      }}
-    />
-    
-    {/* Local Business Schema */}
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{
-        __html: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "LocalBusiness",
-          "name": "Tomáš Nováček - Psychoterapie",
-          "description": "Certifikovaný psychoterapeut pro dospělé v centru Brna",
-          "url": "https://tomnovacek.com",
-          "telephone": "+420 602 773 440",
-          "email": "terapie@tomnovacek.com",
-          "address": {
-            "@type": "PostalAddress",
-            "streetAddress": "Sukova 4",
-            "addressLocality": "Brno",
-            "addressCountry": "CZ"
-          },
-          "geo": {
-            "@type": "GeoCoordinates",
-            "latitude": "49.1951",
-            "longitude": "16.6068"
-          },
-          "openingHours": "Mo-Fr 09:00-18:00",
-          "priceRange": "$$",
-          "serviceType": "Psychoterapie",
-          "areaServed": "Brno a okolí"
-        })
-      }}
-    />
-  </>
-)
 
 export const pageQuery = graphql`
   query HomePageQuery {
