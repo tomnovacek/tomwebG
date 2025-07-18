@@ -90,6 +90,7 @@ const ServicesPage = () => {
               display="flex"
               justifyContent="center"
               flex={{ base: "1", md: "1" }}
+              mb={{ base: 10, md: 10 }}
             >
               <HeroTextBox
                 title="Moje služby"

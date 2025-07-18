@@ -28,7 +28,7 @@ export default function HeroTextBox({
       maxW="2xl"
       flex="1"
       backdropFilter="blur(10px)"
-      minH={{ base: "auto", md: "500px" }}
+      minH={{ base: "auto", md: "auto" }}
       display="flex"
       flexDirection="column"
       justifyContent="flex-start"
