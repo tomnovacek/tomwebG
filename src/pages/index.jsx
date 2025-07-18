@@ -17,7 +17,7 @@ export default IndexPage
 export const Head = () => (
   <SEOGatsby 
     title="Psychoterapie v centru Brna | Tomáš Nováček"
-    description="Jsem psycholog a terapeut Tomáš Nováček a nabízím psychoterapii v centru Brna. Pomáhám lidem překonávat životní výzvy a dosahovat osobního růstu. V mém online kalendáři si můžete objednat konzultaci."
+    description="Jsem psycholog a terapeut Tomáš Nováček a nabízím psychoterapii v centru Brna. Pomáhám lidem překonávat životní výzvy a dosahovat osobního růstu. Objednejte se online."
     pathname="/"
   />
 )
