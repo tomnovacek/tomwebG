@@ -18,6 +18,10 @@ module.exports = {
     language: `cs`,
     locale: `cs_CZ`,
   },
+  // Disable source maps in production
+  flags: {
+    DEV_SSR: false,
+  },
   plugins: [
     // Core image processing plugins (load first)
     `gatsby-plugin-image`,

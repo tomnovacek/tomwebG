@@ -197,3 +197,37 @@ exports.onPostBuild = async ({ graphql, actions }) => {
     console.error('Error in onPostBuild:', error)
   }
 } 
+
+/**
+ * @param {import('gatsby').CreateWebpackConfigArgs} args
+ * @param {import('gatsby').CreateWebpackConfigArgs['actions']} args.actions
+ * @param {import('gatsby').CreateWebpackConfigArgs['getConfig']} args.getConfig
+ */
+exports.onCreateWebpackConfig = ({ stage, actions, getConfig }) => {
+  const config = getConfig()
+  
+  // Disable source maps in production
+  if (stage === 'build-html' || stage === 'develop-html') {
+    config.devtool = false
+  }
+  
+  if (stage === 'build-javascript') {
+    config.devtool = false
+    config.optimization = {
+      ...config.optimization,
+      splitChunks: {
+        ...config.optimization.splitChunks,
+        cacheGroups: {
+          ...config.optimization.splitChunks.cacheGroups,
+          vendor: {
+            test: /[\\/]node_modules[\\/]/,
+            name: 'vendors',
+            chunks: 'all',
+          },
+        },
+      },
+    }
+  }
+  
+  actions.replaceWebpackConfig(config)
+} 
