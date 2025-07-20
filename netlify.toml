@@ -13,145 +13,18 @@
   # Ensure consistent plugin loading
   GATSBY_EXPERIMENTAL_QUERY_ON_DEMAND = "false"
   GATSBY_EXPERIMENTAL_PAGE_BUILD_ON_DATA_CHANGES = "false"
-  # Disable compression at server level
   NETLIFY_USE_YARN = "false"
   NODE_ENV = "production"
-  # Force fresh build
-  FORCE_FRESH_BUILD = "true"
 
-# Fix compression issues - disable all compression
-[[headers]]
-  for = "*.js"
-  [headers.values]
-    Content-Encoding = "identity"
-    Cache-Control = "public, max-age=31536000, immutable"
-    Vary = "Accept-Encoding"
-
-[[headers]]
-  for = "*.css"
-  [headers.values]
-    Content-Encoding = "identity"
-    Cache-Control = "public, max-age=31536000, immutable"
-    Vary = "Accept-Encoding"
-
-[[headers]]
-  for = "*.html"
-  [headers.values]
-    Content-Encoding = "identity"
-    Cache-Control = "public, max-age=0, must-revalidate"
-    Vary = "Accept-Encoding"
-
-[[headers]]
-  for = "*.json"
-  [headers.values]
-    Content-Encoding = "identity"
-    Cache-Control = "public, max-age=0, must-revalidate"
-    Vary = "Accept-Encoding"
-
-# Disable compression for all static assets
-[[headers]]
-  for = "/static/*"
-  [headers.values]
-    Content-Encoding = "identity"
-    Cache-Control = "public, max-age=31536000, immutable"
-    Vary = "Accept-Encoding"
-
-# Disable compression for webpack chunks
-[[headers]]
-  for = "/*.js"
-  [headers.values]
-    Content-Encoding = "identity"
-    Cache-Control = "public, max-age=31536000, immutable"
-    Vary = "Accept-Encoding"
-
-# Force no compression for all files
-[[headers]]
-  for = "/*"
-  [headers.values]
-    Content-Encoding = "identity"
-    Vary = "Accept-Encoding"
-
-# 301 redirects for www/non-www subdomain handling
+# SPA redirect for Gatsby client-side routing
 [[redirects]]
-  from = "https://www.tomnovacek.com/*"
-  to = "https://tomnovacek.com/:splat"
-  status = 301
-  force = true
+  from = "/*"
+  to = "/index.html"
+  status = 200
 
-[[redirects]]
-  from = "http://www.tomnovacek.com/*"
-  to = "https://tomnovacek.com/:splat"
-  status = 301
-  force = true
-
-# Handle static assets with optimal caching
+# Security headers for HTML pages only
 [[headers]]
-  for = "/static/*"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
-    X-Content-Type-Options = "nosniff"
-
-[[headers]]
-  for = "/*.js"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
-    X-Content-Type-Options = "nosniff"
-
-[[headers]]
-  for = "/*.css"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
-    X-Content-Type-Options = "nosniff"
-
-# Image optimization headers
-[[headers]]
-  for = "/*.webp"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
-    Content-Type = "image/webp"
-    X-Content-Type-Options = "nosniff"
-
-[[headers]]
-  for = "/*.avif"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
-    Content-Type = "image/avif"
-    X-Content-Type-Options = "nosniff"
-
-[[headers]]
-  for = "/*.png"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
-    X-Content-Type-Options = "nosniff"
-
-[[headers]]
-  for = "/*.jpg"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
-    X-Content-Type-Options = "nosniff"
-
-[[headers]]
-  for = "/*.jpeg"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
-    X-Content-Type-Options = "nosniff"
-
-# Font optimization
-[[headers]]
-  for = "/*.woff2"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
-    X-Content-Type-Options = "nosniff"
-
-[[headers]]
-  for = "/*.woff"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
-    X-Content-Type-Options = "nosniff"
-
-# Security headers for all pages
-[[headers]]
-  for = "/*"
+  for = "/*.html"
   [headers.values]
     X-Frame-Options = "DENY"
     X-XSS-Protection = "1; mode=block"
@@ -159,8 +32,43 @@
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "camera=(), microphone=(), geolocation=()"
 
-# Page data caching
+# Static assets caching
+[[headers]]
+  for = "/static/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# JavaScript and CSS caching
+[[headers]]
+  for = "/*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Image caching
+[[headers]]
+  for = "/*.(jpg|jpeg|png|gif|webp|avif)"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Font caching
+[[headers]]
+  for = "/*.(woff|woff2|ttf|eot)"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Page data - no caching for dynamic content
 [[headers]]
   for = "/page-data/*"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# Sitemap and robots.txt - no caching
+[[headers]]
+  for = "/(sitemap*.xml|robots.txt)"
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate" 
