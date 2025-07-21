@@ -14,7 +14,7 @@ export default function HeroTextBox({
   titleAccent,
   description,
   primaryText = "Objednat konzultaci",
-  primaryHref = "/calendar",
+  primaryHref = "/calendar/",
   secondaryText = "Ceník služeb",
   secondaryHref = "#pricing",
 }) {

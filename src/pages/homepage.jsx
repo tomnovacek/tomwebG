@@ -130,9 +130,9 @@ const HomePage = ({ data }) => {
                 titleAccent="v centru Brna"
                 description="Vítejte, jmenuji se Tomáš Nováček. Doprovázím lidi při překonávaní jejich životních výchev. Snažím se, aby se na tomto putování cítili bezpečně a našli v sobě schopnost zahlédnout světlo nadějě prosvítající i potemnělým lesem."
                 primaryText="Objednat konzultaci"
-                primaryHref="/calendar"
+                primaryHref="/calendar/"
                 secondaryText="Moje služby"
-                secondaryHref="/services"
+                secondaryHref="/services/"
               />
             </Box>
 
@@ -201,7 +201,7 @@ const HomePage = ({ data }) => {
               imageAlt="Terapeutická místnost"
               icon={FaUser}
               buttonText="Více o mně"
-              buttonHref="/about"
+              buttonHref="/about/"
               textColor={useColorModeValue('gray.600', 'gray.400')}
             />
             <AboutCard
@@ -211,7 +211,7 @@ const HomePage = ({ data }) => {
               imageAlt="Skupina lidí na horách"
               icon={FaHandshake}
               buttonText="Moje služby"
-              buttonHref="/services"
+              buttonHref="/services/"
               textColor={useColorModeValue('gray.600', 'gray.400')}
             />
           </SimpleGrid>

@@ -171,7 +171,7 @@ export default function PricingCard({
         </Box>
         <Button
           as="a"
-          href="/calendar"
+          href="/calendar/"
           variant="card"
         >
           Objednat sezení

@@ -97,9 +97,9 @@ const ServicesPage = () => {
                 titleAccent="& Podmínky"
                 description="Nabízím individuální psychoterapii pro dospělé v centru Brna. Společně prozkoumáváme vaše životní výzvy a hledáme cesty k jejich překonání. Vytvářím bezpečný prostor pro vaše sebepoznání a osobní růst."
                 primaryText="Objednat konzultaci"
-                primaryHref="/calendar"
+                primaryHref="/calendar/"
                 secondaryText="O mně"
-                secondaryHref="/about"
+                secondaryHref="/about/"
               />
             </Box>
 

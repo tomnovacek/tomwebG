@@ -123,9 +123,9 @@ const About = () => {
                 titleAccent="& Můj přístup"
                 description="Psychoterapii vnímám jako prostor, kde se dá na chvíli zastavit, začít víc vnímat sama sebe, a lépe porozumět sobě i světu, ve kterém žijeme. A díky tomu najít pro sebe nové možnosti, které dříve nebyly možné."
                 primaryText="Objednat konzultaci"
-                primaryHref="/calendar"
+                primaryHref="/calendar/"
                 secondaryText="Moje služby"
-                secondaryHref="/services"
+                secondaryHref="/services/"
               />
             </Box>
           </Flex>

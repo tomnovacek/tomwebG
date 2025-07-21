@@ -119,9 +119,9 @@ export default function Footer() {
           >
             <Text>© 2025 Tom Nováček. Všechna práva vyhrazena</Text>
             <Stack direction={'row'} spacing={6}>
-              <Link href={'/gdpr'}>Ochrana osobních údajů</Link>
-              <Link href={'/cookies'}>Cookies</Link>
-              <Link href={'/legal'}>Právní informace</Link>
+              <Link href={'/gdpr/'}>Ochrana osobních údajů</Link>
+              <Link href={'/cookies/'}>Cookies</Link>
+              <Link href={'/legal/'}>Právní informace</Link>
             </Stack>
           </Stack>
         </Container>
