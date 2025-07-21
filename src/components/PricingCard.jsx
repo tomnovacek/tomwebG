@@ -74,6 +74,7 @@ export default function PricingCard({
                     objectFit: 'cover',
                   }}
                   loading="lazy"
+                  formats={['auto', 'webp', 'avif']}
                 />
               )
             case 'laptop2.jpg':
@@ -91,6 +92,7 @@ export default function PricingCard({
                     objectFit: 'cover',
                   }}
                   loading="lazy"
+                  formats={['auto', 'webp', 'avif']}
                 />
               )
             case 'family.webp':
@@ -108,6 +110,7 @@ export default function PricingCard({
                     objectFit: 'cover',
                   }}
                   loading="lazy"
+                  formats={['auto', 'webp', 'avif']}
                 />
               )
             default:

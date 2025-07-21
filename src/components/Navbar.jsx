@@ -290,6 +290,7 @@ export default function Navbar() {
                 height={48}
                 quality={90}
                 placeholder="blurred"
+                formats={['auto', 'webp', 'avif']}
                 style={{ objectFit: 'contain', display: 'block' }}
                 loading="eager"
               />

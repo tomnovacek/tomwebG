@@ -59,7 +59,7 @@ const ServicesPage = () => {
               width: '100%',
               height: '100%',
             }}
-            formats={['auto', 'webp']}
+            formats={['auto', 'webp', 'avif']}
             quality={85}
             priority="true"
           />
@@ -127,7 +127,7 @@ const ServicesPage = () => {
                   height: 'auto'
                 }}
                 loading="eager"
-                formats={['auto', 'webp']}
+                formats={['auto', 'webp', 'avif']}
                 priority="true"
               />
             </Box>
@@ -186,6 +186,7 @@ const ServicesPage = () => {
                   height={220}
                   style={{ borderRadius: '16px', background: 'white' }}
                   quality={90}
+                  formats={['auto', 'webp', 'avif']}
                 />
               </Box>
             </Flex>

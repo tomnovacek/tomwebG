@@ -95,6 +95,7 @@ export default function Footer() {
                   layout="constrained"
                   width={120}
                   height={120}
+                  formats={['auto', 'webp', 'avif']}
                   style={{ height: '120px', width: 'auto' }}
                 />
               </Box>

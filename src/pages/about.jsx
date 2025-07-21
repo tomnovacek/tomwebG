@@ -57,7 +57,7 @@ const About = () => {
               width: '100%',
               height: '100%',
             }}
-            formats={['auto', 'webp']}
+            formats={['auto', 'webp', 'avif']}
             quality={85}
             priority="true"
           />
@@ -106,7 +106,7 @@ const About = () => {
                   maxWidth: '100%',
                   height: 'auto'
                 }}
-                formats={['auto', 'webp']}
+                formats={['auto', 'webp', 'avif']}
                 priority="true"
               />
             </Box>
@@ -309,7 +309,7 @@ const About = () => {
                   height: '100%',
                   objectFit: 'contain'
                 }}
-                formats={['auto', 'webp']}
+                formats={['auto', 'webp', 'avif']}
                 quality={85}
               />
             </Box>
@@ -370,7 +370,7 @@ const About = () => {
                   width: '100%',
                   height: '100%'
                 }}
-                formats={['auto', 'webp']}
+                formats={['auto', 'webp', 'avif']}
                 quality={85}
               />
             </Box>

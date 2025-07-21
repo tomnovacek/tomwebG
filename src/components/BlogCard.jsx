@@ -10,7 +10,7 @@ import {
   VStack,
   HStack,
 } from '@chakra-ui/react'
-import { GatsbyImage, getImage } from 'gatsby-plugin-image'
+import { StaticImage } from 'gatsby-plugin-image'
 import { FaRegClock, FaRegCalendarAlt, FaTag } from 'react-icons/fa'
 
 const BlogCard = ({ post }) => {
@@ -28,38 +28,88 @@ const BlogCard = ({ post }) => {
   const tagColor = 'green.700'
   const tagBorder = useColorModeValue('green.200', 'green.700')
 
-  // Get the image directly from frontmatter
-  const image = featuredImage ? getImage(featuredImage) : null
-
-  // Image rendering using GatsbyImage
+  // Image rendering using StaticImage for optimization
   const renderImage = () => {
-    if (!image) {
-      return (
-        <Box
-          bg={placeholderBg}
-          color={placeholderText}
-          height="100%"
-          fontSize="sm"
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-        >
-          No Image
-        </Box>
-      )
+    // Map image names to StaticImage components
+    const imageMap = {
+      'anxiety.jpg': (
+        <StaticImage
+          src="../assets/img/anxiety.jpg"
+          alt={title}
+          placeholder="blurred"
+          layout="fullWidth"
+          objectFit="cover"
+          formats={['auto', 'webp', 'avif']}
+          quality={85}
+          style={{
+            height: '100%',
+            width: '100%',
+          }}
+        />
+      ),
+      'emotion-faces.jpg': (
+        <StaticImage
+          src="../assets/img/emotion-faces.jpg"
+          alt={title}
+          placeholder="blurred"
+          layout="fullWidth"
+          objectFit="cover"
+          formats={['auto', 'webp', 'avif']}
+          quality={85}
+          style={{
+            height: '100%',
+            width: '100%',
+          }}
+        />
+      ),
+      'mindfulness.webp': (
+        <StaticImage
+          src="../assets/img/mindfulness.webp"
+          alt={title}
+          placeholder="blurred"
+          layout="fullWidth"
+          objectFit="cover"
+          formats={['auto', 'webp', 'avif']}
+          quality={85}
+          style={{
+            height: '100%',
+            width: '100%',
+          }}
+        />
+      ),
+      'stress.webp': (
+        <StaticImage
+          src="../assets/img/stress.webp"
+          alt={title}
+          placeholder="blurred"
+          layout="fullWidth"
+          objectFit="cover"
+          formats={['auto', 'webp', 'avif']}
+          quality={85}
+          style={{
+            height: '100%',
+            width: '100%',
+          }}
+        />
+      ),
     }
 
-    return (
-      <GatsbyImage
-        image={image}
-        alt={title}
-        style={{
-          height: '100%',
-          width: '100%',
-          objectFit: 'cover',
-        }}
-        loading="lazy"
-      />
+    // Get image name from featuredImage path
+    const imageName = featuredImage?.publicURL?.split('/').pop() || 'stress.webp'
+    
+    // Return optimized image or fallback
+    return imageMap[imageName] || (
+      <Box
+        bg={placeholderBg}
+        color={placeholderText}
+        height="100%"
+        fontSize="sm"
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+      >
+        No Image
+      </Box>
     )
   }
 

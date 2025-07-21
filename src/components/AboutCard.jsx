@@ -21,9 +21,14 @@ export default function AboutCard({
   buttonHref,
   textColor,
 }) {
+  // Move all useColorModeValue calls to the top level
+  const bgColor = useColorModeValue('white', 'gray.800')
+  const defaultTextColor = useColorModeValue('gray.800', 'white')
+  const descriptionColor = useColorModeValue('gray.600', 'gray.300')
+  
   return (
     <Box
-      bg={useColorModeValue('white', 'gray.800')}
+      bg={bgColor}
       boxShadow={'xl'}
       rounded={'2xl'}
       position="relative"
@@ -47,9 +52,8 @@ export default function AboutCard({
             layout="fullWidth"
             objectFit="cover"
             className="about-image"
-            formats={['auto', 'webp']}
+            formats={['auto', 'webp', 'avif']}
             quality={85}
-            breakpoints={[320, 480, 768, 1024]}
             sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
             transformOptions={{
               fit: 'cover',
@@ -65,9 +69,8 @@ export default function AboutCard({
             layout="fullWidth"
             objectFit="cover"
             className="about-image"
-            formats={['auto', 'webp']}
+            formats={['auto', 'webp', 'avif']}
             quality={85}
-            breakpoints={[320, 480, 768, 1024]}
             sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
             transformOptions={{
               fit: 'cover',
@@ -89,14 +92,14 @@ export default function AboutCard({
           <Heading
             as="h3"
             size="lg"
-            color={textColor || useColorModeValue('gray.800', 'white')}
+            color={textColor || defaultTextColor}
             mb={2}
           >
             {title}
           </Heading>
         </Flex>
         <Text
-          color={useColorModeValue('gray.600', 'gray.300')}
+          color={descriptionColor}
           mb={6}
           lineHeight="tall"
         >

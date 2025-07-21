@@ -9,7 +9,7 @@ import {
 } from '@chakra-ui/react'
 import { FaCalendarAlt, FaArrowRight } from 'react-icons/fa'
 
-export default function HeroTextBox({
+const HeroTextBox = React.memo(function HeroTextBox({
   title,
   titleAccent,
   description,
@@ -77,4 +77,6 @@ export default function HeroTextBox({
       </Stack>
     </Box>
   )
-} 
+})
+
+export default HeroTextBox 

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo, useCallback } from 'react'
 import { graphql } from 'gatsby'
 import {
   Box,
@@ -22,13 +22,13 @@ import AnalyticsButton from '../components/AnalyticsButton'
 import AboutCard from '../components/AboutCard'
 import HeroTextBox from '../components/HeroTextBox'
 
-const HomePage = ({ data }) => {
+const HomePage = React.memo(({ data }) => {
   const { allMdx, allFile } = data
   
   // Get all images data safely
   const allImages = allFile?.nodes || []
   
-  const generateSlug = (internal, id) => {
+  const generateSlug = useCallback((internal, id) => {
     if (internal?.contentFilePath) {
       const pathParts = internal.contentFilePath.split('/')
       const fileName = pathParts[pathParts.length - 1]
@@ -37,30 +37,80 @@ const HomePage = ({ data }) => {
     }
     // Fallback to using the post ID if contentFilePath is null
     return id ? id.split('-').pop() : 'post'
-  }
+  }, [])
 
-  const newestPosts = allMdx.nodes.slice(0, 3).map(post => ({
-    ...post,
-    slug: generateSlug(post.internal, post.id),
-    frontmatter: {
-      ...post.frontmatter,
-      slug: generateSlug(post.internal, post.id)
-    }
-  }))
+  const newestPosts = useMemo(() => {
+    return allMdx.nodes.slice(0, 3).map(post => ({
+      ...post,
+      slug: generateSlug(post.internal, post.id),
+      frontmatter: {
+        ...post.frontmatter,
+        slug: generateSlug(post.internal, post.id)
+      }
+    }))
+  }, [allMdx.nodes, generateSlug])
 
   // Move all useColorModeValue calls to the top level
   const bgColor = useColorModeValue('white', 'gray.800')
   const textColor = useColorModeValue('gray.600', 'gray.400')
   const headingColor = useColorModeValue('gray.800', 'white')
+  const aboutBgColor = useColorModeValue('white', 'gray.900')
+  const servicesBgColor = useColorModeValue('gray.50', 'gray.900')
+  const ctaBgColor = useColorModeValue('gray.50', 'gray.900')
+  const aboutTextColor = useColorModeValue('gray.600', 'gray.400')
+  const servicesTextColor = useColorModeValue('gray.600', 'gray.400')
+  const ctaTextColor = useColorModeValue('gray.600', 'gray.400')
+  const blogBgColor = useColorModeValue('white', 'gray.900')
+  const blogTextColor = useColorModeValue('gray.600', 'gray.400')
 
-  // Debug logging
-  console.log('Homepage - newestPosts:', newestPosts)
-  newestPosts.forEach(post => {
-    console.log(`Homepage Post ${post.frontmatter.title}:`, {
-      image: post.frontmatter.image,
-      hasImage: !!post.frontmatter.image
-    })
-  })
+  // Debug logging - removed for TBT optimization
+  // console.log('Homepage - newestPosts:', newestPosts)
+  // newestPosts.forEach(post => {
+  //   console.log(`Homepage Post ${post.frontmatter.title}:`, {
+  //     image: post.frontmatter.image,
+  //     hasImage: !!post.frontmatter.image
+  //   })
+  // })
+
+  // Memoize services data
+  const servicesData = useMemo(() => [
+    {
+      icon: FaUser,
+      title: 'Osobní potíže',
+      description: 'Individuální terapie',
+      features: [
+        'Úzkost a deprese',
+        'Výkyvy nálady',
+        'Nároky na sebe',
+        'Sebevědomí',
+        'Vztah k sobě'
+      ]
+    },
+    {
+      icon: FaUsers,
+      title: 'Vztahy a vztahové problémy',
+      description: 'Porozumění a řešení vztahových potíží.',
+      features: [
+        'Potřeby ve vztazích',
+        'Komunikační problémy',
+        'Upřednostňování druhých',
+        'Mezigenerační vztahy',
+        'Intimita a vztahové potíže'
+      ]
+    },
+    {
+      icon: FaHeart,
+      title: 'Zvládání stresu',
+      description: 'Strategie zvládání stresu.',
+      features: [
+        'Zdravotní potíže',
+        'Životní změny',
+        'Traumatické zkušenosti',
+        'Strategie zvládání',
+        'Balancování práce a osobního života'
+      ]
+    }
+  ], [])
 
   return (
     <>
@@ -84,6 +134,7 @@ const HomePage = ({ data }) => {
             objectFit="cover"
             objectPosition="center"
             quality={85}
+            backdropFilter="blur(2x)"
             formats={['auto', 'webp', 'avif']}
             style={{
               height: '100%',
@@ -94,7 +145,6 @@ const HomePage = ({ data }) => {
               zIndex: 0,
             }}
             loading="eager"
-            breakpoints={[400, 768, 1200, 1600]}
             sizes="100vw"
           />
           <Box
@@ -152,6 +202,7 @@ const HomePage = ({ data }) => {
                 width={480}
                 height={500}
                 quality={90}
+                formats={['auto', 'webp', 'avif']}
                 style={{
                   mixBlendMode: 'normal',
                   backgroundColor: 'transparent',
@@ -160,7 +211,6 @@ const HomePage = ({ data }) => {
                   height: 'auto'
                 }}
                 loading="eager"
-                formats={['auto', 'webp']}
                 priority="true"
               />
             </Box>
@@ -169,7 +219,7 @@ const HomePage = ({ data }) => {
       </Box>
 
       {/* About Section */}
-      <Box as="section" py={20} bg={useColorModeValue('white', 'gray.900')} position="relative" zIndex={2}>
+      <Box as="section" py={20} bg={aboutBgColor} position="relative" zIndex={2}>
         <Container maxW={'7xl'} centerContent>
           <Stack spacing={4} maxW={'6xl'} textAlign={'center'} mb={10}>
             <Heading as="h2" variant="section">
@@ -177,7 +227,7 @@ const HomePage = ({ data }) => {
                 O mně
               </Text>
             </Heading>
-            <Text color={useColorModeValue('gray.600', 'gray.400')} fontSize={'xl'}>
+            <Text color={aboutTextColor} fontSize={'xl'}>
               Jsem psycholog a terapeut s multioborovým vzděláním a zkušenostmi v doprovázení lidí překonávajících své životní výzvy. Znalosti a perspektivy z různých profesních oblastí mi pomáhají pochopit klientovu situaci a následně společně rozšiřovat obzory o perspektivy, které mohou přinášet větší svobodu při hledání cesty vpřed.
             </Text>
           </Stack>
@@ -202,7 +252,7 @@ const HomePage = ({ data }) => {
               icon={FaUser}
               buttonText="Více o mně"
               buttonHref="/about/"
-              textColor={useColorModeValue('gray.600', 'gray.400')}
+              textColor={aboutTextColor}
             />
             <AboutCard
               title="Můj přístup"
@@ -212,14 +262,14 @@ const HomePage = ({ data }) => {
               icon={FaHandshake}
               buttonText="Moje služby"
               buttonHref="/services/"
-              textColor={useColorModeValue('gray.600', 'gray.400')}
+              textColor={aboutTextColor}
             />
           </SimpleGrid>
         </Container>
       </Box>
 
       {/* Services Section */}
-      <Box as="section" py={20} bg={useColorModeValue('gray.50', 'gray.900')}>
+      <Box as="section" py={20} bg={servicesBgColor}>
         <Container maxW={'7xl'} centerContent>
           <Stack spacing={4} maxW={'6xl'} textAlign={'center'} mb={10}>
             <Heading as="h2" variant="section">
@@ -227,49 +277,12 @@ const HomePage = ({ data }) => {
                 S čím vám mohu pomoci
               </Text>
             </Heading>
-            <Text color={useColorModeValue('gray.600', 'gray.400')} fontSize={'xl'}>
+            <Text color={servicesTextColor} fontSize={'xl'}>
               Lidé za mnou přicházejí s nejrůznějšími tématy, ale nejčastěji se bavíme o vztazích (k sobě i k druhým), úzkosti, pokleslé náladě a&nbsp;o&nbsp;tom, jak najít klid ve shonu každodenního života.
             </Text>
           </Stack>
           <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={10} w="full">
-            {[
-              {
-                icon: FaUser,
-                title: 'Osobní potíže',
-                description: 'Individuální terapie',
-                features: [
-                  'Úzkost a deprese',
-                  'Výkyvy nálady',
-                  'Nároky na sebe',
-                  'Sebevědomí',
-                  'Vztah k sobě'
-                ]
-              },
-              {
-                icon: FaUsers,
-                title: 'Vztahy a vztahové problémy',
-                description: 'Porozumění a řešení vztahových potíží.',
-                features: [
-                  'Potřeby ve vztazích',
-                  'Komunikační problémy',
-                  'Upřednostňování druhých',
-                  'Mezigenerační vztahy',
-                  'Intimita a vztahové potíže'
-                ]
-              },
-              {
-                icon: FaHeart,
-                title: 'Zvládání stresu',
-                description: 'Strategie zvládání stresu.',
-                features: [
-                  'Zdravotní potíže',
-                  'Životní změny',
-                  'Traumatické zkušenosti',
-                  'Strategie zvládání',
-                  'Balancování práce a osobního života'
-                ]
-              }
-            ].map((service, index) => (
+            {useMemo(() => servicesData.map((service, index) => (
               <Box
                 key={index}
                 bg={bgColor}
@@ -313,7 +326,7 @@ const HomePage = ({ data }) => {
                   </Stack>
                 </Box>
               </Box>
-            ))}
+            )), [servicesData, bgColor, headingColor, textColor])}
           </SimpleGrid>
           <Stack align={'center'} mt={10}>
             <AnalyticsButton
@@ -330,7 +343,7 @@ const HomePage = ({ data }) => {
       </Box>
 
       {/* Latest Blog Posts Section */}
-      <Box as="section" py={16} bg={useColorModeValue('white', 'gray.900')}>
+      <Box as="section" py={16} bg={blogBgColor}>
         <Container maxW="container.xl">
           <VStack spacing={12} align="stretch">
             <Box textAlign="center">
@@ -344,7 +357,7 @@ const HomePage = ({ data }) => {
               </Heading>
               <Text
                 fontSize="lg"
-                color={useColorModeValue('gray.600', 'gray.400')}
+                color={blogTextColor}
                 maxW="2xl"
                 mx="auto"
               >
@@ -381,7 +394,7 @@ const HomePage = ({ data }) => {
       </Box>
 
       {/* Call to Action Section */}
-      <Box as="section" py={20} bg={useColorModeValue('gray.50', 'gray.900')}>
+      <Box as="section" py={20} bg={ctaBgColor}>
         <Container maxW={'7xl'}>
           <Stack
             spacing={8}
@@ -393,7 +406,7 @@ const HomePage = ({ data }) => {
             <Heading as="h2" variant="section">
                 Vydejme se spolu na cestu
             </Heading>
-            <Text color={useColorModeValue('gray.600', 'gray.400')} fontSize={'xl'} maxW={'2xl'}>
+            <Text color={ctaTextColor} fontSize={'xl'} maxW={'2xl'}>
               První krok je často ten nejtěžší. Domluvte si úvodní konzultaci a společně prozkoumáme, jak vám mohu pomoci.
             </Text>
             <Stack
@@ -427,7 +440,7 @@ const HomePage = ({ data }) => {
       </Box>
     </>
   )
-}
+})
 
 export default HomePage
 
@@ -436,7 +449,7 @@ export const pageQuery = graphql`
     allMdx(
       filter: { frontmatter: { status: { eq: "published" } } }
       sort: { frontmatter: { date: DESC } }
-      limit: 6
+      limit: 3
     ) {
       nodes {
         id
@@ -448,7 +461,7 @@ export const pageQuery = graphql`
           tags
           featuredImage {
             childImageSharp {
-              gatsbyImageData(width: 400, height: 200, placeholder: BLURRED, formats: [AUTO, WEBP])
+              gatsbyImageData(width: 400, height: 200, placeholder: BLURRED, formats: [AUTO, WEBP, AVIF])
             }
             publicURL
           }
@@ -466,7 +479,7 @@ export const pageQuery = graphql`
       nodes {
         relativePath
         childImageSharp {
-          gatsbyImageData(width: 400, height: 200, placeholder: BLURRED, formats: [AUTO, WEBP])
+          gatsbyImageData(width: 400, height: 200, placeholder: BLURRED, formats: [AUTO, WEBP, AVIF])
         }
       }
     }
