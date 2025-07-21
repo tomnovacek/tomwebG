@@ -23,10 +23,7 @@ import AboutCard from '../components/AboutCard'
 import HeroTextBox from '../components/HeroTextBox'
 
 const HomePage = React.memo(({ data }) => {
-  const { allMdx, allFile } = data
-  
-  // Get all images data safely
-  const allImages = allFile?.nodes || []
+  const { allMdx } = data
   
   const generateSlug = useCallback((internal, id) => {
     if (internal?.contentFilePath) {
@@ -371,7 +368,7 @@ const HomePage = React.memo(({ data }) => {
             
             <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={8}>
               {newestPosts.map((post) => (
-                <BlogCard key={post.id} post={post} allImages={allImages} />
+                <BlogCard key={post.id} post={post} />
               ))}
             </SimpleGrid>
             
@@ -461,10 +458,10 @@ export const pageQuery = graphql`
           excerpt
           tags
           featuredImage {
+            publicURL
             childImageSharp {
               gatsbyImageData(width: 400, height: 200, placeholder: BLURRED, formats: [AUTO, WEBP, AVIF])
             }
-            publicURL
           }
           author {
             name
@@ -473,14 +470,6 @@ export const pageQuery = graphql`
         }
         internal {
           contentFilePath
-        }
-      }
-    }
-    allFile(filter: {sourceInstanceName: {eq: "assets"}}) {
-      nodes {
-        relativePath
-        childImageSharp {
-          gatsbyImageData(width: 400, height: 200, placeholder: BLURRED, formats: [AUTO, WEBP, AVIF])
         }
       }
     }
