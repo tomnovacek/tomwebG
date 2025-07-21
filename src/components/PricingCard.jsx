@@ -75,6 +75,8 @@ export default function PricingCard({
                   }}
                   loading="lazy"
                   formats={['auto', 'webp', 'avif']}
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  breakpoints={[300, 400, 600, 800]}
                 />
               )
             case 'laptop2.jpg':
@@ -93,6 +95,8 @@ export default function PricingCard({
                   }}
                   loading="lazy"
                   formats={['auto', 'webp', 'avif']}
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  breakpoints={[300, 400, 600, 800]}
                 />
               )
             case 'family.webp':
@@ -111,6 +115,8 @@ export default function PricingCard({
                   }}
                   loading="lazy"
                   formats={['auto', 'webp', 'avif']}
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  breakpoints={[300, 400, 600, 800]}
                 />
               )
             default:

@@ -60,6 +60,8 @@ const About = () => {
             formats={['auto', 'webp', 'avif']}
             quality={85}
             priority="true"
+            sizes="100vw"
+            breakpoints={[400, 768, 1200, 1920]}
           />
           <Box
             position="absolute"
@@ -108,6 +110,8 @@ const About = () => {
                 }}
                 formats={['auto', 'webp', 'avif']}
                 priority="true"
+                sizes="(max-width: 768px) 100vw, 50vw"
+                breakpoints={[300, 400, 600, 800]}
               />
             </Box>
 
@@ -311,6 +315,8 @@ const About = () => {
                 }}
                 formats={['auto', 'webp', 'avif']}
                 quality={85}
+                sizes="160px"
+                breakpoints={[160, 320]}
               />
             </Box>
           </Flex>
@@ -372,6 +378,8 @@ const About = () => {
                 }}
                 formats={['auto', 'webp', 'avif']}
                 quality={85}
+                sizes="(max-width: 768px) 100vw, 50vw"
+                breakpoints={[300, 400, 600, 800]}
               />
             </Box>
           </Flex>

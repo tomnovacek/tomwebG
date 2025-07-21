@@ -293,6 +293,8 @@ export default function Navbar() {
                 formats={['auto', 'webp', 'avif']}
                 style={{ objectFit: 'contain', display: 'block' }}
                 loading="eager"
+                sizes="48px"
+                breakpoints={[48, 96]}
               />
             </Box>
 

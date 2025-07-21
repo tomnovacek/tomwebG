@@ -55,6 +55,7 @@ export default function AboutCard({
             formats={['auto', 'webp', 'avif']}
             quality={85}
             sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            breakpoints={[300, 400, 600, 800]}
             transformOptions={{
               fit: 'cover',
               cropFocus: 'center',
@@ -72,6 +73,7 @@ export default function AboutCard({
             formats={['auto', 'webp', 'avif']}
             quality={85}
             sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            breakpoints={[300, 400, 600, 800]}
             transformOptions={{
               fit: 'cover',
               cropFocus: 'center',

@@ -97,6 +97,8 @@ export default function Footer() {
                   height={120}
                   formats={['auto', 'webp', 'avif']}
                   style={{ height: '120px', width: 'auto' }}
+                  sizes="120px"
+                  breakpoints={[120, 240]}
                 />
               </Box>
             </Stack>

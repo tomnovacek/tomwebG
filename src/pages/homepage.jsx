@@ -134,7 +134,6 @@ const HomePage = React.memo(({ data }) => {
             objectFit="cover"
             objectPosition="center"
             quality={85}
-            backdropFilter="blur(2x)"
             formats={['auto', 'webp', 'avif']}
             style={{
               height: '100%',
@@ -146,6 +145,7 @@ const HomePage = React.memo(({ data }) => {
             }}
             loading="eager"
             sizes="100vw"
+            breakpoints={[400, 768, 1200, 1920]}
           />
           <Box
             position="absolute"
@@ -202,7 +202,6 @@ const HomePage = React.memo(({ data }) => {
                 width={480}
                 height={500}
                 quality={90}
-                formats={['auto', 'webp', 'avif']}
                 style={{
                   mixBlendMode: 'normal',
                   backgroundColor: 'transparent',
@@ -211,7 +210,9 @@ const HomePage = React.memo(({ data }) => {
                   height: 'auto'
                 }}
                 loading="eager"
-                priority="true"
+                formats={['auto', 'webp', 'avif']}
+                sizes="(max-width: 768px) 100vw, 50vw"
+                breakpoints={[300, 400, 600, 800]}
               />
             </Box>
           </Flex>

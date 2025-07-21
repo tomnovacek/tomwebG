@@ -62,6 +62,8 @@ const ServicesPage = () => {
             formats={['auto', 'webp', 'avif']}
             quality={85}
             priority="true"
+            sizes="100vw"
+            breakpoints={[400, 768, 1200, 1920]}
           />
           <Box
             position="absolute"
@@ -129,6 +131,8 @@ const ServicesPage = () => {
                 loading="eager"
                 formats={['auto', 'webp', 'avif']}
                 priority="true"
+                sizes="(max-width: 768px) 100vw, 50vw"
+                breakpoints={[300, 400, 600, 800]}
               />
             </Box>
           </Flex>
@@ -187,6 +191,8 @@ const ServicesPage = () => {
                   style={{ borderRadius: '16px', background: 'white' }}
                   quality={90}
                   formats={['auto', 'webp', 'avif']}
+                  sizes="220px"
+                  breakpoints={[220, 440]}
                 />
               </Box>
             </Flex>

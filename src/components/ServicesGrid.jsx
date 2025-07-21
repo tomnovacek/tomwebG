@@ -32,7 +32,7 @@ export default function ServicesGrid() {
           {/* Osobní rozvoj */}
           <Box bg={cardBg} boxShadow={'xl'} rounded={'xl'} p={6} display="flex" flexDirection="row" alignItems="center" gap={6}>
             <Box flexShrink={0} width="90px" height="90px">
-              <StaticImage src="../assets/img/safe-space.webp" alt="Osobní rozvoj" placeholder="blurred" layout="constrained" width={90} height={90} style={{ width: '90px', height: '90px', objectFit: 'cover', borderRadius: '8px' }} loading="lazy" formats={['auto', 'webp', 'avif']} />
+              <StaticImage src="../assets/img/safe-space.webp" alt="Osobní rozvoj" placeholder="blurred" layout="constrained" width={90} height={90} style={{ width: '90px', height: '90px', objectFit: 'cover', borderRadius: '8px' }} loading="lazy" formats={['auto', 'webp', 'avif']} sizes="90px" breakpoints={[90, 180]} />
             </Box>
             <Box flex={1} minWidth={0}>
               <Stack direction="row" align="center" spacing={2} mb={2}>
@@ -45,7 +45,7 @@ export default function ServicesGrid() {
           {/* Sebevědomí a vztah k sobě */}
           <Box bg={cardBg} boxShadow={'xl'} rounded={'xl'} p={6} display="flex" flexDirection="row" alignItems="center" gap={6}>
             <Box flexShrink={0} width="90px" height="90px">
-              <StaticImage src="../assets/img/healing-space.webp" alt="Sebevědomí a vztah k sobě" placeholder="blurred" layout="constrained" width={90} height={90} style={{ width: '90px', height: '90px', objectFit: 'cover', borderRadius: '8px' }} loading="lazy" formats={['auto', 'webp', 'avif']} />
+              <StaticImage src="../assets/img/healing-space.webp" alt="Sebevědomí a vztah k sobě" placeholder="blurred" layout="constrained" width={90} height={90} style={{ width: '90px', height: '90px', objectFit: 'cover', borderRadius: '8px' }} loading="lazy" formats={['auto', 'webp', 'avif']} sizes="90px" breakpoints={[90, 180]} />
             </Box>
             <Box flex={1} minWidth={0}>
               <Stack direction="row" align="center" spacing={2} mb={2}>
@@ -58,7 +58,7 @@ export default function ServicesGrid() {
           {/* Úzkost a deprese */}
           <Box bg={cardBg} boxShadow={'xl'} rounded={'xl'} p={6} display="flex" flexDirection="row" alignItems="center" gap={6}>
             <Box flexShrink={0} width="90px" height="90px">
-              <StaticImage src="../assets/img/stress.webp" alt="Úzkost a deprese" placeholder="blurred" layout="constrained" width={90} height={90} style={{ width: '90px', height: '90px', objectFit: 'cover', borderRadius: '8px' }} loading="lazy" formats={['auto', 'webp', 'avif']} />
+              <StaticImage src="../assets/img/stress.webp" alt="Úzkost a deprese" placeholder="blurred" layout="constrained" width={90} height={90} style={{ width: '90px', height: '90px', objectFit: 'cover', borderRadius: '8px' }} loading="lazy" formats={['auto', 'webp', 'avif']} sizes="90px" breakpoints={[90, 180]} />
             </Box>
             <Box flex={1} minWidth={0}>
               <Stack direction="row" align="center" spacing={2} mb={2}>
@@ -71,7 +71,7 @@ export default function ServicesGrid() {
           {/* Stres a jeho zvládání */}
           <Box bg={cardBg} boxShadow={'xl'} rounded={'xl'} p={6} display="flex" flexDirection="row" alignItems="center" gap={6}>
             <Box flexShrink={0} width="90px" height="90px">
-              <StaticImage src="../assets/img/safe-embrace.jpg" alt="Stres a jeho zvládání" placeholder="blurred" layout="constrained" width={90} height={90} style={{ width: '90px', height: '90px', objectFit: 'cover', borderRadius: '8px' }} loading="lazy" formats={['auto', 'webp', 'avif']} />
+              <StaticImage src="../assets/img/safe-embrace.jpg" alt="Stres a jeho zvládání" placeholder="blurred" layout="constrained" width={90} height={90} style={{ width: '90px', height: '90px', objectFit: 'cover', borderRadius: '8px' }} loading="lazy" formats={['auto', 'webp', 'avif']} sizes="90px" breakpoints={[90, 180]} />
             </Box>
             <Box flex={1} minWidth={0}>
               <Stack direction="row" align="center" spacing={2} mb={2}>
@@ -84,7 +84,7 @@ export default function ServicesGrid() {
           {/* Vztahy */}
           <Box bg={cardBg} boxShadow={'xl'} rounded={'xl'} p={6} display="flex" flexDirection="row" alignItems="center" gap={6}>
             <Box flexShrink={0} width="90px" height="90px">
-              <StaticImage src="../assets/img/relationships.webp" alt="Vztahy" placeholder="blurred" layout="constrained" width={90} height={90} style={{ width: '90px', height: '90px', objectFit: 'cover', borderRadius: '8px' }} loading="lazy" formats={['auto', 'webp', 'avif']} />
+              <StaticImage src="../assets/img/relationships.webp" alt="Vztahy" placeholder="blurred" layout="constrained" width={90} height={90} style={{ width: '90px', height: '90px', objectFit: 'cover', borderRadius: '8px' }} loading="lazy" formats={['auto', 'webp', 'avif']} sizes="90px" breakpoints={[90, 180]} />
             </Box>
             <Box flex={1} minWidth={0}>
               <Stack direction="row" align="center" spacing={2} mb={2}>
@@ -97,7 +97,7 @@ export default function ServicesGrid() {
           {/* Zpracování složitých životních situací */}
           <Box bg={cardBg} boxShadow={'xl'} rounded={'xl'} p={6} display="flex" flexDirection="row" alignItems="center" gap={6}>
             <Box flexShrink={0} width="90px" height="90px">
-              <StaticImage src="../assets/img/family.webp" alt="Zpracování složitých životních situací" placeholder="blurred" layout="constrained" width={90} height={90} style={{ width: '90px', height: '90px', objectFit: 'cover', borderRadius: '8px' }} loading="lazy" formats={['auto', 'webp', 'avif']} />
+              <StaticImage src="../assets/img/family.webp" alt="Zpracování složitých životních situací" placeholder="blurred" layout="constrained" width={90} height={90} style={{ width: '90px', height: '90px', objectFit: 'cover', borderRadius: '8px' }} loading="lazy" formats={['auto', 'webp', 'avif']} sizes="90px" breakpoints={[90, 180]} />
             </Box>
             <Box flex={1} minWidth={0}>
               <Stack direction="row" align="center" spacing={2} mb={2}>

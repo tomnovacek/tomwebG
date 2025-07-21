@@ -41,6 +41,8 @@ const BlogCard = ({ post }) => {
           objectFit="cover"
           formats={['auto', 'webp', 'avif']}
           quality={85}
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          breakpoints={[300, 400, 600, 800]}
           style={{
             height: '100%',
             width: '100%',
@@ -56,6 +58,8 @@ const BlogCard = ({ post }) => {
           objectFit="cover"
           formats={['auto', 'webp', 'avif']}
           quality={85}
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          breakpoints={[300, 400, 600, 800]}
           style={{
             height: '100%',
             width: '100%',
@@ -71,6 +75,8 @@ const BlogCard = ({ post }) => {
           objectFit="cover"
           formats={['auto', 'webp', 'avif']}
           quality={85}
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          breakpoints={[300, 400, 600, 800]}
           style={{
             height: '100%',
             width: '100%',
@@ -86,6 +92,8 @@ const BlogCard = ({ post }) => {
           objectFit="cover"
           formats={['auto', 'webp', 'avif']}
           quality={85}
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          breakpoints={[300, 400, 600, 800]}
           style={{
             height: '100%',
             width: '100%',
