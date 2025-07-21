@@ -39,52 +39,80 @@ export default function AboutCard({
         height="260px"
         overflow="hidden"
       >
-        {image === 'mountinHikeGroup.jpg' ? (
+        {image === 'mountinHikeGroup.jpg' && (
           <StaticImage
             src="../assets/img/mountinHikeGroup.jpg"
             alt={imageAlt}
+            placeholder="blurred"
+            layout="fullWidth"
+            objectFit="cover"
             className="about-image"
+            formats={['auto', 'webp']}
+            quality={85}
+            breakpoints={[320, 480, 768, 1024]}
+            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            transformOptions={{
+              fit: 'cover',
+              cropFocus: 'center',
+            }}
           />
-        ) : (
+        )}
+        {image === 'room.jpeg' && (
           <StaticImage
             src="../assets/img/room.jpeg"
             alt={imageAlt}
+            placeholder="blurred"
+            layout="fullWidth"
+            objectFit="cover"
             className="about-image"
+            formats={['auto', 'webp']}
+            quality={85}
+            breakpoints={[320, 480, 768, 1024]}
+            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            transformOptions={{
+              fit: 'cover',
+              cropFocus: 'center',
+            }}
           />
         )}
-        <Box
-          position="absolute"
-          top={0}
-          left={0}
-          right={0}
-          bottom={0}
-          bg="blackAlpha.300"
-        />
-        <Box
-          position="absolute"
-          bottom={0}
-          left={0}
-          right={0}
-          p={6}
-          bg="linear-gradient(to top, rgba(0,0,0,0.8), transparent)"
-        >
-          <Flex align="center" gap={3}>
-            <Icon as={icon} w={8} h={8} color="white" />
-            <Heading fontSize={'2xl'} color="white">{title}</Heading>
-          </Flex>
-        </Box>
       </Box>
-      <Box p={8}>
-        <Text fontSize={'lg'} mb={6} color={textColor}>
+      <Box p={6}>
+        <Flex align="center" mb={4}>
+          {icon && (
+            <Icon
+              as={icon}
+              boxSize={6}
+              color="green.400"
+              mr={3}
+            />
+          )}
+          <Heading
+            as="h3"
+            size="lg"
+            color={textColor || useColorModeValue('gray.800', 'white')}
+            mb={2}
+          >
+            {title}
+          </Heading>
+        </Flex>
+        <Text
+          color={useColorModeValue('gray.600', 'gray.300')}
+          mb={6}
+          lineHeight="tall"
+        >
           {description}
         </Text>
-        <Button
-          as={GatsbyLink}
-          to={buttonHref}
-          variant="card"
-        >
-          {buttonText}
-        </Button>
+        {buttonText && buttonHref && (
+          <Button
+            as={GatsbyLink}
+            to={buttonHref}
+            variant="solid"
+            size="md"
+            w="full"
+          >
+            {buttonText}
+          </Button>
+        )}
       </Box>
     </Box>
   )
