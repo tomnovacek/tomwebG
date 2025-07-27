@@ -33,7 +33,7 @@ export default function Footer() {
           <SimpleGrid columns={{ base: 1, md: 3 }} spacing={8}>
             {/* Navigation Links */}
             <Stack align={{base: 'center', md: 'flex-start'}}>
-              <Heading fontSize={'sm'} mb={4}>Navigace</Heading>
+              <Heading as="h3" fontSize={'sm'} mb={4}>Navigace</Heading>
               <Link as={GatsbyLink} to="/">Domů</Link>
               <Link as={GatsbyLink} to="/about">O mně</Link>
               <Link as={GatsbyLink} to="/services">Služby</Link>
@@ -43,7 +43,7 @@ export default function Footer() {
 
             {/* Google Maps */}
             <Stack align={'center'} justify={'center'}>
-              <Heading fontSize={'sm'}>Mapa</Heading>
+              <Heading as="h3"fontSize={'sm'}>Mapa</Heading>
               <Suspense fallback={<Box w="100%" minH="300px" maxW="600px" display="flex" alignItems="center" justifyContent="center"><Text color="gray.500">Načítání mapy...</Text></Box>}>
                 <Box 
                   w="100%" 
@@ -61,7 +61,7 @@ export default function Footer() {
 
             {/* Contact Information */}
             <Stack align={{base: 'center', md: 'flex-end'}}>
-              <Heading fontSize={'sm'} mb={4}>Kontakt</Heading>
+              <Heading as="h3"fontSize={'sm'} mb={4}>Kontakt</Heading>
               <Stack direction={'row'} align={'center'} spacing={2}>
                 <Icon as={FaUser} />
                 <Text>Tomáš Nováček</Text>
