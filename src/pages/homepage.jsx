@@ -175,7 +175,7 @@ const HomePage = React.memo(({ data }) => {
               <HeroTextBox
                 title="Psychoterapie "
                 titleAccent="v centru Brna"
-                description="Vítejte, jmenuji se Tomáš Nováček. Doprovázím lidi při překonávaní jejich životních výchev. Snažím se, aby se na tomto putování cítili bezpečně a našli v sobě schopnost zahlédnout světlo nadějě prosvítající i potemnělým lesem."
+                description="Vítejte, jmenuji se Tomáš Nováček. Doprovázím klienty při překonávaní jejich životních výzev. Snažím se vytvářet prostředí, ve kterém se na tomto putování můžou všichni cítit bezpečně a najít v sobě schopnost zahlédnout světlo nadějě prosvítající i potemnělým lesem."
                 primaryText="Objednat konzultaci"
                 primaryHref="/calendar/"
                 secondaryText="Moje služby"
@@ -219,19 +219,19 @@ const HomePage = React.memo(({ data }) => {
       {/* About Section */}
       <Box as="section" py={20} bg={aboutBgColor} position="relative" zIndex={2}>
         <Container maxW={'7xl'} centerContent>
-          <Stack spacing={4} maxW={'6xl'} textAlign={'center'} mb={10}>
+          <Stack spacing={4} maxW={'2xl'} textAlign={'center'} mb={10}>
             <Heading as="h2" variant="section">
               <Text as={'span'} position={'relative'}>
-                O mně
+                Tomáš Nováček - psycholog a terapeut
               </Text>
             </Heading>
             <Text color={aboutTextColor} fontSize={'xl'}>
-              Jsem psycholog a terapeut s multioborovým vzděláním a zkušenostmi v doprovázení lidí překonávajících své životní výzvy. Znalosti a perspektivy z různých profesních oblastí mi pomáhají pochopit klientovu situaci a následně společně rozšiřovat obzory o perspektivy, které mohou přinášet větší svobodu při hledání cesty vpřed.
+              Mám multioborové vzdělání a zkušenosti v doprovázení lidí překonávajících své životní výzvy. Znalosti a perspektivy z různých profesních oblastí mi pomáhají pochopit klientovu situaci a následně společně rozšiřovat obzory o perspektivy, které mohou přinášet větší svobodu při hledání cesty vpřed.
             </Text>
           </Stack>
           <SimpleGrid columns={{ base: 1, md: 2 }} spacing={16} w="full">
             <AboutCard
-              title="Moje praxe"
+              title="Soukromá praxe v centru Brna"
               description={
                 <>
                   Posledních sedm let se intenzivně věnuji psychologickému poradenství a čtyři roky praktikuji terapii v soukromé praxi v centru Brna. Vystudoval jsem jednooborovou psychologii a absolvoval dvouletý výcvik v koučování, následně šestiletý výcvik v{' '}
@@ -253,7 +253,7 @@ const HomePage = React.memo(({ data }) => {
               textColor={aboutTextColor}
             />
             <AboutCard
-              title="Můj přístup"
+              title="Můj terapeutický přístup"
               description="Věřím, že všichni máme vnitřní zdroje k zvládání životních výzev, které se před námi objevují. Mohou se však objevit situace, ve kterých se můžeme cítit uvězněni nebo bezmocní. V takových chvílích  podporuji klienty v pochopení jejich problémů a hledání efektivních způsobů, jak je překonat. Společně prozkoumáváme jejich osobní cestu k sebepoznání a odhalujeme vnitřní síly, které jim mohou pomoci žít plnější a spokojenější život. Nemám všechny odpovědi, pomůžu vám najít ty vaše."
               image="mountinHikeGroup.jpg"
               imageAlt="Skupina lidí na horách"
@@ -269,10 +269,10 @@ const HomePage = React.memo(({ data }) => {
       {/* Services Section */}
       <Box as="section" py={20} bg={servicesBgColor}>
         <Container maxW={'7xl'} centerContent>
-          <Stack spacing={4} maxW={'6xl'} textAlign={'center'} mb={10}>
+          <Stack spacing={4} maxW={'2xl'} textAlign={'center'} mb={10}>
             <Heading as="h2" variant="section">
               <Text as={'span'} position={'relative'} zIndex={1}>
-                S čím vám mohu pomoci
+                Komu by terapie mohla být užitečná
               </Text>
             </Heading>
             <Text color={servicesTextColor} fontSize={'xl'}>
@@ -351,7 +351,7 @@ const HomePage = React.memo(({ data }) => {
                 size="xl"
                 mb={4}
               >
-                Z mého bloku
+                Z mého terapeutického bloku
               </Heading>
               <Text
                 fontSize="lg"
