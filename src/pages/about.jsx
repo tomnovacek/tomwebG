@@ -250,7 +250,7 @@ const About = () => {
                     <Box as="ul" spacing={3}>
                       <Box as="li" color={textColor} display="flex" alignItems="center" gap={2} mb={2}>
                         <Icon as={FaCheck} color="green.400" />
-                        Certifikovaný psychoterapeut – 1010 hodin výcviku <Link href='src/ext/Certifikat.pdf' target='_blank' rel='noopener noreferrer' color="green.400">(Certifikát)</Link>
+                        Certifikovaný psychoterapeut – 1010 hodin výcviku <Link href='/ext/Certifikat.pdf' target='_blank' rel='noopener noreferrer' color="green.400">(Certifikát)</Link>
                       </Box>
                       <Box as="li" color={textColor} display="flex" alignItems="center" gap={2} mb={2}>
                         <Icon as={FaCheck} color="green.400" />

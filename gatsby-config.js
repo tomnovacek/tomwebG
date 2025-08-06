@@ -12,7 +12,7 @@ module.exports = {
     title: `Tom Novacek - Psycholog a terapeut`,
     description: `Certifikovaný psychoterepeut pro dospělé v centru Brna`,
     author: `@tomnovacek`,
-    siteUrl: `https://tomnovacek.com/`,
+    siteUrl: `https://tomnovacek.com`,
     image: `/img/tom1.png`,
     twitterUsername: `@tomnovacek`,
     language: `cs`,

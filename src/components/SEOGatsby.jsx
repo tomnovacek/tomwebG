@@ -16,7 +16,15 @@ const SEOGatsby = ({ title, description, pathname, children, image, article }) =
     title: title || defaultTitle,
     description: description || defaultDescription,
     image: image || defaultImage,
-    url: `${siteUrl}${pathname || ``}`,
+    url: (() => {
+      const baseUrl = siteUrl.endsWith('/') ? siteUrl.slice(0, -1) : siteUrl;
+      const path = pathname || '';
+      const fullUrl = `${baseUrl}${path}`;
+      const normalizedUrl = fullUrl.replace(/\/+/g, '/');
+      // Ensure proper protocol format and add trailing slash to match sitemap
+      const fixedUrl = normalizedUrl.replace('https:/', 'https://').replace('http:/', 'http://');
+      return fixedUrl.endsWith('/') ? fixedUrl : `${fixedUrl}/`;
+    })(),
     twitterUsername,
   }
 

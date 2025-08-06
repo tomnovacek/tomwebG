@@ -86,8 +86,29 @@ export const Head = () => (
           },
           "openingHours": "Mo-Fr 09:00-18:00",
           "priceRange": "$$",
-          "serviceType": "Psychoterapie",
-          "areaServed": "Brno a okolí"
+          "areaServed": "Brno a okolí",
+          "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Psychoterapeutické služby",
+            "itemListElement": [
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Psychoterapie pro dospělé",
+                  "description": "Individuální psychoterapie pro dospělé klienty"
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Integrativní psychoterapie",
+                  "description": "Terapie kombinující různé psychoterapeutické přístupy"
+                }
+              }
+            ]
+          }
         })
       }}
     />
