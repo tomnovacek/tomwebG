@@ -1,4 +1,4 @@
-import React, { useMemo, useCallback } from 'react'
+import React, { useMemo, useCallback, useState } from 'react'
 import { graphql } from 'gatsby'
 import {
   Box,
@@ -13,10 +13,15 @@ import {
   Icon,
   VStack,
   Link as ChakraLink,
+  Accordion,
+  AccordionItem,
+  AccordionButton,
+  AccordionPanel,
+  AccordionIcon,
 } from '@chakra-ui/react'
 import { Link as GatsbyLink } from 'gatsby'
 import { StaticImage } from 'gatsby-plugin-image'
-import { FaCheck, FaArrowRight, FaCalendar, FaUser, FaHeart, FaUsers, FaHandshake } from 'react-icons/fa'
+import { FaCheck, FaArrowRight, FaCalendar, FaUser, FaHeart, FaUsers, FaHandshake, FaEnvelope } from 'react-icons/fa'
 import BlogCard from '../components/BlogCard'
 import AnalyticsButton from '../components/AnalyticsButton'
 import AboutCard from '../components/AboutCard'
@@ -391,8 +396,224 @@ const HomePage = React.memo(({ data }) => {
         </Container>
       </Box>
 
+      {/* FAQ Section */}
+      <Box as="section" py={20} bg={servicesBgColor}>
+        <Container maxW={'7xl'}>
+          <VStack spacing={12}>
+            <Box textAlign="center" maxW={'3xl'}>
+              <Heading as="h2" variant="section" mb={6}>
+                Často kladené otázky
+              </Heading>
+              <Text color={textColor} fontSize={'xl'}>
+                Odpovědi na nejčastější otázky o psychoterapii a mém přístupu
+              </Text>
+            </Box>
+
+            <Box w="full" maxW="4xl">
+              <Accordion allowToggle>
+                <AccordionItem 
+                  border="1px solid" 
+                  borderColor="gray.200" 
+                  borderRadius="lg" 
+                  mb={4}
+                  _hover={{ borderColor: "green.400" }}
+                  transition="all 0.3s"
+                >
+                  <AccordionButton 
+                    py={6} 
+                    px={6}
+                    _expanded={{ bg: "green.50", color: "green.600" }}
+                    _hover={{ bg: "gray.50" }}
+                  >
+                    <Box flex="1" textAlign="left">
+                      <Heading as="h3" size="md" color={headingColor}>
+                        Jak probíhá první sezení?
+                      </Heading>
+                    </Box>
+                    <AccordionIcon />
+                  </AccordionButton>
+                  <AccordionPanel pb={6} px={6}>
+                    <Text color={aboutTextColor} lineHeight="tall">
+                      První sezení je úvodní konzultace, kde se seznámíme a povíme si o vašich potížích. 
+                      Vysvětlím vám, jak pracuji a co můžete očekávat. Společně se domluvíme na dalším postupu. 
+                      Sezení trvá 50 minut a je to bezpečný prostor pro sdílení vašich starostí.
+                    </Text>
+                  </AccordionPanel>
+                </AccordionItem>
+
+                <AccordionItem 
+                  border="1px solid" 
+                  borderColor="gray.200" 
+                  borderRadius="lg" 
+                  mb={4}
+                  _hover={{ borderColor: "green.400" }}
+                  transition="all 0.3s"
+                >
+                  <AccordionButton 
+                    py={6} 
+                    px={6}
+                    _expanded={{ bg: "green.50", color: "green.600" }}
+                    _hover={{ bg: "gray.50" }}
+                  >
+                    <Box flex="1" textAlign="left">
+                      <Heading as="h3" size="md" color={headingColor}>
+                        Jak dlouho trvá terapie?
+                      </Heading>
+                    </Box>
+                    <AccordionIcon />
+                  </AccordionButton>
+                  <AccordionPanel pb={6} px={6}>
+                    <Text color={aboutTextColor} lineHeight="tall">
+                      Délka terapie je individuální a závisí na vašich potřebách. Někteří klienti potřebují 
+                      jen několik sezení, jiní pracujeme dlouhodobě. Domluvíme se podle vašich možností a potřeb.
+                    </Text>
+                  </AccordionPanel>
+                </AccordionItem>
+
+                <AccordionItem 
+                  border="1px solid" 
+                  borderColor="gray.200" 
+                  borderRadius="lg" 
+                  mb={4}
+                  _hover={{ borderColor: "green.400" }}
+                  transition="all 0.3s"
+                >
+                  <AccordionButton 
+                    py={6} 
+                    px={6}
+                    _expanded={{ bg: "green.50", color: "green.600" }}
+                    _hover={{ bg: "gray.50" }}
+                  >
+                    <Box flex="1" textAlign="left">
+                      <Heading as="h3" size="md" color={headingColor}>
+                        Je terapie hrazena pojišťovnou?
+                      </Heading>
+                    </Box>
+                    <AccordionIcon />
+                  </AccordionButton>
+                  <AccordionPanel pb={6} px={6}>
+                    <Text color={aboutTextColor} lineHeight="tall">
+                      Soukromá psychoterapie není hrazena zdravotními pojišťovnami. Cena za sezení je 1200 Kč 
+                      za 50 minut. Většina zdravotních pojišťoven nabízí podpůrné programy, ve kterých můžete 
+                      získat na terapii příspěvek.
+                    </Text>
+                  </AccordionPanel>
+                </AccordionItem>
+
+                <AccordionItem 
+                  border="1px solid" 
+                  borderColor="gray.200" 
+                  borderRadius="lg" 
+                  mb={4}
+                  _hover={{ borderColor: "green.400" }}
+                  transition="all 0.3s"
+                >
+                  <AccordionButton 
+                    py={6} 
+                    px={6}
+                    _expanded={{ bg: "green.50", color: "green.600" }}
+                    _hover={{ bg: "gray.50" }}
+                  >
+                    <Box flex="1" textAlign="left">
+                      <Heading as="h3" size="md" color={headingColor}>
+                        Jak často se setkáváme?
+                      </Heading>
+                    </Box>
+                    <AccordionIcon />
+                  </AccordionButton>
+                  <AccordionPanel pb={6} px={6}>
+                    <Text color={aboutTextColor} lineHeight="tall">
+                      Standardně se setkáváme jednou týdně nebo jednou za 2 týdny, ale frekvence se může přizpůsobit vašim potřebám. 
+                      Na začátku je vyšší frekvence a pravidelnost důležitá, později můžeme frekvenci upravit podle a vašich možností.
+                    </Text>
+                  </AccordionPanel>
+                </AccordionItem>
+
+                <AccordionItem 
+                  border="1px solid" 
+                  borderColor="gray.200" 
+                  borderRadius="lg" 
+                  mb={4}
+                  _hover={{ borderColor: "green.400" }}
+                  transition="all 0.3s"
+                >
+                  <AccordionButton 
+                    py={6} 
+                    px={6}
+                    _expanded={{ bg: "green.50", color: "green.600" }}
+                    _hover={{ bg: "gray.50" }}
+                  >
+                    <Box flex="1" textAlign="left">
+                      <Heading as="h3" size="md" color={headingColor}>
+                        Co když se mi nebude dařit mluvit?
+                      </Heading>
+                    </Box>
+                    <AccordionIcon />
+                  </AccordionButton>
+                  <AccordionPanel pb={6} px={6}>
+                    <Text color={aboutTextColor} lineHeight="tall">
+                      Je normální mít obavy z mluvení o osobních věcech. Snažím se vytvářet bezpečný prostor, kde 
+                      můžete mluvit svým tempem. Nemusíte mluvit o všem hned, postupujeme krok za krokem.
+                    </Text>
+                  </AccordionPanel>
+                </AccordionItem>
+
+                <AccordionItem 
+                  border="1px solid" 
+                  borderColor="gray.200" 
+                  borderRadius="lg" 
+                  mb={4}
+                  _hover={{ borderColor: "green.400" }}
+                  transition="all 0.3s"
+                >
+                  <AccordionButton 
+                    py={6} 
+                    px={6}
+                    _expanded={{ bg: "green.50", color: "green.600" }}
+                    _hover={{ bg: "gray.50" }}
+                  >
+                    <Box flex="1" textAlign="left">
+                      <Heading as="h3" size="md" color={headingColor}>
+                        Jaký je rozdíl mezi psychologem a psychoterapeutem?
+                      </Heading>
+                    </Box>
+                    <AccordionIcon />
+                  </AccordionButton>
+                  <AccordionPanel pb={6} px={6}>
+                    <Text color={aboutTextColor} lineHeight="tall">
+                      Psycholog má magisterské vzdělání v psychologii. Psychoterapeut má navíc dlouhodobý 
+                      výcvik v konkrétním terapeutickém směru. Jsem certifikovaný psychoterapeut s 1010 
+                      hodinami výcviku v integrativní psychoterapii, což znamená, že kombinuji různé přístupy 
+                      podle potřeb klienta.
+                    </Text>
+                  </AccordionPanel>
+                </AccordionItem>
+              </Accordion>
+            </Box>
+
+            <Box textAlign="center" pt={8}>
+              <Text color={textColor} fontSize="lg" mb={6}>
+                Máte další otázky? Neváhejte mě kontaktovat
+              </Text>
+              <AnalyticsButton
+                as="a"
+                href="mailto:terapie@tomnovacek.com?subject=Dotaz%20k%20psychoterapii&body=Dobrý%20den,%0A%0A%0A%0AS%20pozdravem%0A"
+                variant="cta"
+                leftIcon={<FaEnvelope />}
+                buttonName="faq_contact_button"
+                location="home_faq_section"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Napsat email
+              </AnalyticsButton>
+            </Box>
+          </VStack>
+        </Container>
+      </Box>
+
       {/* Call to Action Section */}
-      <Box as="section" py={20} bg={ctaBgColor}>
+      <Box as="section" py={20} bg={blogBgColor}>
         <Container maxW={'7xl'}>
           <Stack
             spacing={8}
