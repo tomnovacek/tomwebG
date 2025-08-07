@@ -221,7 +221,7 @@ const ServicesPage = () => {
             {[
               {
                 title: 'Individuální terapie',
-                price: '1 100 Kč',
+                price: '1 200 Kč',
                 duration: '50 minut',
                 description: 'Standardní terapeutické sezení.',
                 features: [
@@ -235,7 +235,7 @@ const ServicesPage = () => {
               },
               {
                 title: 'Online terapie',
-                price: '1 200 Kč',
+                price: '1 300 Kč',
                 duration: '50 minut',
                 description: 'Terapeutické sezení přes video hovor pro vaše pohodlí.',
                 features: [
