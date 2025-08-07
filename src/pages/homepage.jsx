@@ -8,7 +8,6 @@ import {
   Button,
   SimpleGrid,
   Stack,
-  useColorModeValue,
   Flex,
   Icon,
   VStack,
@@ -52,18 +51,12 @@ const HomePage = React.memo(({ data }) => {
     }))
   }, [allMdx.nodes, generateSlug])
 
-  // Move all useColorModeValue calls to the top level
-  const bgColor = useColorModeValue('white', 'gray.800')
-  const textColor = useColorModeValue('gray.600', 'gray.400')
-  const headingColor = useColorModeValue('gray.800', 'white')
-  const aboutBgColor = useColorModeValue('white', 'gray.900')
-  const servicesBgColor = useColorModeValue('gray.50', 'gray.900')
-  const ctaBgColor = useColorModeValue('gray.50', 'gray.900')
-  const aboutTextColor = useColorModeValue('gray.600', 'gray.400')
-  const servicesTextColor = useColorModeValue('gray.600', 'gray.400')
-  const ctaTextColor = useColorModeValue('gray.600', 'gray.400')
-  const blogBgColor = useColorModeValue('white', 'gray.900')
-  const blogTextColor = useColorModeValue('gray.600', 'gray.400')
+  // Static color values (light mode only)
+  const bgColor = 'white'
+  const textColor = 'gray.600'
+  const headingColor = 'gray.800'
+  const servicesBgColor = 'gray.50'
+  const blogBgColor = 'white'
 
   // Debug logging - removed for TBT optimization
   // console.log('Homepage - newestPosts:', newestPosts)
@@ -222,7 +215,7 @@ const HomePage = React.memo(({ data }) => {
       </Box>
 
       {/* About Section */}
-      <Box as="section" py={20} bg={aboutBgColor} position="relative" zIndex={2}>
+      <Box as="section" py={20} bg="white" position="relative" zIndex={2}>
         <Container maxW={'7xl'} centerContent>
           <Stack spacing={4} maxW={'2xl'} textAlign={'center'} mb={10}>
             <Heading as="h2" variant="section">
@@ -230,7 +223,7 @@ const HomePage = React.memo(({ data }) => {
                 Tomáš Nováček - psycholog a terapeut
               </Text>
             </Heading>
-            <Text color={aboutTextColor} fontSize={'xl'}>
+                          <Text color="gray.600" fontSize={'xl'}>
               Mám multioborové vzdělání a zkušenosti v doprovázení lidí překonávajících své životní výzvy. Znalosti a perspektivy z různých profesních oblastí mi pomáhají pochopit klientovu situaci a následně společně rozšiřovat obzory o perspektivy, které mohou přinášet větší svobodu při hledání cesty vpřed.
             </Text>
           </Stack>
@@ -255,7 +248,7 @@ const HomePage = React.memo(({ data }) => {
               icon={FaUser}
               buttonText="Více o mně"
               buttonHref="/about/"
-              textColor={aboutTextColor}
+              textColor="gray.600"
             />
             <AboutCard
               title="Můj terapeutický přístup"
@@ -265,7 +258,7 @@ const HomePage = React.memo(({ data }) => {
               icon={FaHandshake}
               buttonText="Moje služby"
               buttonHref="/services/"
-              textColor={aboutTextColor}
+              textColor="gray.600"
             />
           </SimpleGrid>
         </Container>
@@ -280,7 +273,7 @@ const HomePage = React.memo(({ data }) => {
                 Komu by terapie mohla být užitečná
               </Text>
             </Heading>
-            <Text color={servicesTextColor} fontSize={'xl'}>
+            <Text color="gray.600" fontSize={'xl'}>
               Lidé za mnou přicházejí s nejrůznějšími tématy, ale nejčastěji se bavíme o vztazích (k sobě i k druhým), úzkosti, pokleslé náladě a&nbsp;o&nbsp;tom, jak najít klid ve shonu každodenního života.
             </Text>
           </Stack>
@@ -329,7 +322,7 @@ const HomePage = React.memo(({ data }) => {
                   </Stack>
                 </Box>
               </Box>
-            )), [servicesData, bgColor, headingColor, textColor])}
+            )), [servicesData])}
           </SimpleGrid>
           <Stack align={'center'} mt={10}>
             <AnalyticsButton
@@ -360,7 +353,7 @@ const HomePage = React.memo(({ data }) => {
               </Heading>
               <Text
                 fontSize="lg"
-                color={blogTextColor}
+                color="gray.600"
                 maxW="2xl"
                 mx="auto"
               >
@@ -433,7 +426,7 @@ const HomePage = React.memo(({ data }) => {
                     <AccordionIcon />
                   </AccordionButton>
                   <AccordionPanel pb={6} px={6}>
-                    <Text color={aboutTextColor} lineHeight="tall">
+                    <Text color="gray.600" lineHeight="tall">
                       První sezení je úvodní konzultace, kde se seznámíme a povíme si o vašich potížích. 
                       Vysvětlím vám, jak pracuji a co můžete očekávat. Společně se domluvíme na dalším postupu. 
                       Sezení trvá 50 minut a je to bezpečný prostor pro sdílení vašich starostí.
@@ -463,7 +456,7 @@ const HomePage = React.memo(({ data }) => {
                     <AccordionIcon />
                   </AccordionButton>
                   <AccordionPanel pb={6} px={6}>
-                    <Text color={aboutTextColor} lineHeight="tall">
+                    <Text color="gray.600" lineHeight="tall">
                       Délka terapie je individuální a závisí na vašich potřebách. Někteří klienti potřebují 
                       jen několik sezení, jiní pracujeme dlouhodobě. Domluvíme se podle vašich možností a potřeb.
                     </Text>
@@ -492,7 +485,7 @@ const HomePage = React.memo(({ data }) => {
                     <AccordionIcon />
                   </AccordionButton>
                   <AccordionPanel pb={6} px={6}>
-                    <Text color={aboutTextColor} lineHeight="tall">
+                    <Text color="gray.600" lineHeight="tall">
                       Soukromá psychoterapie není hrazena zdravotními pojišťovnami. Cena za sezení je 1200 Kč 
                       za 50 minut. Většina zdravotních pojišťoven nabízí podpůrné programy, ve kterých můžete 
                       získat na terapii příspěvek.
@@ -522,7 +515,7 @@ const HomePage = React.memo(({ data }) => {
                     <AccordionIcon />
                   </AccordionButton>
                   <AccordionPanel pb={6} px={6}>
-                    <Text color={aboutTextColor} lineHeight="tall">
+                    <Text color="gray.600" lineHeight="tall">
                       Standardně se setkáváme jednou týdně nebo jednou za 2 týdny, ale frekvence se může přizpůsobit vašim potřebám. 
                       Na začátku je vyšší frekvence a pravidelnost důležitá, později můžeme frekvenci upravit podle a vašich možností.
                     </Text>
@@ -551,7 +544,7 @@ const HomePage = React.memo(({ data }) => {
                     <AccordionIcon />
                   </AccordionButton>
                   <AccordionPanel pb={6} px={6}>
-                    <Text color={aboutTextColor} lineHeight="tall">
+                    <Text color="gray.600" lineHeight="tall">
                       Je normální mít obavy z mluvení o osobních věcech. Snažím se vytvářet bezpečný prostor, kde 
                       můžete mluvit svým tempem. Nemusíte mluvit o všem hned, postupujeme krok za krokem.
                     </Text>
@@ -580,7 +573,7 @@ const HomePage = React.memo(({ data }) => {
                     <AccordionIcon />
                   </AccordionButton>
                   <AccordionPanel pb={6} px={6}>
-                    <Text color={aboutTextColor} lineHeight="tall">
+                    <Text color="gray.600" lineHeight="tall">
                       Psycholog má magisterské vzdělání v psychologii. Psychoterapeut má navíc dlouhodobý 
                       výcvik v konkrétním terapeutickém směru. Jsem certifikovaný psychoterapeut s 1010 
                       hodinami výcviku v integrativní psychoterapii, což znamená, že kombinuji různé přístupy 
@@ -625,7 +618,7 @@ const HomePage = React.memo(({ data }) => {
             <Heading as="h2" variant="section">
                 Vydejme se spolu na cestu
             </Heading>
-            <Text color={ctaTextColor} fontSize={'xl'} maxW={'2xl'}>
+            <Text color="gray.600" fontSize={'xl'} maxW={'2xl'}>
               První krok je často ten nejtěžší. Domluvte si úvodní konzultaci a společně prozkoumáme, jak vám mohu pomoci.
             </Text>
             <Stack
