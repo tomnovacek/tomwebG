@@ -82,20 +82,6 @@ const DesktopNav = () => {
       >
         Kalendář
       </Button>
-      <Button
-        as={GatsbyLink}
-        to="/blog"
-        variant={'ghost'}
-        color={linkColor}
-        _hover={{
-          textDecoration: 'none',
-          color: linkHoverColor,
-        }}
-        h={BUTTON_HEIGHT}
-        minH={BUTTON_HEIGHT}
-      >
-        Blog
-      </Button>
     </Stack>
   )
 }
@@ -178,21 +164,6 @@ const MobileNav = ({ onClose }) => {
           w="100%"
         >
           Kalendář
-        </Button>
-        <Button
-          as={GatsbyLink}
-          to="/blog"
-          variant={'ghost'}
-          color={linkColor}
-          _hover={{
-            textDecoration: 'none',
-            color: linkHoverColor,
-          }}
-          onClick={onClose}
-          justifyContent="flex-start"
-          w="100%"
-        >
-          Blog
         </Button>
         <Button
           as={GatsbyLink}

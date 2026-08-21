@@ -1,11 +1,9 @@
-import React, { useMemo, useCallback, useState } from 'react'
-import { graphql } from 'gatsby'
+import React, { useMemo } from 'react'
 import {
   Box,
   Container,
   Heading,
   Text,
-  Button,
   SimpleGrid,
   Stack,
   Flex,
@@ -21,51 +19,16 @@ import {
 import { Link as GatsbyLink } from 'gatsby'
 import { StaticImage } from 'gatsby-plugin-image'
 import { FaCheck, FaArrowRight, FaCalendar, FaUser, FaHeart, FaUsers, FaHandshake, FaEnvelope } from 'react-icons/fa'
-import BlogCard from '../components/BlogCard'
 import AnalyticsButton from '../components/AnalyticsButton'
 import AboutCard from '../components/AboutCard'
 import HeroTextBox from '../components/HeroTextBox'
 
-const HomePage = React.memo(({ data }) => {
-  const { allMdx } = data
-  
-  const generateSlug = useCallback((internal, id) => {
-    if (internal?.contentFilePath) {
-      const pathParts = internal.contentFilePath.split('/')
-      const fileName = pathParts[pathParts.length - 1]
-      // Remove both .md and .mdx extensions
-      return fileName.replace(/\.(md|mdx)$/, '')
-    }
-    // Fallback to using the post ID if contentFilePath is null
-    return id ? id.split('-').pop() : 'post'
-  }, [])
-
-  const newestPosts = useMemo(() => {
-    return allMdx.nodes.slice(0, 3).map(post => ({
-      ...post,
-      slug: generateSlug(post.internal, post.id),
-      frontmatter: {
-        ...post.frontmatter,
-        slug: generateSlug(post.internal, post.id)
-      }
-    }))
-  }, [allMdx.nodes, generateSlug])
-
+const HomePage = React.memo(() => {
   // Static color values (light mode only)
   const bgColor = 'white'
   const textColor = 'gray.600'
   const headingColor = 'gray.800'
   const servicesBgColor = 'gray.50'
-  const blogBgColor = 'white'
-
-  // Debug logging - removed for TBT optimization
-  // console.log('Homepage - newestPosts:', newestPosts)
-  // newestPosts.forEach(post => {
-  //   console.log(`Homepage Post ${post.frontmatter.title}:`, {
-  //     image: post.frontmatter.image,
-  //     hasImage: !!post.frontmatter.image
-  //   })
-  // })
 
   // Memoize services data
   const servicesData = useMemo(() => [
@@ -338,57 +301,6 @@ const HomePage = React.memo(({ data }) => {
         </Container>
       </Box>
 
-      {/* Latest Blog Posts Section */}
-      <Box as="section" py={16} bg={blogBgColor}>
-        <Container maxW="container.xl">
-          <VStack spacing={12} align="stretch">
-            <Box textAlign="center">
-              <Heading
-                as="h2"
-                variant="section"
-                size="xl"
-                mb={4}
-              >
-                Z mého terapeutického bloku
-              </Heading>
-              <Text
-                fontSize="lg"
-                color="gray.600"
-                maxW="2xl"
-                mx="auto"
-              >
-                Píšu si poznámky – pro sebe, pro práci, pro život. Napadlo mě, že některé z nich by mohly být užitečné i pro 
-                ostatní. Nejsou to vědecké články ani návody na štěstí, spíš 
-                takové mapy terénu, který znám z vlastní zkušenosti i z 
-                práce s klienty.
-              </Text>
-            </Box>
-            
-            <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={8}>
-              {newestPosts.map((post) => (
-                <BlogCard key={post.id} post={post} />
-              ))}
-            </SimpleGrid>
-            
-            <Box textAlign="center">
-              <Button
-                as={GatsbyLink}
-                to="/blog"
-                size="lg"
-                colorScheme="green"
-                variant="solid"
-                _hover={{
-                  transform: 'translateY(-2px)',
-                  boxShadow: 'lg',
-                }}
-              >
-                Zobrazit všechny články
-              </Button>
-            </Box>
-          </VStack>
-        </Container>
-      </Box>
-
       {/* FAQ Section */}
       <Box as="section" py={20} bg={servicesBgColor}>
         <Container maxW={'7xl'}>
@@ -606,7 +518,7 @@ const HomePage = React.memo(({ data }) => {
       </Box>
 
       {/* Call to Action Section */}
-      <Box as="section" py={20} bg={blogBgColor}>
+      <Box as="section" py={20} bg="white">
         <Container maxW={'7xl'}>
           <Stack
             spacing={8}
@@ -655,37 +567,3 @@ const HomePage = React.memo(({ data }) => {
 })
 
 export default HomePage
-
-export const pageQuery = graphql`
-  query HomePageQuery {
-    allMdx(
-      filter: { frontmatter: { status: { eq: "published" } } }
-      sort: { frontmatter: { date: DESC } }
-      limit: 3
-    ) {
-      nodes {
-        id
-        frontmatter {
-          title
-          date
-          readTime
-          excerpt
-          tags
-          featuredImage {
-            publicURL
-            childImageSharp {
-              gatsbyImageData(width: 400, height: 200, placeholder: BLURRED, formats: [AUTO, WEBP, AVIF])
-            }
-          }
-          author {
-            name
-          }
-          status
-        }
-        internal {
-          contentFilePath
-        }
-      }
-    }
-  }
-`

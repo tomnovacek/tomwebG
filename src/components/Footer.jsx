@@ -38,7 +38,6 @@ export default function Footer() {
               <Link as={GatsbyLink} to="/about">O mně</Link>
               <Link as={GatsbyLink} to="/services">Služby</Link>
               <Link as={GatsbyLink} to="/calendar">Kalendář</Link>
-              <Link as={GatsbyLink} to="/blog">Blog</Link>
             </Stack>
 
             {/* Google Maps */}
