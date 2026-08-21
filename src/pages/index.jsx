@@ -17,8 +17,8 @@ export default IndexPage
 export const Head = () => (
   <>
     <SEOGatsby 
-      title="Psychoterapie v centru Brna | Tomáš Nováček"
-      description="Jsem psycholog a terapeut a nabízím psychoterapii v centru Brna. Pomáhám lidem překonávat životní výzvy a dosahovat osobního růstu. Objednejte se online."
+      title="Psychoterapie Brno | Tomáš Nováček"
+      description="Jsem psycholog a psychoterapeut, nabízím psychoterapii v centru Brna. Pomáhám lidem překonávat životní výzvy a dosahovat osobního růstu. Objednejte se online."
       pathname="/"
     />
     {/* Structured Data for SEO */}
@@ -29,7 +29,7 @@ export const Head = () => (
           "@context": "https://schema.org",
           "@type": "Person",
           "name": "Tomáš Nováček",
-          "jobTitle": "Psycholog a terapeut",
+          "jobTitle": "Psycholog a psychoterapeut",
           "description": "Certifikovaný psychoterapeut pro dospělé v centru Brna",
           "url": "https://tomnovacek.com",
           "image": "https://tomnovacek.com/img/tom1.png",
@@ -68,9 +68,10 @@ export const Head = () => (
         __html: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "LocalBusiness",
-          "name": "Tomáš Nováček - Psychoterapie",
+          "name": "Tomáš Nováček - Psycholog a psychoterapeut",
           "description": "Certifikovaný psychoterapeut pro dospělé v centru Brna",
           "url": "https://tomnovacek.com",
+          "image": "https://tomnovacek.com/img/tom1.png",
           "telephone": "+420 602 773 440",
           "email": "terapie@tomnovacek.com",
           "address": {
