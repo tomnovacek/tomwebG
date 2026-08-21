@@ -65,7 +65,7 @@ export const usePerformanceOptimizations = () => {
 
     // Add DNS prefetch for external domains
     const externalDomains = [
-      'https://maps.googleapis.com',
+      'https://www.google.com',
       'https://www.googletagmanager.com',
       'https://www.google-analytics.com'
     ]

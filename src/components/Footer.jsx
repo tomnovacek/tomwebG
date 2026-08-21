@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from 'react'
+import React from 'react'
 import {
   Box,
   Stack,
@@ -14,8 +14,10 @@ import { FaEnvelope, FaPhone, FaMapMarkerAlt, FaUser } from 'react-icons/fa'
 import { Link as GatsbyLink } from 'gatsby'
 import { StaticImage } from 'gatsby-plugin-image'
 import SecureEmail from './SecureEmail'
+import Map from './Map'
 
-const Map = lazy(() => import('./Map'))
+const GOOGLE_MAPS_PROFILE =
+  'https://www.google.com/maps/place/Mgr.+Ing.+Tom%C3%A1%C5%A1+Nov%C3%A1%C4%8Dek+-+psycholog+a+terapeut/@49.1956648,16.6099472,17z/data=!4m6!3m5!1s0x471295d6e35ec40f:0x40a3ee641541c87e!8m2!3d49.1956648!4d16.6125275!16s%2Fg%2F11tbl4lhc1'
 
 export default function Footer() {
   return (
@@ -32,7 +34,7 @@ export default function Footer() {
         <Container maxW="1680px">
           <SimpleGrid columns={{ base: 1, md: 3 }} spacing={8}>
             {/* Navigation Links */}
-            <Stack align={{base: 'center', md: 'flex-start'}}>
+            <Stack align={{ base: 'center', md: 'flex-start' }}>
               <Heading as="h3" fontSize={'sm'} mb={4}>Navigace</Heading>
               <Link as={GatsbyLink} to="/">Domů</Link>
               <Link as={GatsbyLink} to="/about">O mně</Link>
@@ -42,25 +44,42 @@ export default function Footer() {
 
             {/* Google Maps */}
             <Stack align={'center'} justify={'center'}>
-              <Heading as="h3"fontSize={'sm'}>Mapa</Heading>
-              <Suspense fallback={<Box w="100%" minH="300px" maxW="600px" display="flex" alignItems="center" justifyContent="center"><Text color="gray.500">Načítání mapy...</Text></Box>}>
-                <Box 
-                  w="100%" 
-                  minH="300px" 
-                  maxW="600px"
-                  display="flex"
-                  justifyContent="center"
-                  alignItems="center"
+              <Heading as="h3" fontSize={'sm'}>Mapa</Heading>
+              <Box
+                w="100%"
+                minH="250px"
+                maxW="600px"
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+              >
+                <Link
+                  href="https://maps.app.goo.gl/pG8Ca8TBSGkpzon96"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  _hover={{ textDecoration: 'underline', color: 'green.600' }}
+                  display="inline-block"
                 >
-                  <Map />
-                </Box>
-              </Suspense>
+                <StaticImage
+                  src="../assets/img/map.png"
+                  alt="address map"
+                  placeholder="blurred"
+                  layout="constrained"
+                  width={539}
+                  height={329}
+                  formats={['auto', 'webp', 'avif']}
+                  style={{ height: '329px', width: '539px' }}
+                  sizes="539px"
+                  breakpoints={[539, 1078]}
+                />
+                </Link>
+              </Box>
 
             </Stack>
 
             {/* Contact Information */}
-            <Stack align={{base: 'center', md: 'flex-end'}}>
-              <Heading as="h3"fontSize={'sm'} mb={4}>Kontakt</Heading>
+            <Stack align={{ base: 'center', md: 'flex-end' }}>
+              <Heading as="h3" fontSize={'sm'} mb={4}>Kontakt</Heading>
               <Stack direction={'row'} align={'center'} spacing={2}>
                 <Icon as={FaUser} />
                 <Text>Tomáš Nováček</Text>
@@ -75,13 +94,20 @@ export default function Footer() {
               </Stack>
               <Stack direction={'row'} align={'center'} spacing={2}>
                 <Icon as={FaMapMarkerAlt} />
-                <Text>Sukova 4, Brno, ČR</Text>
+                <Link
+                  href={GOOGLE_MAPS_PROFILE}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  _hover={{ textDecoration: 'underline', color: 'green.600' }}
+                >
+                  Sukova 4, Brno, ČR
+                </Link>
               </Stack>
               {/* Logo */}
-              <Box 
-                minH="120px" 
-                minW="120px" 
-                maxH="200px" 
+              <Box
+                minH="120px"
+                minW="120px"
+                maxH="200px"
                 maxW="200px"
                 display="flex"
                 justifyContent={{ base: 'center', md: 'flex-end' }}
@@ -119,7 +145,7 @@ export default function Footer() {
             justify={{ base: 'center', md: 'space-between' }}
             align={{ base: 'center', md: 'center' }}
           >
-            <Text>© 2025 Tom Nováček. Všechna práva vyhrazena</Text>
+            <Text>© 2026 Tom Nováček. Všechna práva vyhrazena</Text>
             <Stack direction={'row'} spacing={6}>
               <Link href={'/gdpr/'}>Ochrana osobních údajů</Link>
               <Link href={'/cookies/'}>Cookies</Link>
