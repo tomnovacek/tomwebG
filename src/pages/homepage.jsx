@@ -154,7 +154,7 @@ const HomePage = React.memo(() => {
             >
               <StaticImage
                 src="../assets/img/tom1.png"
-                alt="Tomáš Nováček - psycholog a terapeut v centru Brna"
+                alt="Tomáš Nováček - psycholog a psychoterapeut v centru Brna"
                 placeholder="blurred"
                 layout="constrained"
                 width={480}
@@ -183,7 +183,7 @@ const HomePage = React.memo(() => {
           <Stack spacing={4} maxW={'2xl'} textAlign={'center'} mb={10}>
             <Heading as="h2" variant="section">
               <Text as={'span'} position={'relative'}>
-                Tomáš Nováček - psycholog a terapeut
+                Tomáš Nováček - psycholog a psychoterapeut
               </Text>
             </Heading>
                           <Text color="gray.600" fontSize={'xl'}>
